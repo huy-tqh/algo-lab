@@ -740,9 +740,14 @@
       color: var(--text-primary);
       cursor: pointer;
     }
-    .ctrl-btn:hover:not(:disabled) { border-color: var(--accent-cyan); background: var(--bg-card-hover); }
+    @media (hover: hover) {
+      .ctrl-btn:hover:not(:disabled) { border-color: var(--accent-cyan); background: var(--bg-card-hover); }
+      .ctrl-btn.primary:hover:not(:disabled) { background: #0369a1; border-color: #0369a1; color: #ffffff; }
+    }
     .ctrl-btn:disabled { opacity: 0.45; cursor: not-allowed; }
     .ctrl-btn.primary { background: #0284c7; border-color: #0284c7; color: #ffffff; }
+    .ctrl-btn.primary:focus,
+    .ctrl-btn.primary:active { background: #0369a1; border-color: #0369a1; color: #ffffff; }
 
     .slider-wrap { flex: 1; min-width: 140px; display: flex; align-items: center; }
     .step-slider { width: 100%; accent-color: var(--accent-cyan); cursor: pointer; }
@@ -1097,6 +1102,39 @@
     .chess-cell.conflict { outline: 3px solid var(--accent-rose); background: var(--accent-rose-bg); }
     .chess-cell.solution-glow { outline: 2px solid var(--accent-cyan); background: var(--accent-cyan-bg); }
     .chess-coord { position: absolute; bottom: 2px; right: 4px; font-size: 0.65rem; color: var(--text-muted); }
+    .chess-mark { position: absolute; top: 2px; left: 4px; font-size: 0.68rem; font-weight: 700; line-height: 1; }
+    .bit-draft-note { font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; color: #b45309; margin-top: 2px; }
+
+    .draft-color-legend {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      margin-top: 8px;
+      padding: 6px 9px;
+      border-radius: var(--radius-sm);
+      background: #ffffff;
+      border: 1px solid var(--border-subtle);
+      font-size: 0.76rem;
+      color: var(--text-secondary);
+    }
+    .dcl-item {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .dcl-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      border: 1.5px solid transparent;
+    }
+    .dcl-amber { background: #fef3c7; border-color: #d97706; }
+    .dcl-blue { background: #e0f2fe; border-color: #0284c7; }
+    .dcl-rose { background: #ffe4e6; border-color: #e11d48; }
+    .dcl-gray { background: #f1f5f9; border-color: #64748b; }
 
     .svg-stage { width: 100%; height: auto; display: block; }
     .output-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 10px; padding: 8px 10px; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
@@ -1408,6 +1446,7 @@
             <div class="essay-draft-panel">
               <div class="essay-mini-controls">
                 <button class="ctrl-btn" id="btn-essay-prev">Bước lùi</button>
+                <button class="ctrl-btn primary" id="btn-essay-play">Chạy tự động</button>
                 <button class="ctrl-btn primary" id="btn-essay-next">Bước tiếp</button>
                 <button class="ctrl-btn" id="btn-essay-reset">Đặt lại</button>
               </div>
@@ -2715,13 +2754,20 @@
       });
     }
 
+    function syncPlayButtons(isPlaying) {
+      var text = isPlaying ? 'Tạm dừng' : 'Chạy tự động';
+      var btn = document.getElementById('btn-play');
+      var eBtn = document.getElementById('btn-essay-play');
+      if (btn) btn.textContent = text;
+      if (eBtn) eBtn.textContent = text;
+    }
+
     function stopAutoPlay() {
       if (appState.timerId) {
         clearInterval(appState.timerId);
         appState.timerId = null;
       }
-      var btn = document.getElementById('btn-play');
-      if (btn) btn.textContent = 'Chạy tự động';
+      syncPlayButtons(false);
     }
 
     function toggleAutoPlay() {
@@ -2729,8 +2775,7 @@
       appState.hasInteracted = true;
       if (appState.stepIndex >= appState.steps.length - 1) appState.stepIndex = 0;
       renderCurrentStep();
-      var btn = document.getElementById('btn-play');
-      btn.textContent = 'Tạm dừng';
+      syncPlayButtons(true);
       appState.timerId = setInterval(function() {
         if (appState.stepIndex < appState.steps.length - 1) {
           appState.stepIndex++;
@@ -2901,8 +2946,18 @@
         v.Bg.forEach(function(bit, idx) {
           var cls = 'bit-cell';
           var tag = '';
-          if (idx === v.pg) { cls += ' is-p'; tag = '<span class="bit-tag">p_g</span>'; }
-          else if (idx === v.kg) { cls += ' is-k'; tag = '<span class="bit-tag" style="background:var(--accent-amber);">k_g</span>'; }
+          var draftNote = '';
+          if (idx === v.pg) {
+            cls += ' is-p';
+            tag = '<span class="bit-tag">p_g</span>';
+            if (step.flowNodeId === 'N_FLIP') draftNote = '<div class="bit-draft-note">0 -&gt; 1</div>';
+          } else if (idx === v.kg) {
+            cls += ' is-k';
+            tag = '<span class="bit-tag" style="background:var(--accent-amber);">k_g</span>';
+            draftNote = '<div class="bit-draft-note">-&gt; 0</div>';
+          } else if (v.pg !== null && idx > v.pg && step.flowNodeId === 'N_TAIL') {
+            draftNote = '<div class="bit-draft-note">0</div>';
+          }
           var weight = Math.pow(2, v.Bg.length - 1 - idx);
           var extraLabel = v.bitLabels ? '<div class="bit-label-extra">' + escapeHtml(v.bitLabels[idx]) + '</div>' : '';
           var hoverLabel = v.bitLabels
@@ -2913,7 +2968,7 @@
               tag +
               '<div class="bit-val">' + bit + '</div>' +
               '<div class="bit-idx">' + renderMath('B_g[' + idx + ']', false) + '</div>' +
-              extraLabel +
+              extraLabel + draftNote +
             '</div>';
         });
         html += '</div>';
@@ -2924,6 +2979,10 @@
           html += '<span class="gen-chip' + (isLatest ? ' latest' : '') + '" data-hover="Cấu hình #' + (idx + 1) + ': ' + str + '">' + str + '</span>';
         });
         html += '</div>';
+        html += '<div class="draft-color-legend">' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-blue"></span>p_g (bit 0 phải nhất)</span>' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-amber"></span>k_g / cấu hình mới nhất</span>' +
+        '</div>';
         return html;
       }
 
@@ -2935,23 +2994,29 @@
             var cls = 'chess-cell ' + ((r + c) % 2 === 0 ? 'light' : 'dark');
             var hasQueen = v.Qb[r] === c;
             var isTesting = r === v.rb && c === v.cb;
-            if (v.isSol && hasQueen) cls += ' solution-glow';
-            else if (isTesting && v.Sb === 0) cls += ' conflict';
-            else if (isTesting) cls += ' testing';
-            else if (v.conflictRow >= 0 && r === v.conflictRow && v.Qb[r] === c) cls += ' conflict';
+            var mark = '';
+            if (v.isSol && hasQueen) { cls += ' solution-glow'; mark = '<span class="chess-mark" style="color:#0284c7;">✓</span>'; }
+            else if (isTesting && v.Sb === 0) { cls += ' conflict'; mark = '<span class="chess-mark" style="color:#e11d48;">×' + v.conflictRow + '</span>'; }
+            else if (isTesting) { cls += ' testing'; mark = '<span class="chess-mark" style="color:#b45309;">' + (v.Sb === 1 ? '✓' : '?') + '</span>'; }
+            else if (v.conflictRow >= 0 && r === v.conflictRow && v.Qb[r] === c) { cls += ' conflict'; mark = '<span class="chess-mark" style="color:#e11d48;">!</span>'; }
 
             var queenSvg = hasQueen
-              ? '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="' + (v.isSol ? '#0284c7' : '#d97706') + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M4 15l-1-8 5 4 4-6 4 6 5-4-1 8H4z"/></svg>'
+              ? '<svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="' + (v.isSol ? '#0284c7' : '#d97706') + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M4 15l-1-8 5 4 4-6 4 6 5-4-1 8H4z"/></svg>'
               : '';
-            html += '<div class="' + cls + '" data-hover="Ô (' + r + ', ' + c + '): ' + (hasQueen ? 'Có hậu' : 'Trống') + '">' + queenSvg + '<span class="chess-coord">' + r + ',' + c + '</span></div>';
+            html += '<div class="' + cls + '" data-hover="Ô (' + r + ', ' + c + '): ' + (hasQueen ? 'Có hậu' : 'Trống') + '">' + mark + queenSvg + '<span class="chess-coord">' + r + ',' + c + '</span></div>';
           }
         }
         html += '</div></div>';
+        html += '<div class="draft-color-legend">' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-amber"></span>Ô thử (✓ an toàn)</span>' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-rose"></span>Cắt nhánh (×hàng đụng)</span>' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-blue"></span>Nghiệm hoàn chỉnh</span>' +
+        '</div>';
         return html;
       }
 
       if (m === 'bst') {
-        var svgH = Math.max(220, 95 + v.maxDepth * 74);
+        var svgH = Math.max(240, 108 + v.maxDepth * 74);
         var edgesSvg = '';
         var nodesSvg = '';
         v.nodes.forEach(function(n) {
@@ -2960,21 +3025,38 @@
         });
         v.nodes.forEach(function(n) {
           var isActive = n.id === v.activeId;
-          var isVisited = v.visitedIds.indexOf(n.id) !== -1;
+          var visitPos = v.visitedIds.indexOf(n.id);
+          var isVisited = visitPos !== -1;
           var fill = isActive ? '#fef3c7' : (isVisited ? '#e0f2fe' : '#ffffff');
           var stroke = isActive ? '#d97706' : (isVisited ? '#0284c7' : '#94a3b8');
+          var badge = '';
+          if (isActive) {
+            badge = '<rect x="' + (n.x - 14) + '" y="' + (n.y - 38) + '" width="28" height="14" rx="4" fill="#d97706"/><text x="' + n.x + '" y="' + (n.y - 28) + '" text-anchor="middle" fill="#ffffff" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="700">u_t</text>';
+          }
+          if (isVisited) {
+            badge += '<rect x="' + (n.x + 13) + '" y="' + (n.y - 24) + '" width="22" height="14" rx="7" fill="#0284c7"/><text x="' + (n.x + 24) + '" y="' + (n.y - 14) + '" text-anchor="middle" fill="#ffffff" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="700">#' + (visitPos + 1) + '</text>';
+          }
           nodesSvg +=
             '<g style="cursor:pointer;" data-hover="Nút khóa ' + n.key + ', độ sâu ' + n.depth + '">' +
               '<circle cx="' + n.x + '" cy="' + n.y + '" r="22" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isActive ? 3.5 : 2) + '"/>' +
               '<text x="' + n.x + '" y="' + (n.y + 5) + '" text-anchor="middle" fill="#0f172a" font-family="Roboto Mono, Consolas, monospace" font-size="14.5" font-weight="700">' + n.key + '</text>' +
+              badge +
             '</g>';
         });
+        if (step.flowNodeId === 'T_NULL') {
+          nodesSvg += '<rect x="275" y="6" width="100" height="20" rx="10" fill="#ffe4e6" stroke="#e11d48"/><text x="325" y="19" text-anchor="middle" fill="#9f1239" font-family="Roboto Mono, monospace" font-size="11" font-weight="700">null -&gt; Ret</text>';
+        }
         var outHtml = '<div class="output-strip"><span class="strip-label">Kết quả ' + renderMath('O_t', false) + ':</span>';
         if (v.Ot.length === 0) outHtml += '<span class="strip-item" style="color:var(--text-muted);">Chưa thăm nút nào</span>';
         else v.Ot.forEach(function(val, i) {
           outHtml += '<span class="strip-item' + (i === v.Ot.length - 1 ? ' active-item' : '') + '">' + val + '</span>';
         });
         outHtml += '</div>';
+        outHtml += '<div class="draft-color-legend">' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-amber"></span>Nút u_t đang xét</span>' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-blue"></span>Đã ghi O_t (#thứ tự)</span>' +
+          '<span class="dcl-item"><span class="dcl-dot dcl-rose"></span>Nhánh null (Ret)</span>' +
+        '</div>';
         return '<svg class="svg-stage" viewBox="0 0 650 ' + svgH + '">' + edgesSvg + nodesSvg + '</svg>' + outHtml;
       }
 
@@ -2983,17 +3065,40 @@
       preset.edges.forEach(function(e) {
         var n1 = preset.nodes[e[0]], n2 = preset.nodes[e[1]];
         var isActiveEdge = (v.vd === e[0] && v.wd === e[1]) || (v.vd === e[1] && v.wd === e[0]);
-        edgesSvg += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + (isActiveEdge ? '#d97706' : '#94a3b8') + '" stroke-width="' + (isActiveEdge ? 4 : 2.5) + '"/>';
+        var isSkip = isActiveEdge && step.flowNodeId === 'G_ADJ' && step.explain.indexOf('bỏ qua') !== -1;
+        var edgeStroke = isSkip ? '#e11d48' : (isActiveEdge ? '#d97706' : '#94a3b8');
+        edgesSvg += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + edgeStroke + '" stroke-width="' + (isActiveEdge ? 4 : 2.5) + '"/>';
+        if (isActiveEdge && v.wd !== null) {
+          var mx = (n1.x + n2.x) / 2, my = (n1.y + n2.y) / 2;
+          var eTxt = isSkip ? '×' : (step.flowNodeId === 'G_PUSH' ? '+' : '?');
+          var eBg = isSkip ? '#e11d48' : '#d97706';
+          edgesSvg += '<circle cx="' + mx + '" cy="' + my + '" r="9" fill="' + eBg + '"/><text x="' + mx + '" y="' + (my + 3.5) + '" text-anchor="middle" fill="#ffffff" font-family="Roboto Mono, monospace" font-size="11" font-weight="700">' + eTxt + '</text>';
+        }
       });
       var nodesSvg = '';
       preset.nodes.forEach(function(n) {
-        var isVd = n.id === v.vd, isWd = n.id === v.wd, isDone = v.Pd.indexOf(n.id) !== -1, isMarked = v.Vd.indexOf(n.id) !== -1;
+        var isVd = n.id === v.vd, isWd = n.id === v.wd;
+        var pdIdx = v.Pd.indexOf(n.id);
+        var isDone = pdIdx !== -1;
+        var isMarked = v.Vd.indexOf(n.id) !== -1;
         var fill = isVd ? '#fef3c7' : (isWd ? '#ffe4e6' : (isDone ? '#e0f2fe' : (isMarked ? '#f1f5f9' : '#ffffff')));
         var stroke = isVd ? '#d97706' : (isWd ? '#e11d48' : (isDone ? '#0284c7' : (isMarked ? '#64748b' : '#94a3b8')));
+        var tagSvg = '';
+        if (isVd) {
+          tagSvg += '<rect x="' + (n.x - 14) + '" y="' + (n.y - 36) + '" width="28" height="14" rx="4" fill="#d97706"/><text x="' + n.x + '" y="' + (n.y - 26) + '" text-anchor="middle" fill="#ffffff" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="700">v_d</text>';
+        } else if (isWd) {
+          tagSvg += '<rect x="' + (n.x - 14) + '" y="' + (n.y - 36) + '" width="28" height="14" rx="4" fill="#e11d48"/><text x="' + n.x + '" y="' + (n.y - 26) + '" text-anchor="middle" fill="#ffffff" font-family="Roboto Mono, monospace" font-size="9.5" font-weight="700">w_d</text>';
+        }
+        if (isMarked) {
+          var markLabel = isDone ? ('#' + (pdIdx + 1)) : '✓';
+          var markFill = isDone ? '#0284c7' : '#475569';
+          tagSvg += '<rect x="' + (n.x + 12) + '" y="' + (n.y + 10) + '" width="20" height="14" rx="7" fill="' + markFill + '"/><text x="' + (n.x + 22) + '" y="' + (n.y + 20) + '" text-anchor="middle" fill="#ffffff" font-family="Roboto Mono, monospace" font-size="9" font-weight="700">' + markLabel + '</text>';
+        }
         nodesSvg +=
           '<g style="cursor:pointer;" data-hover="Đỉnh ' + n.id + ' - Kề: [' + v.adj[n.id].join(', ') + ']">' +
             '<circle cx="' + n.x + '" cy="' + n.y + '" r="21" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + ((isVd || isWd) ? 3.5 : 2) + '"/>' +
             '<text x="' + n.x + '" y="' + (n.y + 5) + '" text-anchor="middle" fill="#0f172a" font-family="Roboto Mono, Consolas, monospace" font-size="15" font-weight="700">' + n.id + '</text>' +
+            tagSvg +
           '</g>';
       });
       var isDFS = v.mode === 'DFS';
@@ -3010,12 +3115,18 @@
         pHtml += '<span class="strip-item' + (i === v.Pd.length - 1 ? ' active-item' : '') + '">' + val + '</span>';
       });
       pHtml += '</div>';
+      var legendHtml = '<div class="draft-color-legend">' +
+        '<span class="dcl-item"><span class="dcl-dot dcl-amber"></span>v_d đang rút</span>' +
+        '<span class="dcl-item"><span class="dcl-dot dcl-rose"></span>w_d kề (+ nạp / × bỏ)</span>' +
+        '<span class="dcl-item"><span class="dcl-dot dcl-blue"></span>Đã xong P_d (#thứ tự)</span>' +
+        '<span class="dcl-item"><span class="dcl-dot dcl-gray"></span>Đã đánh dấu V_d (✓)</span>' +
+      '</div>';
       return (
         '<div class="graph-split">' +
           '<svg class="svg-stage" viewBox="0 0 420 300">' + edgesSvg + nodesSvg + '</svg>' +
           '<div class="ds-box"><div class="ds-box-title">' + dsTitle + '</div>' +
           '<div class="' + (isDFS ? 'stack-items' : 'queue-items') + '">' + dsItemsHtml + '</div></div>' +
-        '</div>' + pHtml
+        '</div>' + pHtml + legendHtml
       );
     }
 
@@ -3144,7 +3255,8 @@
         else if (step.flowNodeId === 'T_VISIT') lines.push('Đúng lúc thăm nút -> ghi `Ghi ' + step.vars.xt + '` và nối vào $O_t\'$.');
         else lines.push('Chưa null -> ghi `S` và đi tiếp nhánh ' + (step.flowNodeId === 'T_LEFT' ? 'Trái (`L`)' : (step.flowNodeId === 'T_RIGHT' ? 'Phải (`R`)' : 'gốc')) + '.');
       } else {
-        lines.push('Nháp trên đồ thị: gạch chân tập đã thăm $V_d = ' + step.vars.Vd + '$.');
+        var vdTex = step.vars.Vd.replace(/\{/g, '\\{').replace(/\}/g, '\\}');
+        lines.push('Nháp trên đồ thị: gạch chân tập đã thăm $V_d = ' + vdTex + '$.');
         if (step.flowNodeId === 'G_DONE') lines.push('$D_d$ rỗng -> ghi `Đ` ở cột $D_d=[]?$ và chốt $P_d$.');
         else if (step.flowNodeId === 'G_POP') lines.push('Rút đỉnh $v_d = ' + step.vars.vd + '$ khỏi ' + (v.mode === 'DFS' ? 'cuối Stack' : 'đầu Queue') + ' -> ghi sang $P_d$.');
         else if (step.flowNodeId === 'G_PUSH') lines.push('Gạch chân thêm `' + step.vars.wd + '` vào $V_d$ và nạp vào $D_d\'$ -> ghi `Đ (+)`.');
@@ -3717,6 +3829,7 @@
       document.getElementById('btn-reset').addEventListener('click', stepReset);
       document.getElementById('btn-play').addEventListener('click', toggleAutoPlay);
       document.getElementById('btn-essay-prev').addEventListener('click', stepPrev);
+      document.getElementById('btn-essay-play').addEventListener('click', toggleAutoPlay);
       document.getElementById('btn-essay-next').addEventListener('click', stepNext);
       document.getElementById('btn-essay-reset').addEventListener('click', stepReset);
 

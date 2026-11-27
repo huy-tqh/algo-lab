@@ -181,7 +181,23 @@ async function run() {
         throw new Error(`[${label}/${mod}] In essay mode, expected 4 visible case buttons, got ${dc.visibleCases}`);
       }
 
-      if (mod === "bst" || mod === "gen") {
+      if (mod === "bst" || mod === "gen" || mod === "graph") {
+        await call("Runtime.evaluate", {
+          expression: `document.getElementById('btn-essay-next').click();`,
+        });
+        await new Promise((r) => setTimeout(r, 120));
+        const btnCheck = await call("Runtime.evaluate", {
+          returnByValue: true,
+          expression: `(() => {
+            const b = document.getElementById('btn-essay-next');
+            const st = getComputedStyle(b);
+            return { bg: st.backgroundColor, color: st.color, hasLegend: !!document.querySelector('#essay-visual .draft-color-legend') };
+          })()`,
+        });
+        const bc = btnCheck.result.value;
+        if (bc.color !== "rgb(255, 255, 255)" || bc.bg === "rgb(238, 242, 247)" || !bc.hasLegend) {
+          throw new Error(`[${label}/${mod}] Primary button or legend failed: ${JSON.stringify(bc)}`);
+        }
         const shot = await call("Page.captureScreenshot", { format: "png" });
         fs.writeFileSync(
           path.join(outDir, `${label}_${mod}_essay.png`),

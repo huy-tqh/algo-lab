@@ -65,11 +65,19 @@ assert(
   ".flow-node.active-node must not apply filter directly on <g>."
 );
 
-// 6. 4-step tracker initial state and color scheme (no green+blue)
+// 6. 4-step tracker initial state, essay auto-play & color scheme (no green+blue)
 assert(
   html.includes("hasInteracted: false") &&
     html.includes("appState.hasInteracted ? getActiveTemplateStepIndex"),
   "4-step template tracker must remain neutral until hasInteracted is true."
+);
+assert(
+  html.includes('id="btn-essay-play"') && html.includes("syncPlayButtons("),
+  "Essay section must have a synced auto-play button (#btn-essay-play)."
+);
+assert(
+  html.includes("draft-color-legend"),
+  "Diagrams must render compact draft color legend (.draft-color-legend)."
 );
 assert(
   !/\.tpl-step\.tpl-done\s*\{[^}]*--accent-green/i.test(html) &&
