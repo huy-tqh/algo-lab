@@ -3821,170 +3821,122 @@
 
     function getTraceConfig(m, params, steps) {
       var lastStep = steps[steps.length - 1];
+      var isGeneric = appState.activeCaseIndex === 0;
+      var activeCase = (MODULE_CASES[m] && MODULE_CASES[m][appState.activeCaseIndex]) || null;
+      var modeTitle = isGeneric
+        ? '<strong>Khung tổng quát (Áp dụng mọi bài):</strong>'
+        : ('<strong>Áp dụng cho ' + escapeHtml(activeCase.tab) + ' (Thay số vào khung):</strong>');
+
       if (m === 'gen') {
+        var labelMap = (params.bitLabels && params.bitLabels.length === params.Ng)
+          ? (' - Nhãn bit: [' + escapeHtml(params.bitLabels.join(', ')) + ']')
+          : '';
         return {
           ioHtml:
             '<div class="trace-io-row">' +
-              '<span><strong>Input:</strong> ' + renderMath('N_g = ' + params.Ng, false) + '</span>' +
-              '<span><strong>Output:</strong> ' + lastStep.vars.Cg + ' cấu hình</span>' +
+              modeTitle +
+              '<span><strong>In:</strong> ' + renderMath('N_g = ' + params.Ng, false) + labelMap + '</span>' +
+              '<span><strong>Out:</strong> ' + lastStep.vars.Cg + ' cấu hình</span>' +
             '</div>' +
             '<div class="trace-fn-box">' +
-              '<div><strong>Hàm tìm vị trí lật:</strong> ' + renderMath('\\text{FindP}(B_g, N_g) = \\max\\{k \\in [0..N_g-1] \\mid B_g[k]=0\\}', false) + ' (không có ' + renderMath('\\Rightarrow -1', false) + ')</div>' +
-              '<div><strong>Hàm điều kiện dừng:</strong> ' + renderMath('\\text{Stop}(p_g) \\iff (p_g < 0)', false) + ' — Đúng thì dừng, Sai thì lật ' + renderMath('B_g[p_g] \\leftarrow 1', false) + ' và đặt các bit sau về 0</div>' +
+              '<div><strong>Công thức:</strong> ' + renderMath('p_g = \\max\\{k \\in [0..N_g-1] \\mid B_g[k]=0\\}', false) + ' (không có ' + renderMath('\\Rightarrow -1', false) + ') - <strong>Dừng:</strong> ' + renderMath('p_g < 0', false) + '</div>' +
+              '<div><strong>Ký hiệu viết tay:</strong> <code>Đ</code> = Đúng (Dừng), <code>S</code> = Sai (Lật ' + renderMath('B_g[p_g]\\leftarrow 1', false) + ', đuôi ' + renderMath('\\leftarrow 0', false) + ')</div>' +
             '</div>',
-          headers: [
-            'Bước',
-            'Input: $B_g^{\\text{trước}}$',
-            'Input: $N_g$',
-            'Tính $p_g = \\text{FindP}(B_g, N_g)$',
-            'Hàm dừng: $\\text{Stop}(p_g) \\iff p_g < 0$',
-            'Kết quả: $B_g^{\\text{sau}}$',
-            'Out: $C_g$'
-          ],
-          tip: 'Cách điền cơ khí: Chép $B_g^{\\text{trước}}$ -> Tìm $p_g$ từ phải sang trái -> Thay $p_g$ vào $\\text{Stop}(p_g)$ -> Nếu Sai thì lật bit $p_g$ và reset đuôi sang cột $B_g^{\\text{sau}}$.'
+          headers: ['#', '$B_g$', '$N_g$', '$p_g$', '$p_g<0$?', "$B_g'$", '$C_g$'],
+          tip: 'Điền tuyến tính từ trái sang phải: chép $B_g$ -> tìm $p_g$ -> ghi Đ/S -> nếu S thì lật bit $p_g$ và reset đuôi sang $B_g\'$.'
         };
       }
       if (m === 'bt') {
         return {
           ioHtml:
             '<div class="trace-io-row">' +
-              '<span><strong>Input:</strong> ' + renderMath('N_b = ' + params.Nb, false) + '</span>' +
-              '<span><strong>Output:</strong> ' + renderMath('M_b = ' + lastStep.vars.Mb, false) + '</span>' +
+              modeTitle +
+              '<span><strong>In:</strong> ' + renderMath('N_b = ' + params.Nb, false) + (params.stopAtFirst ? ' (Dừng sớm)' : '') + '</span>' +
+              '<span><strong>Out:</strong> ' + renderMath('M_b = ' + lastStep.vars.Mb, false) + '</span>' +
             '</div>' +
             '<div class="trace-fn-box">' +
-              '<div><strong>Hàm dừng nghiệm:</strong> ' + renderMath('\\text{IsGoal}(r_b, N_b) \\iff (r_b = N_b)', false) + ' — Đúng thì tăng ' + renderMath('M_b \\leftarrow M_b + 1', false) + '</div>' +
-              '<div><strong>Hàm cắt nhánh:</strong> ' + renderMath('\\text{IsSafe}(Q_b, r_b, c_b) = 1 \\iff \\forall i < r_b: (Q_b[i] \\neq c_b) \\land (|Q_b[i] - c_b| \\neq r_b - i)', false) + '</div>' +
+              '<div><strong>Dừng nghiệm:</strong> ' + renderMath('r_b = N_b', false) + ' - <strong>An toàn:</strong> ' + renderMath('S_b = 1 \\iff \\forall i<r_b:\\; Q_b[i]\\neq c_b \\land |Q_b[i]-c_b|\\neq r_b-i', false) + '</div>' +
+              '<div><strong>Ký hiệu viết tay:</strong> <code>Đ/S</code> = Đúng/Sai, <code>1</code> = Đặt hậu, <code>0(i)</code> = Cắt do hàng <code>i</code>, <code>Gỡ</code> = Quay lui</div>' +
             '</div>',
-          headers: [
-            'Bước',
-            'Input: $Q_b^{\\text{trước}}$',
-            'Input: $(r_b, c_b), N_b$',
-            'Hàm dừng: $\\text{IsGoal}(r_b, N_b)$',
-            'Hàm an toàn: $\\text{IsSafe}(Q_b, r_b, c_b)$',
-            'Kết quả: $Q_b^{\\text{sau}}$',
-            'Out: $M_b$'
-          ],
-          tip: 'Cách điền cơ khí: Lấy $(Q_b^{\\text{trước}}, r_b, c_b, N_b)$ trên cùng dòng -> Thay vào $\\text{IsGoal}$ -> Thay vào $\\text{IsSafe}$ kiểm tra từng hàng $i < r_b$ -> Ra ngay $S_b=0$ (Cắt) hoặc $S_b=1$ (Đặt).'
+          headers: ['#', '$Q_b$', '$(r_b,c_b)$', '$N_b$', '$r_b=N_b$?', '$S_b$', "$Q_b'$", '$M_b$'],
+          tip: 'Điền tuyến tính: lấy $Q_b, (r_b, c_b), N_b$ -> kiểm tra $r_b=N_b$ -> tính $S_b$ (1 hoặc 0(i)) -> cập nhật $Q_b\'$.'
         };
       }
       if (m === 'bst') {
         return {
           ioHtml:
             '<div class="trace-io-row">' +
-              '<span><strong>Input:</strong> ' + renderMath('A_t = ' + lastStep.vars.At, false) + ', ' + renderMath('m_t = \\text{' + params.mode + '}', false) + '</span>' +
-              '<span><strong>Output:</strong> ' + renderMath('O_t = ' + lastStep.vars.Ot, false) + '</span>' +
+              modeTitle +
+              '<span><strong>In:</strong> ' + renderMath('A_t = ' + lastStep.vars.At + ',\\; m_t = \\text{' + params.mode + '}', false) + '</span>' +
+              '<span><strong>Out:</strong> ' + renderMath('O_t = ' + lastStep.vars.Ot, false) + '</span>' +
             '</div>' +
             '<div class="trace-fn-box">' +
-              '<div><strong>Hàm điều kiện dừng:</strong> ' + renderMath('\\text{IsNull}(u_t) \\iff (u_t = \\text{null})', false) + ' — Đúng thì quay về nút cha</div>' +
-              '<div><strong>Quy tắc ghi ' + renderMath('O_t', false) + ':</strong> ' + (params.mode === 'Preorder' ? 'Ghi trước khi đi Trái' : (params.mode === 'Inorder' ? 'Đi xong Trái mới ghi, rồi đi Phải' : 'Đi xong cả Trái & Phải mới ghi')) + '</div>' +
+              '<div><strong>Dừng nhánh:</strong> ' + renderMath('u_t = \\text{null}', false) + ' - <strong>Thứ tự ' + escapeHtml(params.mode) + ':</strong> ' + (params.mode === 'Preorder' ? 'Ghi -> L -> R' : (params.mode === 'Inorder' ? 'L -> Ghi -> R' : 'L -> R -> Ghi')) + '</div>' +
+              '<div><strong>Ký hiệu viết tay:</strong> <code>Đ/S</code> = Đúng/Sai, <code>L</code> = Trái, <code>R</code> = Phải, <code>Ret</code> = Về cha, <code>Ghi</code> = Nối vào ' + renderMath('O_t', false) + '</div>' +
             '</div>',
-          headers: [
-            'Bước',
-            'Input: $u_t, x_t, h_t$',
-            'Hàm dừng: $\\text{IsNull}(u_t) \\iff u_t = \\text{null}$',
-            'Hành động ($m_t$)',
-            'Input: $O_t^{\\text{trước}}$',
-            'Out: $O_t^{\\text{sau}}$'
-          ],
-          tip: 'Cách điền cơ khí: Đọc $u_t$ -> Kiểm tra $\\text{IsNull}(u_t)$ -> Nếu Sai thì thực hiện bước theo $m_t$ và nối $x_t$ từ $O_t^{\\text{trước}}$ sang $O_t^{\\text{sau}}$.'
+          headers: ['#', '$u_t(h_t)$', '$u_t=\\text{null}$?', 'Lệnh', '$O_t$', "$O_t'$"],
+          tip: 'Điền tuyến tính: đọc nút $u_t$ -> kiểm tra null (Đ/S) -> ghi L/R/Ret/Ghi -> nối khóa vào $O_t\'$.'
         };
       }
       return {
         ioHtml:
           '<div class="trace-io-row">' +
-            '<span><strong>Input:</strong> ' + renderMath('G_d = \\text{' + params.mode + '},\\; s_d = ' + params.startNode, false) + '</span>' +
-            '<span><strong>Output:</strong> ' + renderMath('P_d = ' + lastStep.vars.Pd, false) + '</span>' +
+            modeTitle +
+            '<span><strong>In:</strong> ' + renderMath('G_d = \\text{' + params.mode + '},\\; s_d = ' + params.startNode, false) + '</span>' +
+            '<span><strong>Out:</strong> ' + renderMath('P_d = ' + lastStep.vars.Pd, false) + '</span>' +
           '</div>' +
           '<div class="trace-fn-box">' +
-            '<div><strong>Hàm điều kiện dừng:</strong> ' + renderMath('\\text{IsEmpty}(D_d) \\iff (D_d = [])', false) + ' — Đúng thì kết thúc</div>' +
-            '<div><strong>Hàm lọc đỉnh kề:</strong> ' + renderMath('\\text{CanVisit}(w_d, V_d) \\iff (w_d \\notin V_d)', false) + ' — Đúng thì thêm vào ' + renderMath('V_d', false) + ' và ' + renderMath('D_d', false) + '</div>' +
+            '<div><strong>Dừng:</strong> ' + renderMath('D_d = []', false) + ' - <strong>Lọc kề:</strong> ' + renderMath('w_d \\notin V_d', false) + ' (Đúng thì nạp vào ' + renderMath('V_d, D_d', false) + ')</div>' +
+            '<div><strong>Ký hiệu viết tay:</strong> <code>Đ/S</code> = Đúng/Sai, <code>' + (params.mode === 'DFS' ? 'Pop' : 'Deq') + '</code> = Rút đỉnh, <code>+</code> = Nạp mới, <code>x</code> = Bỏ qua</div>' +
           '</div>',
-        headers: [
-          'Bước',
-          'Input: $D_d^{\\text{trước}}$',
-          'Hàm dừng: $\\text{IsEmpty}(D_d)$',
-          'Input: $(v_d, w_d), V_d$',
-          'Hàm lọc: $\\text{CanVisit}(w_d, V_d)$',
-          'Kết quả: $D_d^{\\text{sau}}$',
-          'Out: $P_d$'
-        ],
-        tip: 'Cách điền cơ khí: Kiểm tra $D_d^{\\text{trước}} = []$ -> Rút $v_d$ (' + (params.mode === 'DFS' ? 'cuối Stack' : 'đầu Queue') + ') -> Kiểm tra $w_d \\notin V_d$ để quyết định nạp vào $D_d^{\\text{sau}}$.'
+        headers: ['#', '$D_d$', '$D_d=[]$?', '$(v_d,w_d)$', '$V_d$', '$w_d\\notin V_d$?', "$D_d'$", '$P_d$'],
+        tip: 'Điền tuyến tính: kiểm tra $D_d=[]$ -> rút $v_d$ -> so $w_d \\notin V_d$ (Đ/+ hoặc S/x) -> ghi $D_d\'$ và $P_d$.'
       };
     }
 
     function formatTraceCells(m, step, prevStep, idx) {
-      var stepNo = '#' + (idx + 1);
+      var stepNo = String(idx + 1);
       if (m === 'gen') {
         var beforeB = prevStep ? prevStep.visual.Bg.join('') : '-';
         var afterB = step.visual.Bg.join('');
-        var ngVal = step.vars.Ng;
-        var pgVal = step.vars.pg;
-        var stopEval;
-        if (idx === 0) {
-          stopEval = '<span class="trace-pill trace-pill-info">Khởi tạo</span>';
-        } else if (step.visual.pg !== null && step.visual.pg < 0) {
-          stopEval = '<span class="trace-pill trace-pill-stop">' + pgVal + ' &lt; 0 -&gt; Đúng (Dừng)</span>';
-        } else {
-          stopEval = '<span class="trace-pill trace-pill-ok">' + pgVal + ' &lt; 0 -&gt; Sai (Tiếp)</span>';
-        }
-        var outStr = (idx === 0 || step.codeLine === 13) ? ('#' + step.vars.Cg + ': ' + afterB) : ('C=' + step.vars.Cg);
-        return [stepNo, escapeHtml(beforeB), escapeHtml(ngVal), escapeHtml(pgVal), stopEval, escapeHtml(afterB), escapeHtml(outStr)];
+        var condCell = idx === 0 ? 'Init' : (step.visual.pg < 0 ? '<span class="trace-pill trace-pill-stop">Đ</span>' : '<span class="trace-pill trace-pill-ok">S</span>');
+        return [stepNo, escapeHtml(beforeB), escapeHtml(step.vars.Ng), escapeHtml(step.vars.pg), condCell, escapeHtml(afterB), escapeHtml(step.vars.Cg)];
       }
       if (m === 'bt') {
         var beforeQ = prevStep ? prevStep.vars.Qb : '-';
         var afterQ = step.vars.Qb;
         var rb = step.vars.rb, cb = step.vars.cb, nb = step.vars.Nb;
-        var goalEval = (step.flowNodeId === 'B_SOL')
-          ? '<span class="trace-pill trace-pill-ok">' + rb + '=' + nb + ' -&gt; Đúng (Nghiệm)</span>'
-          : '<span class="trace-pill trace-pill-info">' + rb + '=' + nb + ' -&gt; Sai</span>';
-        var safeEval;
-        if (step.flowNodeId === 'B_INIT') {
-          safeEval = '<span class="trace-pill trace-pill-info">Khởi tạo</span>';
-        } else if (step.flowNodeId === 'B_SOL') {
-          safeEval = '<span class="trace-pill trace-pill-ok">Đủ ' + nb + ' hậu</span>';
-        } else if (step.flowNodeId === 'B_UNDO') {
-          safeEval = '<span class="trace-pill trace-pill-stop">Quay lui gỡ cột ' + cb + '</span>';
-        } else if (step.visual.Sb === 0) {
-          var cr = step.visual.conflictRow;
-          var qArr = step.visual.Qb;
-          var reason = (cr >= 0 && qArr[cr] === Number(cb))
-            ? ('i=' + cr + ': Q[' + cr + ']=' + cb)
-            : ('i=' + cr + ': |' + qArr[cr] + '-' + cb + '|=' + (Number(rb) - cr));
-          safeEval = '<span class="trace-pill trace-pill-fail">' + escapeHtml(reason) + ' -&gt; S_b=0 (Cắt)</span>';
-        } else {
-          safeEval = '<span class="trace-pill trace-pill-ok">Không đụng -&gt; S_b=1 (Đặt)</span>';
-        }
-        return [stepNo, escapeHtml(beforeQ), '(' + rb + ',' + cb + '), N=' + nb, goalEval, safeEval, escapeHtml(afterQ), step.vars.Mb];
+        var goalCell = step.flowNodeId === 'B_SOL' ? '<span class="trace-pill trace-pill-ok">Đ</span>' : 'S';
+        var safeCell;
+        if (step.flowNodeId === 'B_INIT') safeCell = 'Init';
+        else if (step.flowNodeId === 'B_SOL') safeCell = '-';
+        else if (step.flowNodeId === 'B_UNDO') safeCell = '<span class="trace-pill trace-pill-stop">Gỡ</span>';
+        else if (step.visual.Sb === 0) safeCell = '<span class="trace-pill trace-pill-fail">0(' + step.visual.conflictRow + ')</span>';
+        else safeCell = '<span class="trace-pill trace-pill-ok">1</span>';
+        return [stepNo, escapeHtml(beforeQ), '(' + rb + ',' + cb + ')', escapeHtml(nb), goalCell, safeCell, escapeHtml(afterQ), escapeHtml(step.vars.Mb)];
       }
       if (m === 'bst') {
         var beforeO = prevStep ? prevStep.vars.Ot : '[]';
         var afterO = step.vars.Ot;
-        var nullEval = step.flowNodeId === 'T_NULL'
-          ? '<span class="trace-pill trace-pill-stop">null = null -&gt; Đúng (Return)</span>'
-          : (idx === 0
-            ? '<span class="trace-pill trace-pill-info">Dựng cây</span>'
-            : '<span class="trace-pill trace-pill-ok">' + escapeHtml(step.vars.ut) + ' != null -&gt; Sai</span>');
-        var actText = step.flowNodeId === 'T_NULL' ? 'Quay về cha' : (step.flowNodeId === 'T_LEFT' ? 'Đi trái' : (step.flowNodeId === 'T_RIGHT' ? 'Đi phải' : (step.flowNodeId === 'T_VISIT' ? 'Ghi x_t=' + step.vars.xt : 'Khởi tạo gốc')));
-        return [stepNo, escapeHtml(step.vars.ut + ', x=' + step.vars.xt + ', h=' + step.vars.ht), nullEval, escapeHtml(actText), escapeHtml(beforeO), escapeHtml(afterO)];
+        var uShort = step.vars.ut.replace('Nút(', '').replace(')', '');
+        var nullCell = step.flowNodeId === 'T_NULL' ? '<span class="trace-pill trace-pill-stop">Đ</span>' : 'S';
+        var actCell = step.flowNodeId === 'T_NULL' ? 'Ret'
+          : (step.flowNodeId === 'T_LEFT' ? 'L'
+          : (step.flowNodeId === 'T_RIGHT' ? 'R'
+          : (step.flowNodeId === 'T_VISIT' ? ('Ghi ' + step.vars.xt) : 'Init')));
+        return [stepNo, escapeHtml(uShort + '(' + step.vars.ht + ')'), nullCell, escapeHtml(actCell), escapeHtml(beforeO), escapeHtml(afterO)];
       }
       var beforeD = prevStep ? prevStep.vars.Dd : '-';
       var afterD = step.vars.Dd;
-      var emptyEval = step.flowNodeId === 'G_DONE'
-        ? '<span class="trace-pill trace-pill-stop">[] = [] -&gt; Đúng (Dừng)</span>'
-        : (idx === 0
-          ? '<span class="trace-pill trace-pill-info">Khởi tạo</span>'
-          : '<span class="trace-pill trace-pill-ok">Khác [] -&gt; Sai (Tiếp)</span>');
-      var vwInput = 'v=' + step.vars.vd + ', w=' + step.vars.wd + ', V=' + step.vars.Vd;
-      var visitEval = step.flowNodeId === 'G_POP'
-        ? '<span class="trace-pill trace-pill-ok">' + (step.visual.mode === 'DFS' ? 'Pop cuối' : 'Dequeue đầu') + ' v=' + step.vars.vd + '</span>'
-        : (step.flowNodeId === 'G_PUSH'
-          ? '<span class="trace-pill trace-pill-ok">' + step.vars.wd + ' not in V -&gt; Nạp D_d</span>'
-          : (step.flowNodeId === 'G_ADJ'
-            ? (step.explain.indexOf('bỏ qua') !== -1
-              ? '<span class="trace-pill trace-pill-fail">' + step.vars.wd + ' in V -&gt; Bỏ qua</span>'
-              : '<span class="trace-pill trace-pill-ok">' + step.vars.wd + ' not in V -&gt; Hợp lệ</span>')
-            : '-'));
-      return [stepNo, escapeHtml(beforeD), emptyEval, escapeHtml(vwInput), visitEval, escapeHtml(afterD), escapeHtml(step.vars.Pd)];
+      var emptyCell = step.flowNodeId === 'G_DONE' ? '<span class="trace-pill trace-pill-stop">Đ</span>' : 'S';
+      var vwShort = step.vars.vd === '-' ? '-' : ('(' + step.vars.vd + ',' + step.vars.wd + ')');
+      var filterCell = idx === 0 ? 'Init'
+        : (step.flowNodeId === 'G_POP' ? (step.visual.mode === 'DFS' ? 'Pop' : 'Deq')
+        : (step.flowNodeId === 'G_PUSH' ? '<span class="trace-pill trace-pill-ok">Đ (+)</span>'
+        : (step.flowNodeId === 'G_ADJ'
+          ? (step.explain.indexOf('bỏ qua') !== -1 ? '<span class="trace-pill trace-pill-fail">S (x)</span>' : '<span class="trace-pill trace-pill-ok">Đ</span>')
+          : '-')));
+      return [stepNo, escapeHtml(beforeD), emptyCell, escapeHtml(vwShort), escapeHtml(step.vars.Vd), filterCell, escapeHtml(afterD), escapeHtml(step.vars.Pd)];
     }
 
     function renderStateTraceTable() {
