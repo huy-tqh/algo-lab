@@ -46,9 +46,9 @@ assert(
 
 // 4. Mobile tab bar mutual exclusivity
 assert(
-  html.includes("function syncMobileBottomBar()") &&
-    html.includes("btn.classList.toggle('active', btn.getAttribute('data-mb-action') === appState.activeMobileTab)"),
-  "syncMobileBottomBar must keep only one active tab."
+  html.includes("function updateActiveNavSection(secId)") &&
+    html.includes("btn.classList.toggle('active', btn.getAttribute('data-mb-sec') === secId)"),
+  "updateActiveNavSection must keep only one active mobile tab."
 );
 
 // 5. Flowchart SVG foreignObject integrity

@@ -63,7 +63,7 @@
     }
 
     html {
-      font-size: 17px;
+      font-size: 16px;
       scroll-behavior: smooth;
     }
 
@@ -71,97 +71,52 @@
       font-family: var(--font-sans);
       background-color: var(--bg-page);
       color: var(--text-primary);
-      line-height: 1.58;
+      line-height: 1.55;
       min-height: 100vh;
       overflow-x: hidden;
     }
 
     .katex {
-      font-size: 1.06em;
+      font-size: 1.05em;
     }
 
-    /* Bo cuc rong tan dung be ngang man hinh Full HD + Sidebar co dinh */
+    /* Bo cuc chung */
     .app-shell {
-      width: 98vw;
-      max-width: 1900px;
+      width: 96vw;
+      max-width: 1520px;
       margin: 0 auto;
-      padding: 12px 0 36px 0;
+      padding: 12px 0 48px 0;
     }
 
     .app-layout {
       display: grid;
-      grid-template-columns: 224px minmax(0, 1fr);
+      grid-template-columns: 204px minmax(0, 1fr);
       gap: 16px;
       align-items: start;
-      transition: grid-template-columns 0.2s ease;
     }
 
-    .app-layout.sidebar-collapsed {
-      grid-template-columns: 58px minmax(0, 1fr);
-    }
-
+    /* Muc luc tuyen tinh ben trai (Desktop) */
     .app-sidebar {
       position: sticky;
       top: 12px;
-      max-height: calc(100vh - 24px);
-      overflow-y: auto;
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
       box-shadow: 0 2px 10px rgba(15, 23, 42, 0.04);
-      padding: 10px;
+      padding: 12px 10px;
       display: flex;
       flex-direction: column;
-      gap: 9px;
+      gap: 6px;
       z-index: 30;
     }
 
-    .app-layout.sidebar-collapsed .sb-hide {
-      display: none;
-    }
-
-    .app-layout.sidebar-collapsed .app-sidebar {
-      padding: 8px 6px;
-      align-items: center;
-    }
-
-    .sb-head {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      padding-bottom: 8px;
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
     .sb-brand {
-      font-size: 0.88rem;
+      font-size: 0.92rem;
       font-weight: 700;
       color: var(--text-primary);
-      line-height: 1.25;
-    }
-
-    .sb-collapse-btn {
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 700;
-      padding: 4px 7px;
-      border-radius: 6px;
-      border: 1px solid var(--border-strong);
-      background: var(--bg-card);
-      color: var(--text-secondary);
-      cursor: pointer;
-    }
-
-    .sb-collapse-btn:hover {
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
-    }
-
-    .sb-group {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+      padding: 0 6px 8px 6px;
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 2px;
     }
 
     .sb-group-title {
@@ -170,101 +125,61 @@
       text-transform: uppercase;
       letter-spacing: 0.04em;
       color: var(--text-muted);
-      padding: 2px 4px;
+      padding: 4px 6px 2px 6px;
     }
 
-    .sb-btn {
+    .sb-toc-btn {
       font-family: var(--font-sans);
-      font-size: 0.8rem;
+      font-size: 0.84rem;
       font-weight: 600;
-      padding: 6px 9px;
-      border-radius: 7px;
+      padding: 8px 10px;
+      border-radius: 8px;
       border: 1px solid transparent;
       background: transparent;
       color: var(--text-secondary);
       cursor: pointer;
       text-align: left;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
       transition: all 0.15s ease;
     }
 
-    .sb-btn:hover {
+    .sb-toc-btn:hover {
       background: var(--bg-card-hover);
       color: var(--text-primary);
     }
 
-    .sb-btn.active {
+    .sb-toc-btn.active {
       background: var(--accent-cyan-bg);
       border-color: rgba(2, 132, 199, 0.35);
-      color: var(--accent-cyan);
-    }
-
-    .sb-pill {
-      font-family: var(--font-mono);
-      font-size: 0.68rem;
-      padding: 1px 6px;
-      border-radius: 999px;
-      background: var(--bg-code);
-      color: var(--text-muted);
-      border: 1px solid var(--border-subtle);
-      flex-shrink: 0;
-    }
-
-    .sb-btn.active .sb-pill {
-      background: #0284c7;
-      color: #ffffff;
-      border-color: #0284c7;
-    }
-
-    .sb-short-code {
-      display: none;
-      font-family: var(--font-mono);
-      font-size: 0.76rem;
-      font-weight: 700;
-    }
-
-    .app-layout.sidebar-collapsed .sb-short-code {
-      display: inline;
-    }
-
-    .app-layout.sidebar-collapsed .sb-btn {
-      justify-content: center;
-      padding: 6px;
-      width: 40px;
+      color: #0369a1;
     }
 
     .sb-divider {
       height: 1px;
       background: var(--border-subtle);
-      margin: 2px 0;
+      margin: 4px 0;
     }
 
     .app-main {
       min-width: 0;
       display: flex;
       flex-direction: column;
-      gap: 12px;
+      gap: 14px;
     }
 
-    /* Thanh dieu khien tren cung sieu gon, co dinh khi cuon */
+    /* THANH DIEU HUONG CO DINH DUY NHAT TREN CUNG (CHON GIAI THUAT + 3 VI DU LUON HIEN) */
     .top-header {
       position: sticky;
       top: 10px;
-      z-index: 25;
+      z-index: 28;
       display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 8px 14px;
-      background: rgba(255, 255, 255, 0.96);
-      backdrop-filter: blur(6px);
+      flex-direction: column;
+      gap: 8px;
+      padding: 10px 14px;
+      background: rgba(255, 255, 255, 0.97);
+      backdrop-filter: blur(8px);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      box-shadow: 0 2px 10px rgba(15, 23, 42, 0.05);
+      box-shadow: 0 3px 14px rgba(15, 23, 42, 0.06);
     }
 
     .header-brand-row {
@@ -272,42 +187,37 @@
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
-      flex: 1;
-      min-width: 0;
+      gap: 8px;
     }
 
     .brand-title {
-      font-size: 0.96rem;
+      font-size: 0.98rem;
       font-weight: 700;
       color: var(--text-primary);
-      letter-spacing: -0.01em;
     }
 
     .brand-subtitle {
       font-size: 0.78rem;
       color: var(--text-secondary);
-      margin-top: 1px;
     }
 
-    .header-quick-tools {
+    .header-actions {
       display: flex;
-      flex-wrap: wrap;
       align-items: center;
-      gap: 6px;
+      gap: 8px;
+      flex-wrap: wrap;
     }
 
     .tool-chip-btn {
       font-family: var(--font-sans);
       font-size: 0.78rem;
       font-weight: 600;
-      padding: 5px 10px;
+      padding: 5px 11px;
       border-radius: 999px;
       border: 1px solid var(--border-strong);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.15s ease;
     }
 
     .tool-chip-btn:hover {
@@ -329,12 +239,11 @@
       border: 1px solid var(--border-strong);
       border-radius: 999px;
       gap: 2px;
-      flex-shrink: 0;
     }
 
     .view-mode-btn {
       font-family: var(--font-sans);
-      font-size: 0.75rem;
+      font-size: 0.76rem;
       font-weight: 600;
       padding: 4px 10px;
       border-radius: 999px;
@@ -342,41 +251,59 @@
       background: transparent;
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.16s ease;
-    }
-
-    .view-mode-btn:hover {
-      color: var(--text-primary);
     }
 
     .view-mode-btn.active {
       background: #0284c7;
       color: #ffffff;
-      box-shadow: 0 2px 6px rgba(2, 132, 199, 0.28);
     }
 
-    .module-nav {
-      display: none;
+    .nav-strip-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+      padding-top: 6px;
+      border-top: 1px solid var(--border-subtle);
+    }
+
+    .nav-strip-label {
+      font-size: 0.74rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-right: 2px;
+      white-space: nowrap;
+    }
+
+    .module-nav,
+    .case-nav {
+      display: flex;
       flex-wrap: nowrap;
       overflow-x: auto;
       gap: 6px;
-      padding-bottom: 2px;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      flex: 1;
+      min-width: 0;
+    }
+    .module-nav::-webkit-scrollbar,
+    .case-nav::-webkit-scrollbar {
+      display: none;
     }
 
     .module-btn {
       font-family: var(--font-sans);
-      font-size: 0.78rem;
+      font-size: 0.8rem;
       font-weight: 600;
-      padding: 5px 10px;
+      padding: 5px 11px;
       border-radius: var(--radius-sm);
-      border: 1px solid var(--border-subtle);
+      border: 1px solid var(--border-strong);
       background: var(--bg-card);
       color: var(--text-secondary);
       cursor: pointer;
       white-space: nowrap;
       flex-shrink: 0;
-      transition: all 0.16s ease;
     }
 
     .module-btn:hover {
@@ -387,52 +314,21 @@
     .module-btn.active {
       background: var(--accent-cyan-bg);
       border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
-    }
-
-    /* Dai tom tat cot loi 1 dong + chon nhanh vi du */
-    .core-summary-bar {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-      padding: 10px 14px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-left: 4px solid var(--accent-cyan);
-      border-radius: var(--radius-md);
-      font-size: 0.88rem;
-    }
-
-    .core-summary-text {
-      flex: 1;
-      min-width: 220px;
-      color: var(--text-primary);
-      line-height: 1.45;
-    }
-
-    .core-summary-text strong {
       color: #0369a1;
-    }
-
-    .case-nav {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
     }
 
     .case-btn {
       font-family: var(--font-sans);
-      font-size: 0.78rem;
+      font-size: 0.77rem;
       font-weight: 600;
-      padding: 5px 11px;
+      padding: 4px 10px;
       border-radius: 999px;
       border: 1px solid var(--border-strong);
-      background: var(--bg-card);
+      background: var(--bg-surface);
       color: var(--text-secondary);
       cursor: pointer;
-      transition: all 0.16s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
     .case-btn:hover {
@@ -450,287 +346,86 @@
       display: none !important;
     }
 
-    .mobile-bottom-bar {
-      display: none;
-    }
-
-    @media (max-width: 1040px) {
-      .app-layout {
-        grid-template-columns: minmax(0, 1fr);
-      }
-      .app-sidebar {
-        display: none;
-      }
-      .module-nav {
-        display: flex;
-      }
-    }
-
-    /* Bo nhan dien de bai nhanh (an mac dinh) */
-    .diag-panel {
-      background: var(--bg-surface);
-      border: 1px solid #bae6fd;
-      border-radius: var(--radius-md);
-      box-shadow: 0 3px 14px rgba(2, 132, 199, 0.07);
-      padding: 14px 18px;
-    }
-
-    .diag-header {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 10px;
-    }
-
-    .diag-title {
-      font-size: 1rem;
-      font-weight: 700;
-      color: #0369a1;
-    }
-
-    .diag-sub {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-      margin-top: 2px;
-    }
-
-    .diag-controls {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .diag-tab-btn {
-      font-family: var(--font-sans);
-      font-size: 0.8rem;
-      font-weight: 600;
-      padding: 5px 11px;
-      border-radius: 999px;
-      border: 1px solid var(--border-strong);
-      background: var(--bg-card);
-      color: var(--text-secondary);
-      cursor: pointer;
-    }
-
-    .diag-tab-btn.active {
-      background: #0284c7;
-      border-color: #0284c7;
-      color: #ffffff;
-    }
-
-    .diag-body {
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px solid var(--border-subtle);
-    }
-
-    .diag-grid {
-      display: grid;
-      grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    @media (max-width: 1320px) {
-      .diag-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-    }
-    @media (max-width: 720px) {
-      .diag-grid { grid-template-columns: minmax(0, 1fr); }
-    }
-
-    .diag-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      gap: 8px;
-    }
-
-    .diag-card-q {
-      font-size: 0.9rem;
-      font-weight: 700;
-      color: var(--text-primary);
-    }
-
-    .diag-card-k {
-      font-size: 0.84rem;
-      color: var(--text-secondary);
-    }
-
-    .diag-card-io {
-      font-size: 0.83rem;
-      background: var(--bg-code);
-      border-radius: 6px;
-      padding: 7px 9px;
-      border-left: 3px solid var(--accent-cyan);
-    }
-
-    .diag-jump-btn {
-      font-family: var(--font-sans);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 6px 10px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--accent-cyan);
-      background: var(--accent-cyan-bg);
-      color: #0369a1;
-      cursor: pointer;
-    }
-
-    .diag-jump-btn:hover {
-      background: #0284c7;
-      color: #ffffff;
-    }
-
-    .diag-table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-    }
-
-    .diag-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.86rem;
-    }
-
-    .diag-table th {
-      text-align: left;
-      padding: 9px 10px;
-      background: var(--bg-code);
-      color: var(--text-secondary);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .diag-table td {
-      padding: 9px 10px;
-      border-bottom: 1px solid var(--border-subtle);
-      vertical-align: top;
-    }
-
-    .quiz-grid {
-      display: grid;
-      grid-template-columns: 1.05fr 1fr;
-      gap: 14px;
-      align-items: start;
-    }
-
-    @media (max-width: 980px) {
-      .quiz-grid { grid-template-columns: minmax(0, 1fr); }
-    }
-
-    .quiz-list {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
-
-    .quiz-item-btn {
-      font-family: var(--font-sans);
-      text-align: left;
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-card);
-      color: var(--text-primary);
-      font-size: 0.86rem;
-      cursor: pointer;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .quiz-item-btn.active {
-      border-color: var(--accent-cyan);
-      background: var(--accent-cyan-bg);
-      font-weight: 600;
-    }
-
-    .diff-badge {
-      font-family: var(--font-mono);
-      font-size: 0.74rem;
-      font-weight: 700;
-      padding: 2px 7px;
-      border-radius: 999px;
-      flex-shrink: 0;
-    }
-    .diff-easy { background: #dcfce7; color: #166534; }
-    .diff-med { background: #fef3c7; color: #92400e; }
-    .diff-hard { background: #ffe4e6; color: #9f1239; }
-
-    .quiz-stage {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 13px 14px;
-    }
-
-    .quiz-prompt {
-      font-size: 0.9rem;
-      font-weight: 600;
-      margin-bottom: 10px;
-    }
-
-    .quiz-options {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-
-    .quiz-ans-box {
-      padding: 10px 12px;
-      border-radius: var(--radius-sm);
-      font-size: 0.86rem;
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-surface);
-    }
-
-    .quiz-ans-box.correct { border-color: var(--accent-green); background: #ecfdf5; }
-    .quiz-ans-box.wrong { border-color: var(--accent-rose); background: #fff1f2; }
-
-    /* Ban thiet ke & So tay (an mac dinh) */
-    .blueprint-panel {
+    /* CAC KHOI HOC TUYEN TINH 1 -> 2 -> 3 -> 4 */
+    .linear-section {
       background: var(--bg-surface);
       border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
+      border-radius: var(--radius-lg);
       box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
-      padding: 14px 18px;
+      padding: 16px 18px;
+      scroll-margin-top: 155px;
+      min-width: 0;
     }
 
-    .blueprint-top {
+    .sec-header {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
-      gap: 10px;
+      gap: 8px;
       padding-bottom: 10px;
       margin-bottom: 12px;
       border-bottom: 1px solid var(--border-subtle);
     }
 
-    .blueprint-heading {
-      font-size: 1rem;
+    .sec-title-wrap {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .sec-step-num {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
       font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #0284c7;
+      color: #ffffff;
     }
 
-    .blueprint-sub {
+    .sec-title {
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+
+    .mode-badge {
+      font-size: 0.77rem;
+      font-weight: 700;
+      padding: 3px 10px;
+      border-radius: 999px;
+      background: #e0f2fe;
+      color: #0369a1;
+      border: 1px solid #bae6fd;
+    }
+
+    .mode-badge.is-example {
+      background: #fef3c7;
+      color: #92400e;
+      border-color: #fcd34d;
+    }
+
+    .step-badge {
+      font-family: var(--font-mono);
       font-size: 0.84rem;
-      color: var(--text-secondary);
+      font-weight: 600;
+      padding: 4px 11px;
+      border-radius: 999px;
+      background: var(--accent-cyan-bg);
+      color: #0369a1;
+      border: 1px solid rgba(2, 132, 199, 0.3);
     }
 
+    /* Buoc 1: De bai + Nhan dien + Y tuong */
     .blueprint-grid {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      gap: 12px;
+      gap: 10px;
     }
 
-    @media (max-width: 1320px) {
+    @media (max-width: 1200px) {
       .blueprint-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
     }
     @media (max-width: 720px) {
@@ -753,10 +448,10 @@
     }
 
     .bp-label {
-      font-size: 0.8rem;
+      font-size: 0.78rem;
       font-weight: 700;
       text-transform: uppercase;
-      color: var(--accent-cyan);
+      color: #0369a1;
     }
 
     .bp-content {
@@ -768,7 +463,7 @@
     .bp-io-tag {
       display: inline-block;
       font-family: var(--font-mono);
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       padding: 1px 6px;
       border-radius: 4px;
@@ -789,128 +484,237 @@
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 10px;
-      margin-top: 12px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--border-strong);
+      margin-top: 10px;
     }
 
-    @media (max-width: 1080px) {
+    @media (max-width: 1040px) {
       .playbook-strip { grid-template-columns: minmax(0, 1fr); }
     }
 
     .pb-box {
-      background: #ffffff;
+      background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-left: 4px solid var(--accent-cyan);
       border-radius: var(--radius-sm);
       padding: 9px 12px;
-      font-size: 0.86rem;
+      font-size: 0.85rem;
     }
     .pb-box.pb-io { border-left-color: var(--accent-green); }
     .pb-box.pb-upgrade { border-left-color: var(--accent-amber); }
     .pb-title {
-      font-size: 0.78rem;
+      font-size: 0.76rem;
       font-weight: 700;
       text-transform: uppercase;
       color: var(--text-secondary);
-      margin-bottom: 3px;
+      margin-bottom: 4px;
     }
 
-    /* Luoi 2 cot COT LOI */
-    .workspace-grid {
-      display: grid;
-      grid-template-columns: minmax(0, 1.02fr) minmax(0, 1fr);
-      gap: 16px;
-      align-items: start;
+    /* Bo luyen nhan dien de (mo rong trong Buoc 1) */
+    .diag-panel {
+      margin-top: 12px;
+      background: var(--bg-card);
+      border: 1px solid #bae6fd;
+      border-radius: var(--radius-md);
+      padding: 12px 14px;
     }
 
-    @media (max-width: 1180px) {
-      .workspace-grid {
-        grid-template-columns: minmax(0, 1fr);
-      }
-    }
-
-    .panel {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-lg);
-      box-shadow: 0 2px 12px rgba(15, 23, 42, 0.04);
-      padding: 18px;
-      min-width: 0;
-    }
-
-    .panel-header {
+    .diag-header {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .diag-title {
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: #0369a1;
+    }
+
+    .diag-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .diag-tab-btn {
+      font-family: var(--font-sans);
+      font-size: 0.78rem;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 999px;
+      border: 1px solid var(--border-strong);
+      background: var(--bg-surface);
+      color: var(--text-secondary);
+      cursor: pointer;
+    }
+
+    .diag-tab-btn.active {
+      background: #0284c7;
+      border-color: #0284c7;
+      color: #ffffff;
+    }
+
+    .diag-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 10px;
-      padding-bottom: 12px;
-      margin-bottom: 14px;
+    }
+
+    @media (max-width: 1200px) {
+      .diag-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 720px) {
+      .diag-grid { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .diag-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 10px 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 7px;
+    }
+
+    .diag-card-q { font-size: 0.88rem; font-weight: 700; }
+    .diag-card-k { font-size: 0.82rem; color: var(--text-secondary); }
+    .diag-card-io {
+      font-size: 0.82rem;
+      background: var(--bg-code);
+      border-radius: 6px;
+      padding: 6px 8px;
+      border-left: 3px solid var(--accent-cyan);
+    }
+
+    .diag-jump-btn {
+      font-family: var(--font-sans);
+      font-size: 0.8rem;
+      font-weight: 600;
+      padding: 5px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--accent-cyan);
+      background: var(--accent-cyan-bg);
+      color: #0369a1;
+      cursor: pointer;
+    }
+
+    .diag-table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      background: var(--bg-surface);
+    }
+
+    .diag-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.85rem;
+    }
+
+    .diag-table th {
+      text-align: left;
+      padding: 8px 10px;
+      background: var(--bg-code);
+      color: var(--text-secondary);
       border-bottom: 1px solid var(--border-subtle);
     }
 
-    .panel-title {
-      font-size: 1.08rem;
-      font-weight: 700;
+    .diag-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--border-subtle);
+      vertical-align: top;
     }
 
-    .mode-badge {
-      font-size: 0.78rem;
-      font-weight: 700;
-      padding: 3px 10px;
-      border-radius: 999px;
-      background: #e0f2fe;
-      color: #0369a1;
-      border: 1px solid #bae6fd;
+    .quiz-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
     }
 
-    .mode-badge.is-example {
-      background: #fef3c7;
-      color: #92400e;
-      border-color: #fcd34d;
+    @media (max-width: 900px) {
+      .quiz-grid { grid-template-columns: minmax(0, 1fr); }
     }
 
-    .step-badge {
-      font-family: var(--font-mono);
+    .quiz-list { display: flex; flex-direction: column; gap: 6px; }
+    .quiz-item-btn {
+      font-family: var(--font-sans);
+      text-align: left;
+      padding: 8px 10px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-surface);
       font-size: 0.85rem;
-      font-weight: 600;
-      padding: 4px 11px;
-      border-radius: 999px;
-      background: var(--accent-cyan-bg);
-      color: var(--accent-cyan);
-      border: 1px solid rgba(2, 132, 199, 0.3);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
     }
+    .quiz-item-btn.active {
+      border-color: var(--accent-cyan);
+      background: var(--accent-cyan-bg);
+      font-weight: 600;
+    }
+    .diff-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      padding: 2px 7px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+    .diff-easy { background: #dcfce7; color: #166534; }
+    .diff-med { background: #fef3c7; color: #92400e; }
+    .diff-hard { background: #ffe4e6; color: #9f1239; }
 
+    .quiz-stage {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+    }
+    .quiz-prompt { font-size: 0.88rem; font-weight: 600; margin-bottom: 8px; }
+    .quiz-options { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px; }
+    .quiz-ans-box {
+      padding: 10px;
+      border-radius: var(--radius-sm);
+      font-size: 0.85rem;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+    }
+    .quiz-ans-box.correct { border-color: var(--accent-green); background: #ecfdf5; }
+    .quiz-ans-box.wrong { border-color: var(--accent-rose); background: #fff1f2; }
+
+    /* Buoc 2: Xem chay minh hoa */
     .params-bar {
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       gap: 12px;
-      padding: 10px 12px;
+      padding: 9px 12px;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .param-group {
       display: flex;
       align-items: center;
       gap: 7px;
-      font-size: 0.88rem;
+      font-size: 0.86rem;
       color: var(--text-secondary);
     }
-
-    .param-group label {
-      font-weight: 600;
-      color: var(--text-primary);
-    }
-
+    .param-group label { font-weight: 600; color: var(--text-primary); }
     .param-input, .param-select {
       font-family: var(--font-mono);
-      font-size: 0.86rem;
-      padding: 5px 9px;
+      font-size: 0.85rem;
+      padding: 5px 8px;
       border-radius: 6px;
       border: 1px solid var(--border-strong);
       background: var(--bg-code);
@@ -922,7 +726,7 @@
       flex-wrap: wrap;
       align-items: center;
       gap: 7px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .ctrl-btn {
@@ -935,44 +739,20 @@
       background: var(--bg-card);
       color: var(--text-primary);
       cursor: pointer;
-      transition: all 0.16s ease;
     }
+    .ctrl-btn:hover:not(:disabled) { border-color: var(--accent-cyan); background: var(--bg-card-hover); }
+    .ctrl-btn:disabled { opacity: 0.45; cursor: not-allowed; }
+    .ctrl-btn.primary { background: #0284c7; border-color: #0284c7; color: #ffffff; }
 
-    .ctrl-btn:hover:not(:disabled) {
-      border-color: var(--accent-cyan);
-      background: var(--bg-card-hover);
-    }
-
-    .ctrl-btn:disabled {
-      opacity: 0.45;
-      cursor: not-allowed;
-    }
-
-    .ctrl-btn.primary {
-      background: #0284c7;
-      border-color: #0284c7;
-      color: #ffffff;
-    }
-
-    .slider-wrap {
-      flex: 1;
-      min-width: 140px;
-      display: flex;
-      align-items: center;
-    }
-
-    .step-slider {
-      width: 100%;
-      accent-color: var(--accent-cyan);
-      cursor: pointer;
-    }
+    .slider-wrap { flex: 1; min-width: 140px; display: flex; align-items: center; }
+    .step-slider { width: 100%; accent-color: var(--accent-cyan); cursor: pointer; }
 
     /* Tien trinh 4 buoc khuon mau: Vang (Dang chay) + Xanh duong (Da xong) + Xam (Chua den) */
     .template-tracker {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 6px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .tpl-step {
@@ -984,7 +764,6 @@
       font-size: 0.78rem;
       font-weight: 600;
       text-align: center;
-      transition: all 0.18s ease;
     }
 
     .tpl-step.tpl-active {
@@ -1001,110 +780,230 @@
     }
 
     .step-caption {
-      font-size: 0.92rem;
-      padding: 10px 12px;
+      font-size: 0.9rem;
+      padding: 9px 12px;
       border-radius: var(--radius-sm);
       background: var(--bg-code);
       border-left: 4px solid var(--accent-cyan);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
+    }
+
+    .sim-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    @media (max-width: 960px) {
+      .sim-split { grid-template-columns: minmax(0, 1fr); }
     }
 
     .sim-stage {
       background: var(--bg-code);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 16px;
-      min-height: 260px;
-      margin-bottom: 14px;
+      padding: 14px;
+      min-height: 220px;
     }
 
     .hover-info {
       font-family: var(--font-mono);
-      font-size: 0.84rem;
+      font-size: 0.82rem;
       color: var(--accent-amber);
-      min-height: 24px;
-      margin-top: 10px;
-      padding-top: 8px;
+      min-height: 22px;
+      margin-top: 8px;
+      padding-top: 6px;
       border-top: 1px dashed var(--border-subtle);
     }
 
-    .context-banner {
-      margin-top: 10px;
-      padding: 8px 12px;
-      border-radius: var(--radius-sm);
-      background: #f0f9ff;
-      border: 1px solid #bae6fd;
-      font-size: 0.86rem;
-    }
-    .context-banner strong { color: var(--accent-cyan); }
-
-    /* Bang bien song DUY NHAT */
     .live-vars-section {
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
-      padding: 12px 14px;
+      padding: 12px;
     }
 
-    .live-vars-header {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 6px;
-      margin-bottom: 10px;
-    }
-
-    .live-vars-title { font-size: 0.94rem; font-weight: 700; }
-    .live-vars-hint { font-size: 0.82rem; color: var(--text-muted); }
+    .live-vars-title { font-size: 0.92rem; font-weight: 700; margin-bottom: 3px; }
+    .live-vars-hint { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 9px; }
 
     .vars-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(215px, 1fr));
-      gap: 8px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 7px;
     }
 
     .var-card {
       background: var(--bg-code);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
-      padding: 8px 10px;
+      padding: 7px 9px;
       cursor: pointer;
-      transition: all 0.16s ease;
     }
-
-    .var-card:hover {
-      border-color: var(--accent-amber);
-      background: #fffbeb;
-    }
-
-    .var-card.changed {
-      border-color: var(--accent-amber);
-      box-shadow: 0 0 8px rgba(217, 119, 6, 0.2);
-    }
-
-    .var-top {
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 6px;
-      margin-bottom: 3px;
-    }
-
+    .var-card:hover { border-color: var(--accent-amber); background: #fffbeb; }
+    .var-card.changed { border-color: var(--accent-amber); box-shadow: 0 0 8px rgba(217, 119, 6, 0.2); }
+    .var-top { display: flex; align-items: baseline; justify-content: space-between; gap: 6px; margin-bottom: 2px; }
     .var-symbol { font-weight: 700; color: var(--accent-cyan); }
-    .var-value {
-      font-family: var(--font-mono);
-      font-weight: 600;
-      color: var(--text-primary);
-      font-size: 0.9rem;
-      word-break: break-all;
-      text-align: right;
-    }
-    .var-desc { font-size: 0.82rem; color: var(--text-secondary); }
+    .var-value { font-family: var(--font-mono); font-weight: 600; font-size: 0.86rem; word-break: break-all; text-align: right; }
+    .var-desc { font-size: 0.78rem; color: var(--text-secondary); }
 
-    /* Bang State Trace (an mac dinh) */
+    /* Buoc 3: Cong thuc, Luu do & Ma gia */
+    .layer-tabs {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px;
+      border-bottom: 1px solid var(--border-subtle);
+      padding-bottom: 10px;
+    }
+
+    .layer-tab-btn {
+      flex: 1;
+      font-family: var(--font-sans);
+      font-size: 0.84rem;
+      font-weight: 600;
+      padding: 7px 8px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-card);
+      color: var(--text-secondary);
+      cursor: pointer;
+      text-align: center;
+    }
+
+    .layer-tab-btn.active {
+      background: var(--accent-cyan-bg);
+      border-color: var(--accent-cyan);
+      color: #0369a1;
+    }
+
+    .layer-pane { display: none; }
+    .layer-pane.active { display: block; }
+
+    .formula-list {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 12px;
+    }
+
+    @media (max-width: 960px) {
+      .formula-list { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .formula-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 11px 13px;
+    }
+    .formula-card.status-pending { opacity: 0.68; }
+    .formula-card.status-done { border-color: rgba(2, 132, 199, 0.45); background: rgba(2, 132, 199, 0.06); }
+    .formula-card.status-active { opacity: 1; border-color: #d97706; background: rgba(245, 158, 11, 0.1); box-shadow: 0 0 12px rgba(217, 119, 6, 0.16); }
+
+    .formula-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px; margin-bottom: 4px; font-size: 0.86rem; }
+    .formula-label { font-weight: 700; }
+    .formula-io { font-size: 0.82rem; color: var(--text-secondary); }
+
+    .formula-status-pill { font-size: 0.76rem; font-weight: 600; padding: 2px 8px; border-radius: 999px; }
+    .pill-active { background: #d97706; color: #ffffff; }
+    .pill-done { background: #e0f2fe; color: #0369a1; border: 1px solid rgba(2, 132, 199, 0.4); }
+    .pill-pending { background: var(--bg-code); color: var(--text-muted); border: 1px solid var(--border-subtle); }
+
+    .formula-math { font-size: 1.02em; padding: 6px 2px; overflow-x: auto; line-height: 1.4; }
+    .formula-live-sub { font-size: 0.9em; margin-top: 5px; padding: 6px 9px; border-radius: 6px; background: var(--bg-code); border-left: 3px solid var(--accent-cyan); color: #0369a1; overflow-x: auto; }
+
+    .symbol-table-wrap { overflow-x: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-md); background: var(--bg-card); }
+    .symbol-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+    .symbol-table th { text-align: left; padding: 8px 10px; background: var(--bg-code); color: var(--text-secondary); border-bottom: 1px solid var(--border-subtle); }
+    .symbol-table td { padding: 7px 10px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
+    .symbol-table tr.jump-highlight { background: var(--accent-amber-bg) !important; outline: 2px solid var(--accent-amber); }
+
+    /* Tang 2: Luu do SVG */
+    .flowchart-container { background: var(--bg-code); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 12px; overflow-x: auto; display: flex; justify-content: center; }
+    .flow-svg { width: 100%; max-width: 660px; height: auto; display: block; }
+    .flow-node { transition: opacity 0.2s ease; opacity: 0.58; }
+    .flow-node rect, .flow-node polygon { fill: #ffffff; stroke: #94a3b8; stroke-width: 2; transition: all 0.2s ease; }
+    .flow-node foreignObject { overflow: visible; pointer-events: none; }
+    .flow-fo-text { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; text-align: center; font-family: var(--font-sans); font-size: 13px; line-height: 1.3; color: #1e293b; padding: 2px 6px; box-sizing: border-box; }
+    .flow-fo-inner { display: block; width: 100%; text-align: center; }
+    .flow-edge-fo { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; font-family: var(--font-sans); font-size: 12.5px; font-weight: 600; color: #475569; text-align: center; }
+    .flow-node.active-node { opacity: 1; }
+    .flow-node.active-node rect, .flow-node.active-node polygon { fill: #fef3c7; stroke: #d97706; stroke-width: 3.5; filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.32)); }
+    .flow-node.active-node .flow-fo-text { color: #78350f; font-weight: 700; }
+    .flow-node.jump-highlight { opacity: 1 !important; }
+    .flow-node.jump-highlight rect, .flow-node.jump-highlight polygon { stroke: var(--accent-cyan) !important; stroke-width: 4 !important; }
+    .flow-edge { stroke: #94a3b8; stroke-width: 2; fill: none; }
+
+    /* Tang 3: Ma gia */
+    .code-container { background: var(--bg-code); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 10px 0; overflow-x: auto; font-family: var(--font-mono); font-size: 0.88rem; line-height: 1.7; }
+    .code-line { display: flex; padding: 2px 14px; border-left: 4px solid transparent; }
+    .code-line.active-line { background: rgba(245, 158, 11, 0.16); border-left-color: var(--accent-amber); }
+    .code-line.jump-highlight { background: var(--accent-cyan-bg); border-left-color: var(--accent-cyan); }
+    .line-num { width: 30px; flex-shrink: 0; color: var(--text-muted); user-select: none; text-align: right; padding-right: 12px; }
+    .line-text { white-space: pre; }
+    .code-comment { color: #64748b; font-style: italic; }
+    .code-kw { color: #0369a1; font-weight: 600; }
+
+    /* Buoc 4: Trinh bay tu luan (Hinh nhap + Bang Trace) */
+    .essay-split {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+      gap: 14px;
+      align-items: start;
+    }
+
+    @media (max-width: 980px) {
+      .essay-split { grid-template-columns: minmax(0, 1fr); }
+    }
+
+    .essay-draft-panel {
+      background: var(--bg-code);
+      border: 1px solid var(--border-subtle);
+      border-radius: var(--radius-md);
+      padding: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .essay-mini-controls {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .essay-draft-guide {
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-left: 4px solid #d97706;
+      font-size: 0.85rem;
+      line-height: 1.5;
+    }
+
+    .essay-draft-guide strong { color: #92400e; }
+
+    .essay-draft-list {
+      margin: 4px 0 0 18px;
+      padding: 0;
+    }
+
+    .essay-draft-list li { margin-bottom: 2px; }
+
+    .inline-code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      color: #0f172a;
+    }
+
     .trace-section {
-      margin-top: 14px;
       background: var(--bg-card);
       border: 1px solid var(--border-subtle);
       border-radius: var(--radius-md);
@@ -1141,17 +1040,6 @@
       color: #ffffff;
     }
 
-    .inline-code {
-      font-family: var(--font-mono);
-      font-size: 0.88em;
-      font-weight: 700;
-      padding: 1px 5px;
-      border-radius: 4px;
-      background: #ffffff;
-      border: 1px solid var(--border-strong);
-      color: #0f172a;
-    }
-
     .trace-io-strip {
       display: flex;
       flex-direction: column;
@@ -1164,564 +1052,82 @@
       font-size: 0.84rem;
       line-height: 1.5;
     }
-    .trace-mode-title {
-      font-weight: 700;
-      color: #0369a1;
-    }
-    .trace-meta-list {
-      margin: 0;
-      padding-left: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 3px;
-    }
-    .trace-meta-list b {
-      color: #0f172a;
-    }
-    .trace-legend {
-      padding-top: 6px;
-      border-top: 1px dashed #7dd3fc;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 5px;
-    }
-    .trace-legend-label {
-      font-weight: 700;
-      color: #0369a1;
-      margin-right: 2px;
-    }
-    .legend-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 2px 7px;
-      border-radius: 6px;
-      background: #ffffff;
-      border: 1px solid #bae6fd;
-      font-size: 0.79rem;
-      color: var(--text-primary);
-    }
+    .trace-mode-title { font-weight: 700; color: #0369a1; }
+    .trace-meta-list { margin: 0; padding-left: 18px; display: flex; flex-direction: column; gap: 3px; }
+    .trace-meta-list b { color: #0f172a; }
+    .trace-legend { padding-top: 6px; border-top: 1px dashed #7dd3fc; display: flex; flex-wrap: wrap; align-items: center; gap: 5px; }
+    .trace-legend-label { font-weight: 700; color: #0369a1; margin-right: 2px; }
+    .legend-chip { display: inline-flex; align-items: center; gap: 4px; padding: 2px 7px; border-radius: 6px; background: #ffffff; border: 1px solid #bae6fd; font-size: 0.78rem; color: var(--text-primary); }
 
-    .trace-table-wrap {
-      max-height: 300px;
-      overflow: auto;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-sm);
-      background: var(--bg-surface);
-    }
-
-    .trace-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-family: var(--font-mono);
-      font-size: 0.82rem;
-    }
-
-    .trace-table thead th {
-      position: sticky;
-      top: 0;
-      z-index: 2;
-      background: var(--bg-code);
-      color: var(--text-secondary);
-      font-family: var(--font-sans);
-      font-size: 0.8rem;
-      font-weight: 700;
-      text-align: left;
-      padding: 7px 9px;
-      border-bottom: 1px solid var(--border-strong);
-      white-space: nowrap;
-    }
-
-    .trace-table tbody td {
-      padding: 6px 9px;
-      border-bottom: 1px solid var(--border-subtle);
-      vertical-align: top;
-    }
-
+    .trace-table-wrap { max-height: 360px; overflow: auto; border: 1px solid var(--border-subtle); border-radius: var(--radius-sm); background: var(--bg-surface); }
+    .trace-table { width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.82rem; }
+    .trace-table thead th { position: sticky; top: 0; z-index: 2; background: var(--bg-code); color: var(--text-secondary); font-family: var(--font-sans); font-size: 0.8rem; font-weight: 700; text-align: left; padding: 7px 9px; border-bottom: 1px solid var(--border-strong); white-space: nowrap; }
+    .trace-table tbody td { padding: 6px 9px; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
     .trace-row { cursor: pointer; }
     .trace-row:hover { background: var(--bg-card-hover); }
     .trace-row.current-step { background: #fef3c7; box-shadow: inset 4px 0 0 #d97706; }
     .trace-row.future-step { opacity: 0.55; }
-    .trace-arrow { color: var(--accent-cyan); font-weight: 700; padding: 0 3px; }
 
-    .trace-pill {
-      display: inline-block;
-      font-family: var(--font-sans);
-      font-size: 0.75rem;
-      font-weight: 700;
-      padding: 1px 7px;
-      border-radius: 999px;
-      white-space: nowrap;
-    }
+    .trace-pill { display: inline-block; font-family: var(--font-sans); font-size: 0.75rem; font-weight: 700; padding: 1px 7px; border-radius: 999px; white-space: nowrap; }
     .trace-pill-ok { background: #e0f2fe; color: #0369a1; }
     .trace-pill-fail { background: #ffe4e6; color: #9f1239; }
     .trace-pill-stop { background: #fef3c7; color: #92400e; }
     .trace-pill-info { background: #e2e8f0; color: #334155; }
-
-    .trace-foot-tip { margin-top: 7px; font-size: 0.82rem; color: var(--text-secondary); }
-
-    /* Cot phai: 3 Tang nhan thuc */
-    .layer-tabs {
-      display: flex;
-      gap: 6px;
-      margin-bottom: 14px;
-      border-bottom: 1px solid var(--border-subtle);
-      padding-bottom: 10px;
-    }
-
-    .layer-tab-btn {
-      flex: 1;
-      font-family: var(--font-sans);
-      font-size: 0.82rem;
-      font-weight: 600;
-      padding: 7px 8px;
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-subtle);
-      background: var(--bg-card);
-      color: var(--text-secondary);
-      cursor: pointer;
-      text-align: center;
-    }
-
-    .layer-tab-btn.active {
-      background: var(--accent-cyan-bg);
-      border-color: var(--accent-cyan);
-      color: var(--accent-cyan);
-    }
-
-    .layer-pane { display: none; }
-    .layer-pane.active { display: block; }
-
-    /* Tang 1: Cong thuc toan hoc (Vang = Dang chay, Xanh duong = Da xong) */
-    .formula-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      margin-bottom: 14px;
-    }
-
-    .formula-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px 14px;
-      transition: all 0.2s ease;
-    }
-
-    .formula-card.status-pending { opacity: 0.65; }
-    .formula-card.status-done {
-      border-color: rgba(2, 132, 199, 0.45);
-      background: rgba(2, 132, 199, 0.06);
-    }
-    .formula-card.status-active {
-      opacity: 1;
-      border-color: #d97706;
-      background: rgba(245, 158, 11, 0.1);
-      box-shadow: 0 0 14px rgba(217, 119, 6, 0.18);
-    }
-
-    .formula-meta {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 6px;
-      margin-bottom: 5px;
-      font-size: 0.86rem;
-    }
-
-    .formula-label { font-weight: 700; }
-    .formula-io { font-size: 0.84rem; color: var(--text-secondary); }
-
-    .formula-status-pill {
-      font-size: 0.78rem;
-      font-weight: 600;
-      padding: 2px 9px;
-      border-radius: 999px;
-    }
-    .pill-active { background: #d97706; color: #ffffff; }
-    .pill-done { background: #e0f2fe; color: #0369a1; border: 1px solid rgba(2, 132, 199, 0.4); }
-    .pill-pending { background: var(--bg-code); color: var(--text-muted); border: 1px solid var(--border-subtle); }
-
-    .formula-math {
-      font-size: 1.04em;
-      padding: 6px 2px;
-      overflow-x: auto;
-      line-height: 1.4;
-    }
-
-    .formula-live-sub {
-      font-size: 0.92em;
-      margin-top: 6px;
-      padding: 7px 10px;
-      border-radius: 6px;
-      background: var(--bg-code);
-      border-left: 3px solid var(--accent-cyan);
-      color: #0369a1;
-      overflow-x: auto;
-    }
-
-    .symbol-table-wrap {
-      overflow-x: auto;
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      background: var(--bg-card);
-    }
-
-    .symbol-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 0.86rem;
-    }
-
-    .symbol-table th {
-      text-align: left;
-      padding: 8px 10px;
-      background: var(--bg-code);
-      color: var(--text-secondary);
-      border-bottom: 1px solid var(--border-subtle);
-    }
-
-    .symbol-table td {
-      padding: 8px 10px;
-      border-bottom: 1px solid var(--border-subtle);
-      vertical-align: top;
-    }
-
-    .symbol-table tr.jump-highlight {
-      background: var(--accent-amber-bg) !important;
-      outline: 2px solid var(--accent-amber);
-    }
-
-    /* Tang 2: Luu do SVG + foreignObject KaTeX (khong che chu) */
-    .flowchart-container {
-      background: var(--bg-code);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px;
-      overflow-x: auto;
-      display: flex;
-      justify-content: center;
-    }
-
-    .flow-svg {
-      width: 100%;
-      max-width: 680px;
-      height: auto;
-      display: block;
-    }
-
-    .flow-node {
-      transition: opacity 0.2s ease;
-      opacity: 0.58;
-    }
-
-    .flow-node rect, .flow-node polygon {
-      fill: #ffffff;
-      stroke: #94a3b8;
-      stroke-width: 2;
-      transition: all 0.2s ease;
-    }
-
-    .flow-node foreignObject {
-      overflow: visible;
-      pointer-events: none;
-    }
-
-    .flow-fo-text {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-align: center;
-      font-family: var(--font-sans);
-      font-size: 13px;
-      line-height: 1.3;
-      color: #1e293b;
-      padding: 2px 6px;
-      box-sizing: border-box;
-    }
-
-    .flow-fo-inner {
-      display: block;
-      width: 100%;
-      text-align: center;
-    }
-
-    .flow-edge-fo {
-      width: 100%;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-family: var(--font-sans);
-      font-size: 12.5px;
-      font-weight: 600;
-      color: #475569;
-      text-align: center;
-    }
-
-    .flow-node.active-node {
-      opacity: 1;
-    }
-
-    .flow-node.active-node rect,
-    .flow-node.active-node polygon {
-      fill: #fef3c7;
-      stroke: #d97706;
-      stroke-width: 3.5;
-      filter: drop-shadow(0 0 8px rgba(217, 119, 6, 0.32));
-    }
-
-    .flow-node.active-node .flow-fo-text {
-      color: #78350f;
-      font-weight: 700;
-    }
-
-    .flow-node.jump-highlight {
-      opacity: 1 !important;
-    }
-    .flow-node.jump-highlight rect,
-    .flow-node.jump-highlight polygon {
-      stroke: var(--accent-cyan) !important;
-      stroke-width: 4 !important;
-    }
-
-    .flow-edge {
-      stroke: #94a3b8;
-      stroke-width: 2;
-      fill: none;
-    }
-
-    /* Tang 3: Ma gia */
-    .code-container {
-      background: var(--bg-code);
-      border: 1px solid var(--border-subtle);
-      border-radius: var(--radius-md);
-      padding: 12px 0;
-      overflow-x: auto;
-      font-family: var(--font-mono);
-      font-size: 0.9rem;
-      line-height: 1.75;
-    }
-
-    .code-line {
-      display: flex;
-      padding: 2px 14px;
-      border-left: 4px solid transparent;
-    }
-
-    .code-line.active-line {
-      background: rgba(245, 158, 11, 0.16);
-      border-left-color: var(--accent-amber);
-    }
-
-    .code-line.jump-highlight {
-      background: var(--accent-cyan-bg);
-      border-left-color: var(--accent-cyan);
-    }
-
-    .line-num {
-      width: 32px;
-      flex-shrink: 0;
-      color: var(--text-muted);
-      user-select: none;
-      text-align: right;
-      padding-right: 12px;
-    }
-
-    .line-text { white-space: pre; }
-    .code-comment { color: #64748b; font-style: italic; }
-    .code-kw { color: #0369a1; font-weight: 600; }
+    .trace-foot-tip { margin-top: 8px; font-size: 0.82rem; color: var(--text-secondary); }
 
     /* Thanh phan mo phong truc quan */
-    .bit-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 10px;
-      margin: 14px 0 16px 0;
-    }
-
-    .bit-cell {
-      width: 72px;
-      padding: 10px 6px;
-      border-radius: var(--radius-md);
-      background: var(--bg-surface);
-      border: 2px solid var(--border-strong);
-      text-align: center;
-      cursor: pointer;
-      position: relative;
-    }
-
+    .bit-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin: 12px 0; }
+    .bit-cell { width: 70px; padding: 9px 6px; border-radius: var(--radius-md); background: var(--bg-surface); border: 2px solid var(--border-strong); text-align: center; cursor: pointer; position: relative; }
     .bit-cell.is-p { border-color: var(--accent-cyan); background: var(--accent-cyan-bg); }
     .bit-cell.is-k { border-color: var(--accent-amber); background: var(--accent-amber-bg); }
-    .bit-val { font-family: var(--font-mono); font-size: 1.55rem; font-weight: 700; }
-    .bit-idx { font-family: var(--font-mono); font-size: 0.8rem; color: var(--text-secondary); margin-top: 2px; }
-    .bit-label-extra { font-size: 0.78rem; font-weight: 600; color: var(--accent-cyan); margin-top: 2px; }
-    .bit-tag {
-      position: absolute;
-      top: -11px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      font-weight: 700;
-      padding: 1px 6px;
-      border-radius: 999px;
-      background: var(--accent-cyan);
-      color: #ffffff;
-    }
+    .bit-val { font-family: var(--font-mono); font-size: 1.5rem; font-weight: 700; }
+    .bit-idx { font-family: var(--font-mono); font-size: 0.78rem; color: var(--text-secondary); margin-top: 2px; }
+    .bit-label-extra { font-size: 0.76rem; font-weight: 600; color: var(--accent-cyan); margin-top: 2px; }
+    .bit-tag { position: absolute; top: -11px; left: 50%; transform: translateX(-50%); font-family: var(--font-mono); font-size: 0.7rem; font-weight: 700; padding: 1px 6px; border-radius: 999px; background: var(--accent-cyan); color: #ffffff; }
 
-    .gen-chip {
-      font-family: var(--font-mono);
-      font-size: 0.84rem;
-      padding: 4px 9px;
-      border-radius: 6px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-subtle);
-      color: var(--text-secondary);
-    }
-    .gen-chip.latest {
-      border-color: var(--accent-amber);
-      color: #92400e;
-      background: #fef3c7;
-      font-weight: 700;
-    }
+    .gen-chip { font-family: var(--font-mono); font-size: 0.82rem; padding: 3px 8px; border-radius: 6px; background: var(--bg-surface); border: 1px solid var(--border-subtle); color: var(--text-secondary); }
+    .gen-chip.latest { border-color: var(--accent-amber); color: #92400e; background: #fef3c7; font-weight: 700; }
 
     .chess-wrap { display: flex; justify-content: center; }
-    .chess-board {
-      display: grid;
-      gap: 4px;
-      padding: 7px;
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md);
-    }
-
-    .chess-cell {
-      width: 58px;
-      height: 58px;
-      border-radius: 6px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      cursor: pointer;
-      font-family: var(--font-mono);
-    }
+    .chess-board { display: grid; gap: 4px; padding: 7px; background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-md); }
+    .chess-cell { width: 54px; height: 54px; border-radius: 6px; display: flex; align-items: center; justify-content: center; position: relative; cursor: pointer; font-family: var(--font-mono); }
     .chess-cell.light { background: #ffffff; border: 1px solid #e2e8f0; }
     .chess-cell.dark { background: #e2e8f0; border: 1px solid #cbd5e1; }
     .chess-cell.testing { outline: 3px solid var(--accent-amber); background: var(--accent-amber-bg); }
     .chess-cell.conflict { outline: 3px solid var(--accent-rose); background: var(--accent-rose-bg); }
     .chess-cell.solution-glow { outline: 2px solid var(--accent-cyan); background: var(--accent-cyan-bg); }
-    .chess-coord { position: absolute; bottom: 2px; right: 4px; font-size: 0.66rem; color: var(--text-muted); }
+    .chess-coord { position: absolute; bottom: 2px; right: 4px; font-size: 0.65rem; color: var(--text-muted); }
 
     .svg-stage { width: 100%; height: auto; display: block; }
-
-    .output-strip {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      gap: 7px;
-      margin-top: 10px;
-      padding: 8px 10px;
-      background: var(--bg-surface);
-      border-radius: var(--radius-sm);
-      border: 1px solid var(--border-subtle);
-    }
-
+    .output-strip { display: flex; flex-wrap: wrap; align-items: center; gap: 7px; margin-top: 10px; padding: 8px 10px; background: var(--bg-surface); border-radius: var(--radius-sm); border: 1px solid var(--border-subtle); }
     .strip-label { font-size: 0.84rem; font-weight: 700; color: var(--text-secondary); }
-    .strip-item {
-      font-family: var(--font-mono);
-      font-size: 0.86rem;
-      font-weight: 600;
-      padding: 3px 9px;
-      border-radius: 6px;
-      background: var(--bg-code);
-      border: 1px solid var(--border-strong);
-    }
-    .strip-item.active-item {
-      border-color: var(--accent-amber);
-      background: #fef3c7;
-      color: #92400e;
+    .strip-item { font-family: var(--font-mono); font-size: 0.85rem; font-weight: 600; padding: 3px 9px; border-radius: 6px; background: var(--bg-code); border: 1px solid var(--border-strong); }
+    .strip-item.active-item { border-color: var(--accent-amber); background: #fef3c7; color: #92400e; }
+
+    .graph-split { display: grid; grid-template-columns: 1.45fr 1fr; gap: 12px; align-items: center; }
+    @media (max-width: 720px) { .graph-split { grid-template-columns: minmax(0, 1fr); } }
+    .ds-box { background: var(--bg-surface); border: 1px solid var(--border-strong); border-radius: var(--radius-md); padding: 10px; min-height: 185px; display: flex; flex-direction: column; }
+    .ds-box-title { font-size: 0.82rem; font-weight: 700; color: var(--accent-cyan); margin-bottom: 8px; text-align: center; }
+    .stack-items { flex: 1; display: flex; flex-direction: column-reverse; justify-content: flex-start; gap: 5px; border: 2px dashed var(--border-strong); border-top: none; border-radius: 0 0 8px 8px; padding: 7px; }
+    .queue-items { flex: 1; display: flex; flex-wrap: wrap; align-items: center; align-content: center; gap: 6px; border-top: 2px dashed var(--border-strong); border-bottom: 2px dashed var(--border-strong); padding: 10px 6px; }
+    .ds-item { font-family: var(--font-mono); font-size: 0.86rem; font-weight: 700; padding: 5px 9px; border-radius: 6px; background: var(--bg-code); border: 1px solid var(--accent-cyan); text-align: center; }
+    .ds-item.ds-head { background: #fef3c7; border-color: #d97706; color: #92400e; }
+
+    /* Che do tap trung Tu luan (an Buoc 1, 2, 3 nhung GIU NGUYEN thanh chon giai thuat + 3 vi du) */
+    body.mode-essay #sec-step1,
+    body.mode-essay #sec-step2,
+    body.mode-essay #sec-step3 {
+      display: none !important;
     }
 
-    .graph-split {
-      display: grid;
-      grid-template-columns: 1.45fr 1fr;
-      gap: 12px;
-      align-items: center;
+    .mobile-bottom-bar { display: none; }
+
+    @media (max-width: 1040px) {
+      .app-layout { grid-template-columns: minmax(0, 1fr); }
+      .app-sidebar { display: none; }
     }
 
-    @media (max-width: 720px) {
-      .graph-split { grid-template-columns: minmax(0, 1fr); }
-    }
-
-    .ds-box {
-      background: var(--bg-surface);
-      border: 1px solid var(--border-strong);
-      border-radius: var(--radius-md);
-      padding: 10px;
-      min-height: 200px;
-      display: flex;
-      flex-direction: column;
-    }
-
-    .ds-box-title {
-      font-size: 0.84rem;
-      font-weight: 700;
-      color: var(--accent-cyan);
-      margin-bottom: 8px;
-      text-align: center;
-    }
-
-    .stack-items {
-      flex: 1;
-      display: flex;
-      flex-direction: column-reverse;
-      justify-content: flex-start;
-      gap: 5px;
-      border: 2px dashed var(--border-strong);
-      border-top: none;
-      border-radius: 0 0 8px 8px;
-      padding: 7px;
-    }
-
-    .queue-items {
-      flex: 1;
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      align-content: center;
-      gap: 6px;
-      border-top: 2px dashed var(--border-strong);
-      border-bottom: 2px dashed var(--border-strong);
-      padding: 10px 6px;
-    }
-
-    .ds-item {
-      font-family: var(--font-mono);
-      font-size: 0.88rem;
-      font-weight: 700;
-      padding: 6px 10px;
-      border-radius: 6px;
-      background: var(--bg-code);
-      border: 1px solid var(--accent-cyan);
-      text-align: center;
-    }
-
-    .ds-item.ds-head {
-      background: #fef3c7;
-      border-color: #d97706;
-      color: #92400e;
-    }
-
-    /* =====================================================================
-       CHE DO MOBILE + DYNAMIC SCALE (KHONG CAT MEP PHAI, TABBAR DUOI DAY)
-       ===================================================================== */
+    /* CHE DO MOBILE */
     body.mode-mobile {
       font-size: clamp(13px, 3.5vw, 15px);
       max-width: 100vw;
@@ -1736,14 +1142,8 @@
       padding: 6px 8px 16px 8px;
     }
 
-    body.mode-mobile .app-layout {
-      grid-template-columns: minmax(0, 1fr) !important;
-      gap: 10px;
-    }
-
+    body.mode-mobile .app-layout { grid-template-columns: minmax(0, 1fr) !important; gap: 10px; }
     body.mode-mobile .app-sidebar { display: none !important; }
-    body.mode-mobile .module-nav { display: flex !important; }
-    body.mode-mobile .header-quick-tools { display: none; }
 
     body.mode-mobile .top-header {
       position: sticky;
@@ -1751,123 +1151,37 @@
       padding: 7px 9px;
       gap: 6px;
       border-radius: 10px;
-      flex-direction: column;
-      align-items: stretch;
     }
 
-    body.mode-mobile .core-summary-bar {
-      padding: 8px 10px;
-      font-size: 0.82rem;
-      gap: 6px;
+    body.mode-mobile .brand-subtitle { display: none; }
+    body.mode-mobile .nav-strip-label { display: none; }
+
+    body.mode-mobile .linear-section {
+      padding: 11px 10px;
+      border-radius: 12px;
+      scroll-margin-top: 152px;
+    }
+    body.mode-mobile #btn-toggle-quiz {
+      display: none;
     }
 
-    body.mode-mobile .workspace-grid,
     body.mode-mobile .blueprint-grid,
     body.mode-mobile .diag-grid,
     body.mode-mobile .playbook-strip,
     body.mode-mobile .quiz-grid,
+    body.mode-mobile .sim-split,
+    body.mode-mobile .formula-list,
+    body.mode-mobile .essay-split,
     body.mode-mobile .graph-split {
       grid-template-columns: minmax(0, 1fr) !important;
       gap: 10px;
     }
 
-    body.mode-mobile .panel,
-    body.mode-mobile .diag-panel,
-    body.mode-mobile .blueprint-panel {
-      padding: 10px;
-      border-radius: 12px;
-      min-width: 0;
-      max-width: 100%;
-    }
-
-    body.mode-mobile .template-tracker {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-
-    body.mode-mobile .vars-grid {
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 6px;
-    }
-
-    body.mode-mobile .bit-cell {
-      width: clamp(50px, 16vw, 66px);
-      padding: 7px 4px;
-    }
-
-    body.mode-mobile .chess-cell {
-      width: clamp(40px, 13.5vw, 54px);
-      height: clamp(40px, 13.5vw, 54px);
-    }
-
-    body.mode-mobile .layer-tab-btn {
-      font-size: 0.76rem;
-      padding: 6px 4px;
-    }
-
-    .essay-draft-guide {
-      margin-top: 10px;
-      padding: 10px 12px;
-      border-radius: var(--radius-sm);
-      background: #fffbeb;
-      border: 1px solid #fcd34d;
-      border-left: 4px solid #d97706;
-      font-size: 0.86rem;
-      line-height: 1.5;
-    }
-
-    .essay-draft-guide strong {
-      color: #92400e;
-    }
-
-    .essay-draft-list {
-      margin: 4px 0 0 18px;
-      padding: 0;
-    }
-
-    .essay-draft-list li {
-      margin-bottom: 2px;
-    }
-
-    body.mode-essay #panel-layers,
-    body.mode-essay #diag-panel,
-    body.mode-essay #blueprint-panel,
-    body.mode-essay .live-vars-section,
-    body.mode-essay .template-tracker,
-    body.mode-essay .core-summary-bar,
-    body.mode-essay .context-banner,
-    body.mode-essay .hover-info {
-      display: none !important;
-    }
-
-    body.mode-essay .workspace-grid {
-      grid-template-columns: minmax(0, 1fr) !important;
-    }
-
-    @media (min-width: 1041px) {
-      body.mode-essay:not(.mode-mobile) #panel-sim {
-        display: grid;
-        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
-        column-gap: 16px;
-        align-items: start;
-      }
-      body.mode-essay:not(.mode-mobile) #panel-sim > .panel-header,
-      body.mode-essay:not(.mode-mobile) #panel-sim > .params-bar,
-      body.mode-essay:not(.mode-mobile) #panel-sim > .controls-bar,
-      body.mode-essay:not(.mode-mobile) #panel-sim > .step-caption {
-        grid-column: 1 / -1;
-      }
-      body.mode-essay:not(.mode-mobile) #panel-sim > .sim-stage {
-        grid-column: 1;
-        margin-bottom: 0;
-      }
-      body.mode-essay:not(.mode-mobile) #panel-sim > .trace-section {
-        grid-column: 2;
-        margin-top: 0;
-      }
-      body.mode-essay:not(.mode-mobile) .trace-table-wrap {
-        max-height: 460px;
-      }
-    }
+    body.mode-mobile .template-tracker { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    body.mode-mobile .vars-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 6px; }
+    body.mode-mobile .bit-cell { width: clamp(50px, 16vw, 66px); padding: 7px 4px; }
+    body.mode-mobile .chess-cell { width: clamp(40px, 13.5vw, 54px); height: clamp(40px, 13.5vw, 54px); }
+    body.mode-mobile .layer-tab-btn { font-size: 0.76rem; padding: 6px 4px; }
 
     body.mode-mobile .mobile-bottom-bar {
       display: grid;
@@ -1902,154 +1216,70 @@
     .mb-tab-btn.active {
       background: var(--accent-cyan-bg);
       border-color: rgba(2, 132, 199, 0.35);
-      color: var(--accent-cyan);
+      color: #0369a1;
     }
   </style>
 </head>
 <body>
   <div class="app-shell">
     <div class="app-layout" id="app-layout">
-      <!-- SIDEBAR CO DINH BEN TRAI (DESKTOP) -->
-      <aside class="app-sidebar" id="app-sidebar" aria-label="Thanh điều hướng nhanh">
-        <div class="sb-head">
-          <div class="sb-brand sb-hide">Giải Thuật Lab</div>
-          <button class="sb-collapse-btn" id="btn-sb-collapse" title="Thu gọn hoặc mở rộng sidebar">&lt;&lt;</button>
-        </div>
-
-        <div class="sb-group">
-          <div class="sb-group-title sb-hide">1. Giải thuật</div>
-          <button class="sb-btn active" data-module="gen" title="1A. Thuật toán Sinh">
-            <span class="sb-hide">1A. Thuật toán Sinh</span>
-            <span class="sb-short-code">1A</span>
-          </button>
-          <button class="sb-btn" data-module="bt" title="1B. Quay lui (N-Hậu)">
-            <span class="sb-hide">1B. Quay lui (N-Hậu)</span>
-            <span class="sb-short-code">1B</span>
-          </button>
-          <button class="sb-btn" data-module="bst" title="2. Cây nhị phân (BST)">
-            <span class="sb-hide">2. Cây nhị phân</span>
-            <span class="sb-short-code">2</span>
-          </button>
-          <button class="sb-btn" data-module="graph" title="3. Stack / Queue & Đồ thị">
-            <span class="sb-hide">3. Stack / Queue / Đồ thị</span>
-            <span class="sb-short-code">3</span>
-          </button>
-        </div>
-
+      <!-- MUC LUC TUYEN TINH BEN TRAI (DESKTOP) -->
+      <aside class="app-sidebar" id="app-sidebar" aria-label="Mục lục tuyến tính">
+        <div class="sb-brand">Lộ trình học (1 -> 4)</div>
+        <div class="sb-group-title">Đọc từ trên xuống</div>
+        <button class="sb-toc-btn active" data-jump-sec="sec-step1">1. Đề bài & Cách làm</button>
+        <button class="sb-toc-btn" data-jump-sec="sec-step2">2. Xem chạy minh họa</button>
+        <button class="sb-toc-btn" data-jump-sec="sec-step3">3. Công thức & Lưu đồ</button>
+        <button class="sb-toc-btn" data-jump-sec="sec-step4">4. Trình bày tự luận</button>
         <div class="sb-divider"></div>
-
-        <div class="sb-group">
-          <div class="sb-group-title sb-hide">2. Khuôn mẫu & Ví dụ</div>
-          <div id="sb-case-nav" class="sb-group"></div>
-        </div>
-
-        <div class="sb-divider"></div>
-
-        <div class="sb-group">
-          <div class="sb-group-title sb-hide">3. Tầng nhận thức</div>
-          <button class="sb-btn active" data-sb-layer="layer1" title="Tầng 1: Công thức toán học">
-            <span class="sb-hide">Tầng 1: Công thức</span>
-            <span class="sb-short-code">T1</span>
-          </button>
-          <button class="sb-btn" data-sb-layer="layer2" title="Tầng 2: Lưu đồ SVG">
-            <span class="sb-hide">Tầng 2: Lưu đồ SVG</span>
-            <span class="sb-short-code">T2</span>
-          </button>
-          <button class="sb-btn" data-sb-layer="layer3" title="Tầng 3: Mã giả">
-            <span class="sb-hide">Tầng 3: Mã giả</span>
-            <span class="sb-short-code">T3</span>
-          </button>
-        </div>
-
-        <div class="sb-divider"></div>
-
-        <div class="sb-group">
-          <div class="sb-group-title sb-hide">4. Công cụ mở rộng</div>
-          <button class="sb-btn" data-toggle-panel="diag" title="Quy trình 3 bước nhận diện đề bài">
-            <span class="sb-hide">Nhận diện đề (3 bước)</span>
-            <span class="sb-pill sb-hide" id="pill-sb-diag">Ẩn</span>
-            <span class="sb-short-code">ND</span>
-          </button>
-          <button class="sb-btn" data-toggle-panel="blueprint" title="Chi tiết Thiết kế 4 bước và Sổ tay Dễ - Khó">
-            <span class="sb-hide">Thiết kế & Sổ tay</span>
-            <span class="sb-pill sb-hide" id="pill-sb-blueprint">Ẩn</span>
-            <span class="sb-short-code">TK</span>
-          </button>
-          <button class="sb-btn" data-toggle-panel="essay" title="Chế độ trình bày tự luận: Hình nháp + Bảng Trace">
-            <span class="sb-hide">Trình bày tự luận</span>
-            <span class="sb-pill sb-hide" id="pill-sb-essay">Ẩn</span>
-            <span class="sb-short-code">TL</span>
-          </button>
-        </div>
-
-        <div class="sb-divider"></div>
-
-        <div class="sb-group">
-          <button class="sb-btn" id="btn-sb-top" title="Cuộn lên đầu trang">
-            <span class="sb-hide">Lên đầu trang</span>
-            <span class="sb-short-code">Top</span>
-          </button>
-        </div>
+        <button class="sb-toc-btn" id="btn-sb-essay">Chỉ xem Tự luận</button>
+        <button class="sb-toc-btn" id="btn-sb-top">Lên đầu trang</button>
       </aside>
 
-      <!-- VUNG NOI DUNG CHINH -->
+      <!-- VUNG NOI DUNG CHINH TUYEN TINH 1 -> 2 -> 3 -> 4 -->
       <div class="app-main">
-        <!-- Dau trang sieu gon va co dinh khi cuon -->
+        <!-- THANH DIEU HUONG CO DINH DUY NHAT (LUON HIEN 4 GIAI THUAT + 3 VI DU) -->
         <header class="top-header">
           <div class="header-brand-row">
             <div>
               <div class="brand-title">Phòng Thí Nghiệm Giải Thuật Tương Tác</div>
-              <div class="brand-subtitle">Cốt lõi: Mô phỏng + Biến sống + 3 Tầng (Công thức - Lưu đồ - Mã giả)</div>
+              <div class="brand-subtitle">Học tuyến tính: 1. Đề & Cách làm -> 2. Xem chạy -> 3. Công thức -> 4. Trình bày tự luận</div>
             </div>
-            <div class="header-quick-tools" aria-label="Chọn nhanh mục tiêu học">
-              <button class="tool-chip-btn" data-toggle-panel="diag">1. Nhận diện đề</button>
-              <button class="tool-chip-btn" data-toggle-panel="blueprint">2. Cách làm & Ví dụ</button>
-              <button class="tool-chip-btn" data-toggle-panel="essay">3. Trình bày tự luận</button>
-            </div>
-            <div class="view-mode-switch" role="group" aria-label="Chọn chế độ hiển thị Desktop hoặc Mobile">
-              <button class="view-mode-btn active" id="btn-mode-desktop" data-view-mode="desktop">Desktop</button>
-              <button class="view-mode-btn" id="btn-mode-mobile" data-view-mode="mobile">Mobile</button>
+            <div class="header-actions">
+              <button class="tool-chip-btn" id="btn-toggle-quiz">Luyện 6 đề mẫu</button>
+              <button class="tool-chip-btn" id="btn-toggle-essay">Chỉ xem Tự luận</button>
+              <div class="view-mode-switch" role="group" aria-label="Chọn chế độ Desktop hoặc Mobile">
+                <button class="view-mode-btn active" id="btn-mode-desktop" data-view-mode="desktop">Desktop</button>
+                <button class="view-mode-btn" id="btn-mode-mobile" data-view-mode="mobile">Mobile</button>
+              </div>
             </div>
           </div>
-          <nav class="module-nav" id="module-nav" aria-label="Chọn khối kiến thức">
-            <button class="module-btn active" data-module="gen">1A. Sinh</button>
-            <button class="module-btn" data-module="bt">1B. Quay lui</button>
-            <button class="module-btn" data-module="bst">2. Cây BST</button>
-            <button class="module-btn" data-module="graph">3. Đồ thị</button>
-          </nav>
+
+          <div class="nav-strip-row">
+            <span class="nav-strip-label">Giải thuật:</span>
+            <nav class="module-nav" id="module-nav" aria-label="Chọn giải thuật">
+              <button class="module-btn active" data-module="gen">1A. Sinh</button>
+              <button class="module-btn" data-module="bt">1B. Quay lui</button>
+              <button class="module-btn" data-module="bst">2. Cây BST</button>
+              <button class="module-btn" data-module="graph">3. Đồ thị</button>
+            </nav>
+          </div>
+
+          <div class="nav-strip-row">
+            <span class="nav-strip-label">Bài học:</span>
+            <nav class="case-nav" id="case-nav" aria-label="Chọn Giải thuật chung hoặc Ví dụ 1, 2, 3"></nav>
+          </div>
         </header>
 
-        <!-- Dai tom tat cot loi 1 dong + chon nhanh vi du -->
-        <section class="core-summary-bar" aria-label="Tóm tắt bài toán hiện tại">
-          <div class="core-summary-text" id="core-summary-text">Đang khởi tạo...</div>
-          <div class="case-nav" id="case-nav" aria-label="Chọn bài toán mẫu"></div>
-        </section>
-
-        <!-- Bo nhan dien de bai nhanh (an mac dinh, bam de mo) -->
-        <section class="diag-panel is-hidden" id="diag-panel" aria-label="Bộ nhận diện dạng bài nhanh">
-          <div class="diag-header">
-            <div>
-              <div class="diag-title">Quy trình 3 bước đọc đề bất kỳ (Dễ đến Khó)</div>
-              <div class="diag-sub">1. So từ khóa chốt dạng bài - 2. Bóc tách Input / Output - 3. Thay đúng 2 đến 3 chỗ vào khuôn mẫu</div>
+        <!-- BUOC 1: DE BAI, NHAN DIEN & KHUON MAU CHUNG -->
+        <section class="linear-section" id="sec-step1" aria-label="Bước 1: Đề bài và Cách làm">
+          <div class="sec-header">
+            <div class="sec-title-wrap">
+              <span class="sec-step-num">Bước 1</span>
+              <h1 class="sec-title" id="bp-title">Khuôn mẫu chung: Thuật toán Sinh</h1>
+              <span class="mode-badge" id="sim-mode-badge">Giải thuật chung</span>
             </div>
-            <div class="diag-controls">
-              <button class="diag-tab-btn active" data-diag-tab="radar">Phễu nhận diện nhanh</button>
-              <button class="diag-tab-btn" data-diag-tab="matrix">Bảng đối chiếu Dễ - Khó</button>
-              <button class="diag-tab-btn" data-diag-tab="quiz">Luyện phản xạ 6 đề mẫu</button>
-              <button class="ctrl-btn" id="btn-toggle-diag" style="padding: 5px 10px; font-size: 0.78rem;">Đóng</button>
-            </div>
-          </div>
-          <div class="diag-body" id="diag-body"></div>
-        </section>
-
-        <!-- Ban thiet ke giai thuat chung & So tay (an mac dinh, bam de mo) -->
-        <section class="blueprint-panel is-hidden" id="blueprint-panel" aria-label="Bản thiết kế giải thuật và ví dụ áp dụng">
-          <div class="blueprint-top">
-            <div>
-              <div class="blueprint-heading" id="bp-title">Khuôn mẫu giải thuật chung</div>
-              <div class="blueprint-sub" id="bp-subtitle">Áp dụng trực tiếp khuôn mẫu 4 bước cho mọi bài toán cùng dạng</div>
-            </div>
-            <button class="ctrl-btn" data-toggle-panel="blueprint" style="padding: 5px 10px; font-size: 0.78rem;">Đóng</button>
+            <button class="tool-chip-btn" id="btn-step1-quiz">Luyện 6 đề mẫu</button>
           </div>
           <div class="blueprint-grid">
             <div class="bp-card">
@@ -2065,64 +1295,132 @@
               <div class="bp-content" id="bp-idea"></div>
             </div>
             <div class="bp-card bp-template">
-              <div class="bp-label">4. Thiết kế khuôn mẫu (Áp dụng ngay)</div>
+              <div class="bp-label">4. Cách làm theo khuôn mẫu</div>
               <div class="bp-content" id="bp-design"></div>
             </div>
           </div>
           <div class="playbook-strip" id="playbook-strip"></div>
+
+          <div class="diag-panel is-hidden" id="diag-panel" aria-label="Luyện nhận diện đề nhanh">
+            <div class="diag-header">
+              <div class="diag-title">Nhận diện đề nhanh (Dễ đến Khó)</div>
+              <div class="diag-controls">
+                <button class="diag-tab-btn active" data-diag-tab="radar">4 Dấu hiệu nhận diện</button>
+                <button class="diag-tab-btn" data-diag-tab="matrix">Bảng đối chiếu</button>
+                <button class="diag-tab-btn" data-diag-tab="quiz">Luyện 6 đề mẫu</button>
+                <button class="ctrl-btn" id="btn-close-diag" style="padding:4px 9px; font-size:0.76rem;">Đóng</button>
+              </div>
+            </div>
+            <div id="diag-body"></div>
+          </div>
         </section>
 
-        <!-- Khung lam viec 2 cot COT LOI (luon hien thi ngay dau trang) -->
-        <main class="workspace-grid" id="workspace-core">
-          <!-- COT TRAI: Mo phong tuong tac + Bang bien song duy nhat + Bang State Trace -->
-          <section class="panel" id="panel-sim" aria-label="Khu vực mô phỏng tương tác">
-            <div class="panel-header">
-              <div style="display:flex; flex-wrap:wrap; align-items:center; gap:8px;">
-                <h1 class="panel-title" id="sim-title">1A. Thuật toán Sinh xâu nhị phân</h1>
-                <span class="mode-badge" id="sim-mode-badge">Đang mô phỏng: Giải thuật chung</span>
-              </div>
-              <span class="step-badge" id="step-badge">Bước 1 / 1</span>
+        <!-- BUOC 2: XEM CHAY MINH HOA & BIEN SONG -->
+        <section class="linear-section" id="sec-step2" aria-label="Bước 2: Xem chạy minh họa">
+          <div class="sec-header">
+            <div class="sec-title-wrap">
+              <span class="sec-step-num">Bước 2</span>
+              <h2 class="sec-title" id="sim-title">Xem chạy từng bước & Biến sống</h2>
             </div>
+            <span class="step-badge" id="step-badge">Bước 1 / 1</span>
+          </div>
 
-            <div class="params-bar" id="params-bar"></div>
+          <div class="params-bar" id="params-bar"></div>
 
-            <div class="controls-bar">
-              <button class="ctrl-btn" id="btn-prev" title="Bước lùi">Bước lùi</button>
-              <button class="ctrl-btn primary" id="btn-play" title="Chạy tự động">Chạy tự động</button>
-              <button class="ctrl-btn" id="btn-next" title="Bước tiếp">Bước tiếp</button>
-              <button class="ctrl-btn" id="btn-reset" title="Đặt lại về bước đầu">Đặt lại</button>
-              <div class="slider-wrap">
-                <input type="range" id="step-slider" class="step-slider" min="0" max="0" value="0" aria-label="Thanh trượt chọn bước">
-              </div>
+          <div class="controls-bar">
+            <button class="ctrl-btn" id="btn-prev">Bước lùi</button>
+            <button class="ctrl-btn primary" id="btn-play">Chạy tự động</button>
+            <button class="ctrl-btn" id="btn-next">Bước tiếp</button>
+            <button class="ctrl-btn" id="btn-reset">Đặt lại</button>
+            <div class="slider-wrap">
+              <input type="range" id="step-slider" class="step-slider" min="0" max="0" value="0" aria-label="Thanh trượt chọn bước">
             </div>
+          </div>
 
-            <div class="template-tracker" id="template-tracker" aria-label="Tiến trình 4 bước khuôn mẫu"></div>
+          <div class="template-tracker" id="template-tracker" aria-label="Tiến trình 4 bước khuôn mẫu"></div>
+          <div class="step-caption" id="step-caption">Đang khởi tạo mô phỏng...</div>
 
-            <div class="step-caption" id="step-caption">Đang khởi tạo mô phỏng...</div>
-
+          <div class="sim-split">
             <div class="sim-stage">
               <div id="sim-visual"></div>
-              <div class="essay-draft-guide is-hidden" id="essay-draft-guide"></div>
-              <div class="hover-info" id="hover-info">Di chuột vào phần tử trên mô phỏng để xem chi tiết tương ứng.</div>
+              <div class="hover-info" id="hover-info">Di chuột vào phần tử trên hình để xem chi tiết.</div>
             </div>
-
-            <!-- Bang bien song DUY NHAT -->
             <div class="live-vars-section">
-              <div class="live-vars-header">
-                <div class="live-vars-title">Bảng biến sống (Live Variables)</div>
-                <div class="live-vars-hint">Nhấp vào biến để nhảy tới vị trí xuất hiện ở cột bên phải</div>
-              </div>
+              <div class="live-vars-title">Bảng biến sống</div>
+              <div class="live-vars-hint">Nhấp vào biến để nhảy tới vị trí ở Bước 3</div>
               <div class="vars-grid" id="live-vars-grid"></div>
             </div>
+          </div>
+        </section>
 
-            <!-- Bang Trace Trang thai (an mac dinh, bam de mo) -->
-            <div class="trace-section is-hidden" id="trace-section" aria-label="Bảng trace trạng thái giải bằng tay">
+        <!-- BUOC 3: CONG THUC, LUU DO & MA GIA -->
+        <section class="linear-section" id="sec-step3" aria-label="Bước 3: Công thức, Lưu đồ và Mã giả">
+          <div class="sec-header">
+            <div class="sec-title-wrap">
+              <span class="sec-step-num">Bước 3</span>
+              <h2 class="sec-title">Công thức toán học, Lưu đồ & Mã giả</h2>
+            </div>
+          </div>
+
+          <div class="layer-tabs" role="tablist">
+            <button class="layer-tab-btn active" role="tab" data-layer="layer1" aria-selected="true">Công thức & Ký hiệu</button>
+            <button class="layer-tab-btn" role="tab" data-layer="layer2" aria-selected="false">Lưu đồ (SVG)</button>
+            <button class="layer-tab-btn" role="tab" data-layer="layer3" aria-selected="false">Mã giả</button>
+          </div>
+
+          <div class="layer-pane active" id="pane-layer1">
+            <div class="formula-list" id="formula-list"></div>
+            <div class="symbol-table-wrap">
+              <table class="symbol-table">
+                <thead>
+                  <tr>
+                    <th style="width: 12%;">Ký hiệu</th>
+                    <th style="width: 24%;">Tên đại lượng</th>
+                    <th style="width: 16%;">Kiểu</th>
+                    <th style="width: 48%;">Ý nghĩa</th>
+                  </tr>
+                </thead>
+                <tbody id="symbol-tbody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div class="layer-pane" id="pane-layer2">
+            <div class="flowchart-container" id="flowchart-container"></div>
+          </div>
+
+          <div class="layer-pane" id="pane-layer3">
+            <div class="code-container" id="code-container"></div>
+          </div>
+        </section>
+
+        <!-- BUOC 4: TRINH BAY TU LUAN (HINH NHAP TUNG BUOC + BANG STATE TRACE) -->
+        <section class="linear-section" id="sec-step4" aria-label="Bước 4: Trình bày tự luận">
+          <div class="sec-header">
+            <div class="sec-title-wrap">
+              <span class="sec-step-num">Bước 4</span>
+              <h2 class="sec-title">Trình bày tự luận (Hình nháp & Bảng viết tay)</h2>
+            </div>
+            <span class="step-badge" id="essay-step-badge">Bước 1 / 1</span>
+          </div>
+
+          <div class="essay-split">
+            <div class="essay-draft-panel">
+              <div class="essay-mini-controls">
+                <button class="ctrl-btn" id="btn-essay-prev">Bước lùi</button>
+                <button class="ctrl-btn primary" id="btn-essay-next">Bước tiếp</button>
+                <button class="ctrl-btn" id="btn-essay-reset">Đặt lại</button>
+              </div>
+              <div id="essay-visual"></div>
+              <div class="essay-draft-guide" id="essay-draft-guide"></div>
+            </div>
+
+            <div class="trace-section" id="trace-section">
               <div class="trace-header">
-                <div class="trace-title">Bảng State Trace (Kẻ bảng giải bài bằng tay)</div>
+                <div class="trace-title">Bảng State Trace (Điền tuyến tính bằng tay)</div>
                 <div class="trace-toolbar">
                   <button class="trace-toggle-btn active" id="btn-trace-compact">Bản rút gọn (Viết tay)</button>
                   <button class="trace-toggle-btn" id="btn-trace-all">Hiện toàn bảng</button>
-                  <button class="trace-toggle-btn" data-toggle-panel="trace">Đóng</button>
                 </div>
               </div>
               <div class="trace-io-strip" id="trace-io-strip"></div>
@@ -2132,54 +1430,20 @@
                   <tbody id="trace-tbody"></tbody>
                 </table>
               </div>
-              <div class="trace-foot-tip" id="trace-foot-tip">Nhấp vào bất kỳ dòng nào trong bảng để nhảy trực tiếp tới bước tương ứng trên mô phỏng.</div>
+              <div class="trace-foot-tip" id="trace-foot-tip"></div>
             </div>
-          </section>
-
-          <!-- COT PHAI: 3 Tang nhan thuc -->
-          <section class="panel" id="panel-layers" aria-label="Ba tầng nhận thức">
-            <div class="layer-tabs" role="tablist">
-              <button class="layer-tab-btn active" role="tab" data-layer="layer1" aria-selected="true">Tầng 1: Công thức</button>
-              <button class="layer-tab-btn" role="tab" data-layer="layer2" aria-selected="false">Tầng 2: Lưu đồ (SVG)</button>
-              <button class="layer-tab-btn" role="tab" data-layer="layer3" aria-selected="false">Tầng 3: Mã giả</button>
-            </div>
-
-            <div class="layer-pane active" id="pane-layer1">
-              <div class="formula-list" id="formula-list"></div>
-              <div class="symbol-table-wrap">
-                <table class="symbol-table">
-                  <thead>
-                    <tr>
-                      <th style="width: 12%;">Ký hiệu</th>
-                      <th style="width: 22%;">Tên đại lượng</th>
-                      <th style="width: 16%;">Đơn vị / Kiểu</th>
-                      <th style="width: 50%;">Ý nghĩa và tác động đến mô phỏng</th>
-                    </tr>
-                  </thead>
-                  <tbody id="symbol-tbody"></tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="layer-pane" id="pane-layer2">
-              <div class="flowchart-container" id="flowchart-container"></div>
-            </div>
-
-            <div class="layer-pane" id="pane-layer3">
-              <div class="code-container" id="code-container"></div>
-            </div>
-          </section>
-        </main>
+          </div>
+        </section>
       </div>
     </div>
   </div>
 
-  <!-- THANH TAB CO DINH DUOI DAY CHO CHE DO MOBILE -->
-  <nav class="mobile-bottom-bar" id="mobile-bottom-bar" aria-label="Điều hướng theo bước học">
-    <button class="mb-tab-btn active" data-mb-action="sim">1. Xem chạy</button>
-    <button class="mb-tab-btn" data-mb-action="layers">2. Công thức</button>
-    <button class="mb-tab-btn" data-mb-action="guide">3. Cách làm</button>
-    <button class="mb-tab-btn" data-mb-action="essay">4. Tự luận</button>
+  <!-- THANH TAB DUOI DAY CHO MOBILE: DUNG THU TU TUYEN TINH 1 -> 2 -> 3 -> 4 -->
+  <nav class="mobile-bottom-bar" id="mobile-bottom-bar" aria-label="Điều hướng tuyến tính trên điện thoại">
+    <button class="mb-tab-btn active" data-mb-sec="sec-step1">1. Đề & Cách</button>
+    <button class="mb-tab-btn" data-mb-sec="sec-step2">2. Xem chạy</button>
+    <button class="mb-tab-btn" data-mb-sec="sec-step3">3. Công thức</button>
+    <button class="mb-tab-btn" data-mb-sec="sec-step4">4. Tự luận</button>
   </nav>
 
   <!-- KaTeX JS (CDN chinh + du phong, khong chan hien thi ban dau) -->
@@ -2207,9 +1471,6 @@
   </script>
 
   <script>
-    // =========================================================================
-    // TIEN ICH RENDER KATEX AN TOAN (CHO CA 3 TANG)
-    // =========================================================================
     function renderMath(tex, displayMode) {
       if (window.katex) {
         try {
@@ -2232,7 +1493,6 @@
         .replace(/>/g, '&gt;');
     }
 
-    // Render cong thuc dat trong dau $...$ va code ngan trong dau `...`
     function renderInlineMathText(text) {
       var parts = String(text).split(/(\$[^$]+\$|`[^`]+`)/g);
       return parts.map(function(part) {
@@ -2246,7 +1506,6 @@
       }).join('');
     }
 
-    // Tu dong chuyen cac ten bien co chi so duoi (N_g, B_g, r_b, u_t, D_d...) sang LaTeX
     var VAR_TOKEN_REGEX = /\b([A-Za-z]_[gbtd])\b/g;
     function renderVarsToLatex(text) {
       var escaped = escapeHtml(text);
@@ -2298,15 +1557,12 @@
       activeModule: 'gen',
       activeLayer: 'layer1',
       activeCaseIndex: 0,
-      activeMobileTab: 'sim',
+      activeMobileSec: 'sec-step1',
       hasInteracted: false,
-      viewMode: window.innerWidth <= 768 ? 'mobile' : 'desktop',
-      sidebarCollapsed: false,
-      diagTab: 'radar',
-      diagOpen: false,
-      blueprintOpen: false,
-      traceOpen: false,
       essayMode: false,
+      diagOpen: false,
+      viewMode: window.innerWidth <= 768 ? 'mobile' : 'desktop',
+      diagTab: 'quiz',
       quizIndex: 0,
       quizPicked: null,
       traceCompact: true,
@@ -2323,9 +1579,6 @@
       }
     };
 
-    // =========================================================================
-    // SO TAY DOC DE -> NHAN DIEN DANG BAI -> BOC IN/OUT -> NANG CAP DE DEN KHO
-    // =========================================================================
     var MODULE_PLAYBOOK = {
       gen: {
         triggers: [
@@ -2488,64 +1741,60 @@
         {
           tab: 'Giải thuật chung',
           title: 'Khuôn mẫu chung: Thuật toán Sinh (Generation)',
-          subtitle: 'Dùng khi cần liệt kê toàn bộ cấu hình theo thứ tự từ điển mà không cần đệ quy',
-          problem: 'Liệt kê toàn bộ các cấu hình rời rạc có thứ tự (nhị phân, tổ hợp, hoán vị) từ cấu hình nhỏ nhất đến lớn nhất.',
-          input: 'Kích thước cấu hình $N_g$ (số nguyên dương) và tập giá trị hợp lệ của mỗi phần tử.',
-          output: 'Danh sách đầy đủ tất cả các cấu hình hợp lệ (với xâu nhị phân là $2^{N_g}$ cấu hình).',
-          idea: 'Tìm vị trí ngoài cùng bên phải còn tăng được ($p_g$), tăng vị trí đó lên một bậc và đặt toàn bộ phần đuôi về giá trị nhỏ nhất.',
+          problem: 'Liệt kê toàn bộ cấu hình rời rạc theo thứ tự từ điển từ nhỏ nhất đến lớn nhất.',
+          input: 'Kích thước $N_g$ (nguyên dương) và tập giá trị hợp lệ.',
+          output: 'Đủ $2^{N_g}$ cấu hình nhị phân.',
+          idea: 'Tìm vị trí $p_g$ ngoài cùng bên phải còn tăng được, lật lên 1 và đặt toàn bộ đuôi về 0.',
           design: [
-            'Bước 1: Khởi tạo cấu hình đầu tiên nhỏ nhất (toàn số 0) và cờ dừng $E_g = 0$.',
-            'Bước 2: Quét từ phải sang trái để tìm vị trí $p_g$ đầu tiên chưa đạt giá trị cực đại.',
-            'Bước 3: Nếu $p_g < 0$ thì đặt $E_g = 1$ và dừng; ngược lại tăng phần tử tại $p_g$.',
-            'Bước 4: Đặt lại toàn bộ phần tử sau $p_g$ về giá trị nhỏ nhất, ghi nhận cấu hình và lặp lại.'
+            'Khởi tạo cấu hình đầu toàn 0, $E_g = 0$.',
+            'Quét phải sang trái tìm $p_g$ có bit 0.',
+            'Nếu $p_g < 0$ thì đặt $E_g = 1$ và dừng.',
+            'Lật $B_g[p_g] \\leftarrow 1$, đặt đuôi về 0, tăng $C_g$.'
           ],
           applyParams: { Ng: 3, bitLabels: null }
         },
         {
           tab: 'Ví dụ 1: Tập con',
           title: 'Ví dụ 1: Liệt kê mọi cách chọn tập con (Bitmask)',
-          subtitle: 'Mỗi bit $B_g[i]$ đại diện cho việc Chọn (1) hay Bỏ (0) món đồ thứ $i$',
-          problem: 'Cho 3 món đồ {Áo, Quần, Mũ}. Liệt kê toàn bộ các cách chọn ra một tập con bất kỳ.',
-          input: 'Số lượng món đồ $N_g = 3$ với nhãn [Áo, Quần, Mũ].',
-          output: '8 tập con tương ứng 8 xâu nhị phân từ 000 (rỗng) đến 111 ({Áo, Quần, Mũ}).',
-          idea: 'Gán mỗi món đồ ứng với 1 bit trong $B_g$. Chạy đúng khuôn mẫu sinh nhị phân độ dài 3 sẽ tự động có đủ 8 tập con.',
+          problem: 'Cho 3 món đồ {Áo, Quần, Mũ}. Liệt kê toàn bộ 8 cách chọn tập con.',
+          input: '$N_g = 3$, nhãn [Áo, Quần, Mũ].',
+          output: '8 tập con từ 000 (rỗng) đến 111 ({Áo, Quần, Mũ}).',
+          idea: 'Gán mỗi món đồ ứng với 1 bit trong $B_g$ (0 = Bỏ, 1 = Chọn) và chạy đúng khuôn mẫu.',
           design: [
-            'Lắp Input: $N_g = 3$, ánh xạ $B_g[0]$=Áo, $B_g[1]$=Quần, $B_g[2]$=Mũ.',
-            'Khởi tạo $B_g = [0, 0, 0]$ (chưa chọn món nào).',
-            'Lặp bước tìm $p_g$, lật bit 0 sang 1 và reset đuôi về 0.',
-            'Mỗi lần tăng $C_g$, đọc các vị trí có $B_g[k_g] = 1$ để in ra tập con.'
+            'Ánh xạ $B_g[0]$=Áo, $B_g[1]$=Quần, $B_g[2]$=Mũ.',
+            'Khởi tạo $B_g = [0, 0, 0]$.',
+            'Lặp bước tìm $p_g$, lật bit và reset đuôi.',
+            'In các món có bit bằng 1 ở mỗi cấu hình.'
           ],
           applyParams: { Ng: 3, bitLabels: ['Áo', 'Quần', 'Mũ'] }
         },
         {
           tab: 'Ví dụ 2: Bảng chân trị',
-          title: 'Ví dụ 2: Sinh bảng chân trị cho 2 biến mệnh đề (P, Q)',
-          subtitle: '0 là Sai (False), 1 là Đúng (True)',
-          problem: 'Cho 2 biến logic P và Q. Liệt kê đầy đủ toàn bộ các tổ hợp Đúng/Sai để lập bảng chân trị.',
-          input: 'Số biến mệnh đề $N_g = 2$ với nhãn [P, Q].',
-          output: '4 dòng trạng thái: (0,0), (0,1), (1,0), (1,1).',
-          idea: 'Giữ nguyên hoàn toàn 4 công thức (F1)-(F4) và chỉ cần thay tham số $N_g = 2$.',
+          title: 'Ví dụ 2: Sinh bảng chân trị 2 biến (P, Q)',
+          problem: 'Cho 2 biến logic P và Q. Liệt kê đủ 4 tổ hợp Đúng/Sai.',
+          input: '$N_g = 2$, nhãn [P, Q].',
+          output: '4 trạng thái: 00, 01, 10, 11.',
+          idea: 'Giữ nguyên toàn bộ khuôn mẫu, chỉ thay đúng tham số $N_g = 2$.',
           design: [
-            'Lắp Input: $N_g = 2$, ánh xạ $B_g[0]$=P, $B_g[1]$=Q.',
-            'Bắt đầu từ trạng thái (Sai, Sai) tức $B_g = [0, 0]$.',
-            'Áp dụng công thức (F2)-(F4) để sinh lần lượt 01, 10, 11.',
-            'Khi gặp [1, 1], $p_g = -1$ và thuật toán dừng ở $C_g = 4$.'
+            'Ánh xạ $B_g[0]$=P, $B_g[1]$=Q.',
+            'Bắt đầu từ $B_g = [0, 0]$.',
+            'Chạy (F2)-(F4) sinh 01, 10, 11.',
+            'Gặp [1, 1] thì $p_g = -1$ và dừng ở $C_g = 4$.'
           ],
           applyParams: { Ng: 2, bitLabels: ['P', 'Q'] }
         },
         {
           tab: 'Ví dụ 3: 4 công tắc',
-          title: 'Ví dụ 3: Thử toàn bộ trạng thái khóa 4 công tắc điện',
-          subtitle: 'Vét cạn có thứ tự 16 tổ hợp Bật/Tắt',
-          problem: 'Bảng điều khiển có 4 công tắc (S1..S4), mỗi công tắc Tắt (0) hoặc Bật (1). Liệt kê toàn bộ 16 tổ hợp.',
-          input: 'Số công tắc $N_g = 4$ với nhãn [S1, S2, S3, S4].',
+          title: 'Ví dụ 3: Thử toàn bộ khóa 4 công tắc điện',
+          problem: 'Bảng có 4 công tắc (S1..S4), mỗi công tắc Tắt (0) hoặc Bật (1). Liệt kê 16 tổ hợp.',
+          input: '$N_g = 4$, nhãn [S1, S2, S3, S4].',
           output: '16 trạng thái liên tiếp từ 0000 đến 1111.',
-          idea: 'Mã nguồn và lưu đồ không đổi một dòng nào; chỉ đổi duy nhất tham số $N_g = 4$.',
+          idea: 'Không đổi dòng code hay công thức nào, chỉ thay $N_g = 4$.',
           design: [
-            'Lắp Input: $N_g = 4$, ánh xạ $B_g[0..3]$ = S1..S4.',
-            'Khởi tạo toàn bộ 4 công tắc ở trạng thái Tắt [0, 0, 0, 0].',
-            'Mỗi bước chạy (F2)-(F4) tạo ra tổ hợp kế tiếp theo hệ nhị phân.',
-            'Kiểm tra từng cấu hình trong 16 bước cho đến khi $E_g = 1$.'
+            'Ánh xạ $B_g[0..3]$ = S1..S4.',
+            'Khởi tạo 4 công tắc Tắt [0, 0, 0, 0].',
+            'Lặp (F2)-(F4) tạo tổ hợp kế tiếp.',
+            'Dừng khi toàn bộ là 1 ($C_g = 16$).'
           ],
           applyParams: { Ng: 4, bitLabels: ['S1', 'S2', 'S3', 'S4'] }
         }
@@ -2553,65 +1802,61 @@
       bt: [
         {
           tab: 'Giải thuật chung',
-          title: 'Khuôn mẫu chung: Thuật toán Quay lui (Backtracking)',
-          subtitle: 'Xây dựng nghiệm từng bước và cắt nhánh sai ngay lập tức',
-          problem: 'Tìm một hoặc tất cả cấu hình thỏa mãn ràng buộc bằng cách thử từng lựa chọn theo từng tầng quyết định.',
-          input: 'Kích thước bài toán $N_b$ và hàm kiểm tra ràng buộc IsSafe.',
-          output: 'Toàn bộ cấu hình $Q_b$ thỏa mãn ràng buộc và tổng số nghiệm $M_b$.',
-          idea: 'Tại mỗi tầng $r_b$, thử các ứng viên $c_b$. Nếu hợp lệ thì ghi nhận và đi sâu sang $r_b + 1$; khi xong nhánh con thì hoàn tác gỡ lựa chọn.',
+          title: 'Khuôn mẫu chung: Thuật toán Quay lui (N-Hậu)',
+          problem: 'Tìm tất cả cấu hình thỏa mãn ràng buộc bằng cách thử từng tầng và cắt nhánh sai.',
+          input: 'Kích thước $N_b$ và hàm kiểm tra `IsSafe`.',
+          output: 'Các mảng nghiệm $Q_b$ và tổng số nghiệm $M_b$.',
+          idea: 'Ở hàng $r_b$ thử từng cột $c_b$. An toàn thì đặt và đi xuống; ngõ cụt thì gỡ hậu quay lui.',
           design: [
-            'Bước 1 (Điểm dừng): Nếu $r_b = N_b$ thì ghi nhận nghiệm ($M_b = M_b + 1$) và quay về.',
-            'Bước 2 (Vét ứng viên): Duyệt mọi lựa chọn $c_b$ có thể tại tầng $r_b$.',
-            'Bước 3 (Cắt nhánh): Kiểm tra $S_b$ = IsSafe; nếu $S_b = 0$ thì bỏ qua ngay.',
-            'Bước 4 (Thử và Hoàn tác): Gán $Q_b[r_b] = c_b$, gọi đệ quy $r_b + 1$, sau đó gỡ $Q_b[r_b] = -1$.'
+            'Nếu $r_b = N_b$ thì ghi nghiệm ($M_b + 1$).',
+            'Duyệt cột $c_b$ từ $0$ đến $N_b - 1$.',
+            'Kiểm tra $S_b$: nếu $0$ thì cắt nhánh ngay.',
+            'Gán $Q_b[r_b] = c_b$, đệ quy $r_b + 1$, rồi gỡ về $-1$.'
           ],
           applyParams: { Nb: 4, stopAtFirst: 0 }
         },
         {
           tab: 'Ví dụ 1: 4 trạm phát sóng',
-          title: 'Ví dụ 1: Đặt 4 trạm phát sóng không nhiễu trên lưới 4x4',
-          subtitle: 'Tìm toàn bộ phương án hợp lệ trên lưới 4x4',
-          problem: 'Đặt 4 trạm phát sóng vào lưới 4x4 sao cho không có 2 trạm cùng hàng, cùng cột hoặc cùng đường chéo.',
-          input: 'Kích thước lưới $N_b = 4$, chế độ tìm tất cả nghiệm.',
-          output: 'Đúng 2 phương án an toàn: [1, 3, 0, 2] và [2, 0, 3, 1] ($M_b = 2$).',
-          idea: 'Mỗi hàng $r_b$ đặt đúng 1 trạm. Hàm IsSafe kiểm tra cột và 2 đường chéo để loại bỏ sớm nhánh sai.',
+          title: 'Ví dụ 1: Đặt 4 trạm phát sóng trên lưới 4x4',
+          problem: 'Đặt 4 trạm vào lưới 4x4 sao cho không cùng hàng, cột hoặc đường chéo.',
+          input: '$N_b = 4$, tìm tất cả nghiệm.',
+          output: '2 phương án: [1, 3, 0, 2] và [2, 0, 3, 1] ($M_b = 2$).',
+          idea: 'Mỗi hàng đặt 1 trạm. Hàm `IsSafe` cắt sớm mọi nhánh nhiễu cột/chéo.',
           design: [
-            'Lắp Input: $N_b = 4$, mảng trạng thái $Q_b = [-1, -1, -1, -1]$.',
-            'Tầng $r_b = 0$ thử cột 0 -> ngõ cụt ở hàng 2 -> tự động quay lui.',
-            'Thử cột 1 ở hàng 0 -> đi sâu đến $r_b = 4$ -> nghiệm [1, 3, 0, 2].',
-            'Tiếp tục gỡ hậu quay lui để tìm nốt nghiệm đối xứng [2, 0, 3, 1].'
+            'Khởi tạo $Q_b = [-1, -1, -1, -1]$.',
+            'Cột 0 hàng 0 bị kẹt ở hàng 2 -> quay lui.',
+            'Cột 1 hàng 0 ra nghiệm [1, 3, 0, 2].',
+            'Tiếp tục quay lui tìm nghiệm [2, 0, 3, 1].'
           ],
           applyParams: { Nb: 4, stopAtFirst: 0 }
         },
         {
           tab: 'Ví dụ 2: 5 robot tìm nhanh',
           title: 'Ví dụ 2: Phân công nhanh 5 robot trên lưới 5x5',
-          subtitle: 'Dừng sớm ngay khi gặp nghiệm đầu tiên',
-          problem: 'Bố trí 5 robot trên sàn 5x5 không cắt hướng dọc, ngang, chéo; chỉ cần 1 phương án hợp lệ đầu tiên.',
-          input: 'Kích thước lưới $N_b = 5$, chế độ dừng ở nghiệm đầu tiên.',
-          output: 'Nghiệm đầu tiên $Q_b = [0, 2, 4, 1, 3]$ với $M_b = 1$.',
-          idea: 'Giữ nguyên hoàn toàn bộ khung quay lui N-Hậu, chỉ thêm cờ dừng ngay khi $M_b = 1$.',
+          problem: 'Bố trí 5 robot trên sàn 5x5 không cắt hướng; chỉ cần 1 phương án đầu tiên.',
+          input: '$N_b = 5$, bật dừng ở nghiệm đầu.',
+          output: 'Nghiệm [0, 2, 4, 1, 3] với $M_b = 1$.',
+          idea: 'Giữ nguyên khung N-Hậu, thêm điều kiện dừng ngay khi $M_b = 1$.',
           design: [
-            'Lắp Input: $N_b = 5$ và bật chế độ dừng sớm.',
-            'Đặt robot lần lượt (0,0) -> (1,2) -> (2,4) -> (3,1) -> (4,3).',
-            'Chạm điều kiện $r_b = 5$, ghi nhận $M_b = 1$ và kết thúc lập tức.',
-            'Tiết kiệm thời gian duyệt 9 nghiệm còn lại.'
+            'Đặt $N_b = 5$ và chế độ dừng sớm.',
+            'Thử (0,0) -> (1,2) -> (2,4) -> (3,1) -> (4,3).',
+            'Chạm $r_b = 5$, tăng $M_b = 1$.',
+            'Dừng ngay không tìm 9 nghiệm còn lại.'
           ],
           applyParams: { Nb: 5, stopAtFirst: 1 }
         },
         {
           tab: 'Ví dụ 3: Chứng minh 3x3 vô nghiệm',
-          title: 'Ví dụ 3: Kiểm chứng lưới 3x3 không tồn tại nghiệm',
-          subtitle: 'Chứng minh bài toán vô nghiệm ($M_b = 0$)',
-          problem: 'Kiểm tra xem có thể đặt 3 quân hậu không ăn nhau trên bàn cờ 3x3 hay không.',
-          input: 'Kích thước lưới $N_b = 3$, tìm tất cả nghiệm.',
-          output: 'Không có nghiệm nào ($M_b = 0$).',
-          idea: 'Mọi nhánh thử trên lưới 3x3 đều bị IsSafe chặn lại trước khi đạt $r_b = 3$.',
+          title: 'Ví dụ 3: Kiểm chứng lưới 3x3 vô nghiệm',
+          problem: 'Kiểm tra xem có thể đặt 3 quân hậu không ăn nhau trên bàn cờ 3x3 không.',
+          input: '$N_b = 3$, tìm tất cả nghiệm.',
+          output: 'Không có nghiệm ($M_b = 0$).',
+          idea: 'Mọi nhánh thử trên lưới 3x3 đều bị `IsSafe` chặn trước khi $r_b = 3$.',
           design: [
-            'Lắp Input: $N_b = 3$.',
-            'Thử cột 0 ở hàng 0 -> hàng 2 bị chặn hết cả 3 cột -> quay lui.',
-            'Thử cột 1 ở hàng 0 -> hàng 1 bị chặn hết cả 3 cột -> quay lui ngay.',
-            'Thử cột 2 đối xứng cột 0 -> kết luận $M_b = 0$.'
+            'Đặt $N_b = 3$.',
+            'Thử cột 0 hàng 0 -> hàng 2 bị chặn hết.',
+            'Thử cột 1 hàng 0 -> hàng 1 bị chặn hết.',
+            'Kết luận $M_b = 0$.'
           ],
           applyParams: { Nb: 3, stopAtFirst: 0 }
         }
@@ -2619,65 +1864,61 @@
       bst: [
         {
           tab: 'Giải thuật chung',
-          title: 'Khuôn mẫu chung: Cây nhị phân tìm kiếm (BST) và Duyệt đệ quy',
-          subtitle: 'Lưu trữ có thứ tự động và duyệt theo 3 thứ tự chuẩn',
-          problem: 'Tổ chức tập khóa vào cây BST (Trái < Gốc < Phải) và duyệt theo Preorder, Inorder hoặc Postorder.',
-          input: 'Mảng khóa $A_t$ và chế độ duyệt $m_t$.',
-          output: 'Cấu trúc cây BST và danh sách khóa $O_t$ theo đúng thứ tự duyệt.',
-          idea: 'Mọi phép duyệt dùng chung 1 khung đệ quy 3 lệnh (Thăm nút, Đi trái, Đi phải); chỉ đổi vị trí lệnh Thăm nút.',
+          title: 'Khuôn mẫu chung: Cây nhị phân (BST) & Duyệt đệ quy',
+          problem: 'Tổ chức tập khóa vào cây BST (Trái < Gốc < Phải) và duyệt theo Pre, In, Postorder.',
+          input: 'Mảng khóa $A_t$ và chế độ $m_t$.',
+          output: 'Cây BST và danh sách khóa $O_t$.',
+          idea: 'Dùng chung 1 khung đệ quy (Thăm nút, Trái, Phải), chỉ đổi vị trí lệnh ghi $O_t$.',
           design: [
-            'Bước 1 (Dựng cây): Chèn lần lượt khóa $x_t$ trong $A_t$ (nhỏ rẽ trái, lớn rẽ phải).',
-            'Bước 2 (Điểm dừng): Nếu $u_t = \\text{null}$ thì quay về ngay.',
-            'Bước 3 (Khung 3 lệnh): Đặt lệnh ghi $O_t$ ở đầu (Pre), giữa (In) hoặc cuối (Post).',
-            'Bước 4 (Đệ quy hai nhánh): Gọi Traverse cho nhánh trái và phải với $h_t + 1$.'
+            'Chèn lần lượt khóa $A_t$ vào cây BST.',
+            'Nếu $u_t = \\text{null}$ thì quay về cha.',
+            'Đặt lệnh ghi $O_t$ ở đầu (Pre), giữa (In) hoặc cuối (Post).',
+            'Đệ quy trái và phải với $h_t + 1$.'
           ],
           applyParams: { keysText: '50, 30, 70, 20, 40, 60, 80', mode: 'Inorder' }
         },
         {
           tab: 'Ví dụ 1: Sắp xếp điểm số',
-          title: 'Ví dụ 1: Xuất bảng điểm tăng dần bằng duyệt Inorder',
-          subtitle: 'Inorder (Trái - Gốc - Phải) luôn trả về dãy tăng dần',
-          problem: 'Cho danh sách điểm [65, 40, 85, 30, 55, 75, 95]. Xuất bảng điểm theo thứ tự tăng dần.',
-          input: 'Mảng $A_t = [65, 40, 85, 30, 55, 75, 95]$, $m_t = \\text{Inorder}$.',
-          output: 'Danh sách $O_t = [30, 40, 55, 65, 75, 85, 95]$.',
-          idea: 'Vì mọi nút trái nhỏ hơn gốc và mọi nút phải lớn hơn gốc, duyệt Inorder tự động sắp xếp tăng dần trong $O(n)$.',
+          title: 'Ví dụ 1: Xuất bảng điểm tăng dần bằng Inorder',
+          problem: 'Cho danh sách điểm [65, 40, 85, 30, 55, 75, 95]. Xuất dãy tăng dần.',
+          input: '$A_t = [65, 40, 85, 30, 55, 75, 95]$, $m_t = \\text{Inorder}$.',
+          output: '$O_t = [30, 40, 55, 65, 75, 85, 95]$.',
+          idea: 'Inorder (Trái - Gốc - Phải) trên BST tự động xuất dãy tăng dần.',
           design: [
-            'Lắp Input: Chèn mảng điểm vào BST với gốc 65.',
-            'Chọn $m_t = \\text{Inorder}$ (đi hết trái trước khi ghi nhận nút).',
-            'Nút nhỏ nhất 30 được ghi vào $O_t$ đầu tiên.',
-            'Kết thúc duyệt, $O_t$ là bảng điểm đã sắp xếp.'
+            'Dựng cây BST với gốc 65.',
+            'Chọn $m_t = \\text{Inorder}$.',
+            'Đi hết trái để ghi 30 đầu tiên.',
+            'Thu được bảng điểm tăng dần.'
           ],
           applyParams: { keysText: '65, 40, 85, 30, 55, 75, 95', mode: 'Inorder' }
         },
         {
           tab: 'Ví dụ 2: Sao lưu cây',
-          title: 'Ví dụ 2: Xuất chuỗi sao lưu cấu trúc cây bằng Preorder',
-          subtitle: 'Preorder (Gốc - Trái - Phải) giữ thứ tự cha trước con',
-          problem: 'Ghi cấu trúc cây [45, 25, 65, 15, 35] ra tệp sao cho khi chèn lại thu được cây giống hệt.',
-          input: 'Mảng $A_t = [45, 25, 65, 15, 35]$, $m_t = \\text{Preorder}$.',
-          output: 'Chuỗi sao lưu $O_t = [45, 25, 15, 35, 65]$.',
-          idea: 'Để khôi phục đúng hình dạng BST, nút cha phải xuất hiện trước nút con -> chọn Preorder.',
+          title: 'Ví dụ 2: Sao lưu cấu trúc cây bằng Preorder',
+          problem: 'Ghi cây [45, 25, 65, 15, 35] ra tệp sao cho chèn lại thu được cây y hệt.',
+          input: '$A_t = [45, 25, 65, 15, 35]$, $m_t = \\text{Preorder}$.',
+          output: '$O_t = [45, 25, 15, 35, 65]$.',
+          idea: 'Preorder (Gốc - Trái - Phải) đảm bảo nút cha luôn được ghi trước nút con.',
           design: [
-            'Lắp Input: Dựng cây BST từ [45, 25, 65, 15, 35].',
-            'Chọn $m_t = \\text{Preorder}$ (ghi $x_t$ trước khi đệ quy trái và phải).',
-            'Gốc 45 ghi đầu tiên, tiếp đến cây con trái, rồi cây con phải.',
-            'Chèn lại $O_t$ vào cây rỗng sẽ khôi phục nguyên trạng.'
+            'Dựng cây từ [45, 25, 65, 15, 35].',
+            'Chọn $m_t = \\text{Preorder}$.',
+            'Ghi gốc 45 trước khi đi 2 nhánh.',
+            'Chèn lại $O_t$ sẽ dựng đúng cây cũ.'
           ],
           applyParams: { keysText: '45, 25, 65, 15, 35', mode: 'Preorder' }
         },
         {
           tab: 'Ví dụ 3: Xóa thư mục',
-          title: 'Ví dụ 3: Giải phóng bộ nhớ cây theo thứ tự Postorder',
-          subtitle: 'Postorder (Trái - Phải - Gốc) xử lý con trước cha sau',
-          problem: 'Xóa cây thư mục [50, 20, 80, 10, 30, 70] sao cho chỉ xóa cha sau khi đã xóa sạch con.',
-          input: 'Mảng $A_t = [50, 20, 80, 10, 30, 70]$, $m_t = \\text{Postorder}$.',
-          output: 'Thứ tự xóa an toàn $O_t = [10, 30, 20, 70, 80, 50]$.',
-          idea: 'Postorder luôn xử lý xong cả nhánh trái và nhánh phải rồi mới thăm nút gốc, tránh rò rỉ bộ nhớ.',
+          title: 'Ví dụ 3: Xóa cây thư mục bằng Postorder',
+          problem: 'Xóa cây [50, 20, 80, 10, 30, 70] sao cho chỉ xóa cha sau khi đã xóa hết con.',
+          input: '$A_t = [50, 20, 80, 10, 30, 70]$, $m_t = \\text{Postorder}$.',
+          output: '$O_t = [10, 30, 20, 70, 80, 50]$.',
+          idea: 'Postorder (Trái - Phải - Gốc) xử lý xong hai nhánh con rồi mới thăm gốc.',
           design: [
-            'Lắp Input: Dựng cây từ [50, 20, 80, 10, 30, 70].',
-            'Chọn $m_t = \\text{Postorder}$ (đặt lệnh ghi $O_t$ sau cùng).',
-            'Các nút lá (10, 30) được xóa trước nút cha 20.',
-            'Nút gốc 50 luôn được xóa cuối cùng.'
+            'Dựng cây từ [50, 20, 80, 10, 30, 70].',
+            'Chọn $m_t = \\text{Postorder}$.',
+            'Các nút lá (10, 30) được xóa trước cha 20.',
+            'Gốc 50 luôn xóa cuối cùng.'
           ],
           applyParams: { keysText: '50, 20, 80, 10, 30, 70', mode: 'Postorder' }
         }
@@ -2685,74 +1926,67 @@
       graph: [
         {
           tab: 'Giải thuật chung',
-          title: 'Khuôn mẫu chung: Duyệt Đồ thị bằng Stack (DFS) và Queue (BFS)',
-          subtitle: 'Một bộ khung duy nhất cho cả DFS và BFS, chỉ khác cấu trúc chứa $D_d$',
-          problem: 'Từ đỉnh nguồn $s_d$, thăm toàn bộ đỉnh liên thông mà không lặp vô hạn khi gặp chu trình.',
-          input: 'Danh sách kề Adj, đỉnh bắt đầu $s_d$ và cấu trúc $G_d$ (Stack hoặc Queue).',
-          output: 'Danh sách thứ tự duyệt $P_d$ và tập các đỉnh đã thăm $V_d$.',
-          idea: 'DFS dùng Stack (LIFO - Pop cuối) để đi sâu; BFS dùng Queue (FIFO - Dequeue đầu) để loang rộng theo lớp.',
+          title: 'Khuôn mẫu chung: Duyệt Đồ thị (DFS & BFS)',
+          problem: 'Từ đỉnh nguồn $s_d$, thăm toàn bộ đỉnh liên thông mà không lặp vòng.',
+          input: 'Danh sách kề `Adj`, nguồn $s_d$, chế độ $G_d$ (DFS/BFS).',
+          output: 'Thứ tự duyệt $P_d$ và tập đã thăm $V_d$.',
+          idea: 'DFS dùng Stack (lấy cuối để đi sâu); BFS dùng Queue (lấy đầu để loang rộng).',
           design: [
-            'Bước 1 (Khởi tạo): Nạp $s_d$ vào $D_d$ và đánh dấu ngay $s_d$ vào $V_d$.',
-            'Bước 2 (Vòng lặp): Khi $D_d$ chưa rỗng, rút $v_d$ (Pop nếu DFS, Dequeue nếu BFS).',
-            'Bước 3 (Ghi nhận): Đưa $v_d$ vào danh sách kết quả $P_d$.',
-            'Bước 4 (Mở rộng): Duyệt mọi $w_d$ kề $v_d$; nếu $w_d \\notin V_d$ thì đánh dấu $V_d$ và nạp vào $D_d$.'
+            'Nạp $s_d$ vào $D_d$ và đánh dấu ngay vào $V_d$.',
+            'Khi $D_d$ khác rỗng, rút $v_d$ theo $G_d$.',
+            'Đưa $v_d$ vào kết quả $P_d$.',
+            'Với mỗi $w_d$ kề $v_d$: chưa thuộc $V_d$ thì đánh dấu và nạp $D_d$.'
           ],
           applyParams: { mode: 'DFS', startNode: 0, preset: 'treeLike' }
         },
         {
           tab: 'Ví dụ 1: Tìm đường ít chặng (BFS)',
-          title: 'Ví dụ 1: Tìm thứ tự trạm ít chặng nhất từ ga 0 (BFS - Queue)',
-          subtitle: 'Queue (FIFO) đảm bảo đỉnh gần hơn luôn duyệt trước',
-          problem: 'Mạng 6 nhà ga có chu trình. Xuất phát từ ga 0, liệt kê các ga theo số chặng tăng dần.',
+          title: 'Ví dụ 1: Tìm trạm ít chặng nhất từ ga 0 (BFS)',
+          problem: 'Mạng 6 ga có chu trình. Xuất phát từ ga 0, liệt kê các ga theo số chặng tăng dần.',
           input: 'Đồ thị 6 đỉnh có chu trình, $G_d = \\text{BFS}$, $s_d = 0$.',
-          output: 'Thứ tự theo lớp khoảng cách $P_d = [0, 1, 2, 3, 4, 5]$.',
-          idea: 'Queue xử lý xong hoàn toàn lớp cách 1 chặng (1, 2) trước khi sang lớp 2 chặng (3, 4) và 3 chặng (5).',
+          output: '$P_d = [0, 1, 2, 3, 4, 5]$.',
+          idea: 'Queue xử lý xong lớp 1 chặng (1, 2) trước khi sang lớp 2 chặng (3, 4).',
           design: [
-            'Lắp Input: $G_d = \\text{BFS}$, đồ thị có chu trình, $s_d = 0$.',
-            'Rút ga 0 -> nạp lớp 1 gồm [1, 2] vào cuối Queue.',
-            'Rút 1 và 2 -> nạp lớp 2 gồm [3, 4]; bỏ qua đỉnh đã có trong $V_d$.',
-            'Rút 3 và 4 -> nạp lớp 3 gồm [5].'
+            'Chọn $G_d = \\text{BFS}$, $s_d = 0$.',
+            'Rút 0 -> nạp lớp 1 [1, 2] vào cuối Queue.',
+            'Rút 1, 2 -> nạp lớp 2 [3, 4].',
+            'Rút 3, 4 -> nạp lớp 3 [5].'
           ],
           applyParams: { mode: 'BFS', startNode: 0, preset: 'cyclic' }
         },
         {
           tab: 'Ví dụ 2: Robot dò mê cung (DFS)',
-          title: 'Ví dụ 2: Robot khám phá sâu từng nhánh hành lang (DFS - Stack)',
-          subtitle: 'Stack (LIFO) buộc robot đi sâu tối đa trước khi quay lại ngã rẽ',
-          problem: 'Robot xuất phát từ phòng 0 trong mạng 7 phòng phân nhánh, đi sâu hết một tuyến rồi mới quay lại nhánh khác.',
+          title: 'Ví dụ 2: Robot dò sâu từng nhánh (DFS)',
+          problem: 'Robot từ phòng 0 trong mạng 7 phòng, đi sâu hết một tuyến rồi mới quay lại nhánh khác.',
           input: 'Đồ thị 7 đỉnh phân nhánh, $G_d = \\text{DFS}$, $s_d = 0$.',
-          output: 'Thứ tự đi sâu $P_d = [0, 1, 3, 4, 5, 2, 6]$.',
-          idea: 'Stack luôn rút phần tử vừa nạp ở đỉnh (TOP), nên robot lập tức tiến sâu vào phòng mới liền kề.',
+          output: '$P_d = [0, 1, 3, 4, 5, 2, 6]$.',
+          idea: 'Stack luôn rút phần tử ở đỉnh (TOP), ép robot đi sâu liên tục.',
           design: [
-            'Lắp Input: $G_d = \\text{DFS}$, đồ thị 7 đỉnh phân nhánh, $s_d = 0$.',
-            'Rút 0 -> đẩy đỉnh kề vào Stack sao cho 1 nằm ở TOP.',
-            'Đi sâu xuống 3, rồi sang 4 và nối tiếp 5.',
-            'Khi nhánh trái cạn, Stack trả về đỉnh 2 ở ngã rẽ cũ để đi tiếp sang 6.'
+            'Chọn $G_d = \\text{DFS}$, $s_d = 0$.',
+            'Rút 0 -> đẩy kề vào Stack sao cho 1 ở TOP.',
+            'Đi sâu 1 -> 3 -> 4 -> 5.',
+            'Cạn nhánh trái mới rút 2 để đi sang 6.'
           ],
           applyParams: { mode: 'DFS', startNode: 0, preset: 'treeLike' }
         },
         {
           tab: 'Ví dụ 3: Quảng bá từ nút 2',
-          title: 'Ví dụ 3: Lan truyền gói tin từ máy chủ nút 2 không lặp vô hạn',
-          subtitle: 'Vai trò của tập $V_d$ khi đổi đỉnh nguồn trên đồ thị có chu trình',
-          problem: 'Trong mạng 6 máy chủ nối vòng, máy chủ 2 phát gói tin quảng bá. Theo dõi thứ tự nhận tin.',
+          title: 'Ví dụ 3: Lan truyền tin từ nút 2 không lặp vòng',
+          problem: 'Trong mạng 6 máy nối vòng, máy 2 phát tin. Theo dõi thứ tự nhận tin.',
           input: 'Đồ thị 6 đỉnh có chu trình, $G_d = \\text{BFS}$, $s_d = 2$.',
-          output: 'Thứ tự nhận tin $P_d = [2, 0, 1, 4, 3, 5]$.',
-          idea: 'Chỉ đổi tham số $s_d = 2$; tập $V_d$ ghi nhớ ngay các máy đã nạp vào Queue để chặn lặp vòng.',
+          output: '$P_d = [2, 0, 1, 4, 3, 5]$.',
+          idea: 'Đổi $s_d = 2$; tập $V_d$ chặn cạnh nối vòng giữa 0-1-2 không nạp lại.',
           design: [
-            'Lắp Input: $G_d = \\text{BFS}$, đồ thị có chu trình, $s_d = 2$.',
-            'Nút 2 phát tới 0, 1, 4 và đánh dấu ngay vào $V_d$.',
-            'Các cạnh nối vòng giữa 0-1-2 bị từ chối nhờ kiểm tra $w_d \\notin V_d$.',
-            'Lan tiếp tới lớp cuối (3, 5) và dừng khi Queue rỗng.'
+            'Chọn $G_d = \\text{BFS}$, $s_d = 2$.',
+            'Nút 2 phát tới 0, 1, 4 và đánh dấu $V_d$.',
+            'Các cạnh vòng bị bỏ qua nhờ $w_d \\notin V_d$.',
+            'Lan tiếp tới 3, 5 và kết thúc.'
           ],
           applyParams: { mode: 'BFS', startNode: 2, preset: 'cyclic' }
         }
       ]
     };
 
-    // =========================================================================
-    // DINH NGHIA 4 KHOI KIEN THUC (CONG THUC, KY HIEU, LUU DO LATEX, MA GIA)
-    // =========================================================================
     var MODULE_GEN = {
       title: '1A. Thuật toán Sinh xâu nhị phân (Generation)',
       formulas: [
@@ -2782,27 +2016,27 @@
         }
       ],
       symbols: [
-        { key: 'Ng', tex: 'N_g', name: 'Độ dài xâu nhị phân', unit: 'bit (nguyên)', desc: 'Tham số đầu vào. Khi $N_g$ tăng thêm 1, tổng số cấu hình tăng gấp đôi ($2^{N_g}$).' },
-        { key: 'Bg', tex: 'B_g', name: 'Mảng cấu hình hiện tại', unit: 'mảng {0, 1}', desc: 'Lưu $N_g$ bit của xâu hiện tại. Mỗi bước sinh chỉ đổi từ vị trí $p_g$ trở về sau.' },
-        { key: 'pg', tex: 'p_g', name: 'Chỉ số bit 0 phải nhất', unit: 'chỉ số nguyên', desc: 'Xác định vị trí lật từ 0 sang 1. Nếu $p_g = -1$ nghĩa là toàn bộ mảng đều là 1.' },
-        { key: 'kg', tex: 'k_g', name: 'Chỉ số duyệt mảng', unit: 'chỉ số nguyên', desc: 'Biến chạy dò ngược tìm $p_g$ hoặc đặt lại các bit phía sau $p_g$ về 0.' },
-        { key: 'Cg', tex: 'C_g', name: 'Bộ đếm cấu hình', unit: 'số nguyên', desc: 'Đếm số xâu hợp lệ đã sinh ra, đạt cực đại bằng $2^{N_g}$ khi kết thúc.' },
-        { key: 'Eg', tex: 'E_g', name: 'Cờ kết thúc sinh', unit: 'boolean (0/1)', desc: 'Điều khiển vòng lặp chính. Khi $E_g = 1$, thuật toán dừng hoàn toàn.' }
+        { key: 'Ng', tex: 'N_g', name: 'Độ dài xâu nhị phân', unit: 'bit', desc: 'Tham số đầu vào. Tổng số cấu hình là $2^{N_g}$.' },
+        { key: 'Bg', tex: 'B_g', name: 'Mảng cấu hình hiện tại', unit: 'mảng {0,1}', desc: 'Lưu $N_g$ bit hiện tại.' },
+        { key: 'pg', tex: 'p_g', name: 'Chỉ số bit 0 phải nhất', unit: 'chỉ số', desc: 'Vị trí lật từ 0 sang 1 ($-1$ là hết bit 0).' },
+        { key: 'kg', tex: 'k_g', name: 'Chỉ số duyệt mảng', unit: 'chỉ số', desc: 'Dùng để đặt các bit sau $p_g$ về 0.' },
+        { key: 'Cg', tex: 'C_g', name: 'Bộ đếm cấu hình', unit: 'nguyên', desc: 'Đếm số cấu hình đã sinh.' },
+        { key: 'Eg', tex: 'E_g', name: 'Cờ kết thúc sinh', unit: '0 / 1', desc: 'Khi $E_g = 1$ thì thuật toán dừng.' }
       ],
       codeLines: [
         { text: 'function GenerateBinary(N_g):', vars: ['Ng'] },
-        { text: '    B_g = [0, 0, ..., 0] (độ dài N_g); C_g = 1; E_g = 0  // Khởi tạo cấu hình đầu', vars: ['Bg', 'Ng', 'Cg', 'Eg'] },
+        { text: '    B_g = [0, 0, ..., 0]; C_g = 1; E_g = 0               // Khởi tạo cấu hình đầu', vars: ['Bg', 'Ng', 'Cg', 'Eg'] },
         { text: '    while E_g == 0:', vars: ['Eg'] },
-        { text: '        p_g = N_g - 1                                   // Bắt đầu quét từ bit phải nhất', vars: ['pg', 'Ng'] },
+        { text: '        p_g = N_g - 1                                   // Quét từ bit phải nhất', vars: ['pg', 'Ng'] },
         { text: '        while p_g >= 0 and B_g[p_g] == 1:', vars: ['pg', 'Bg'] },
-        { text: '            p_g = p_g - 1                               // Bỏ qua các bit 1 liên tiếp', vars: ['pg'] },
-        { text: '        if p_g < 0:                                     // Không còn bit 0 nào', vars: ['pg'] },
-        { text: '            E_g = 1                                     // Đã đạt cấu hình cuối cùng', vars: ['Eg'] },
+        { text: '            p_g = p_g - 1                               // Bỏ qua bit 1', vars: ['pg'] },
+        { text: '        if p_g < 0:', vars: ['pg'] },
+        { text: '            E_g = 1                                     // Dừng hoàn toàn', vars: ['Eg'] },
         { text: '        else:', vars: [] },
-        { text: '            B_g[p_g] = 1                                // Lật bit 0 phải nhất thành 1', vars: ['Bg', 'pg'] },
+        { text: '            B_g[p_g] = 1                                // Lật bit 0 thành 1', vars: ['Bg', 'pg'] },
         { text: '            for k_g from p_g + 1 to N_g - 1:', vars: ['kg', 'pg', 'Ng'] },
-        { text: '                B_g[k_g] = 0                            // Đặt toàn bộ phần đuôi về 0', vars: ['Bg', 'kg'] },
-        { text: '            C_g = C_g + 1                               // Ghi nhận cấu hình mới', vars: ['Cg'] }
+        { text: '                B_g[k_g] = 0                            // Reset đuôi về 0', vars: ['Bg', 'kg'] },
+        { text: '            C_g = C_g + 1                               // Tăng bộ đếm', vars: ['Cg'] }
       ],
       flowchartSvg: `
         <svg class="flow-svg" viewBox="0 0 660 610" xmlns="http://www.w3.org/2000/svg">
@@ -2891,7 +2125,7 @@
 
         while (Eg === 0) {
           var pg = Ng - 1;
-          pushStep('F2', ['F1'], 'N_SCAN', 4, pg, null, 'Bắt đầu quét từ bit phải nhất p_g = ' + pg + ' để tìm bit 0.');
+          pushStep('F2', ['F1'], 'N_SCAN', 4, pg, null, 'Quét từ bit phải nhất p_g = ' + pg + ' để tìm bit 0.');
 
           while (pg >= 0 && Bg[pg] === 1) {
             pushStep('F2', ['F1'], 'N_SCAN', 6, pg, null, 'Tại p_g = ' + pg + ' có B_g[' + pg + '] = 1, giảm p_g sang trái.');
@@ -2904,13 +2138,13 @@
             pushStep('F3', ['F1', 'F2'], 'N_STOP', 8, pg, null, 'Đặt E_g = 1 và kết thúc quá trình sinh toàn bộ ' + Cg + ' cấu hình.');
             break;
           } else {
-            pushStep('F3', ['F1', 'F2'], 'N_CHECK', 7, pg, null, 'Tìm thấy bit 0 phải nhất tại vị trí p_g = ' + pg + ', tiếp tục sinh cấu hình mới.');
+            pushStep('F3', ['F1', 'F2'], 'N_CHECK', 7, pg, null, 'Tìm thấy bit 0 phải nhất tại p_g = ' + pg + ', tiếp tục sinh.');
             Bg[pg] = 1;
-            pushStep('F4', ['F1', 'F2', 'F3'], 'N_FLIP', 10, pg, null, 'Lật bit tại vị trí p_g = ' + pg + ' từ 0 thành 1.');
+            pushStep('F4', ['F1', 'F2', 'F3'], 'N_FLIP', 10, pg, null, 'Lật bit tại p_g = ' + pg + ' từ 0 thành 1.');
 
             for (var kg = pg + 1; kg < Ng; kg++) {
               Bg[kg] = 0;
-              pushStep('F4', ['F1', 'F2', 'F3'], 'N_TAIL', 12, pg, kg, 'Đặt lại bit phía sau tại k_g = ' + kg + ' về 0.');
+              pushStep('F4', ['F1', 'F2', 'F3'], 'N_TAIL', 12, pg, kg, 'Đặt lại bit sau tại k_g = ' + kg + ' về 0.');
             }
             Cg++;
             history.push(Bg.join(''));
@@ -2922,7 +2156,7 @@
     };
 
     var MODULE_BT = {
-      title: '1B. Thuật toán Quay lui (Backtracking - Bài toán N-Hậu)',
+      title: '1B. Thuật toán Quay lui (Backtracking - N-Hậu)',
       formulas: [
         {
           id: 'F1',
@@ -2950,23 +2184,23 @@
         }
       ],
       symbols: [
-        { key: 'Nb', tex: 'N_b', name: 'Kích thước bàn cờ', unit: 'ô (nguyên)', desc: 'Số hàng, số cột và số quân hậu. Khi $N_b$ tăng, không gian tìm kiếm tăng nhanh.' },
-        { key: 'rb', tex: 'r_b', name: 'Chỉ số hàng hiện tại', unit: 'chỉ số nguyên', desc: 'Tầng đệ quy đang xét ($0 \\dots N_b - 1$). Khi $r_b = N_b$ là đã đặt đủ hậu.' },
-        { key: 'cb', tex: 'c_b', name: 'Chỉ số cột đang thử', unit: 'chỉ số nguyên', desc: 'Duyệt từ $0$ đến $N_b - 1$ tại hàng $r_b$ để tìm vị trí an toàn.' },
-        { key: 'Qb', tex: 'Q_b', name: 'Mảng cột của các hậu', unit: 'mảng nguyên', desc: '$Q_b[i]$ lưu cột đặt hậu ở hàng $i$ ($-1$ là chưa đặt).' },
-        { key: 'Sb', tex: 'S_b', name: 'Cờ trạng thái an toàn', unit: 'boolean (0/1)', desc: 'Bằng 1 nếu ô $(r_b, c_b)$ không trùng cột và không trùng 2 đường chéo.' },
-        { key: 'Mb', tex: 'M_b', name: 'Số nghiệm tìm thấy', unit: 'số nguyên', desc: 'Đếm số cách sắp xếp $N_b$ quân hậu hợp lệ đã hoàn thành.' }
+        { key: 'Nb', tex: 'N_b', name: 'Kích thước bàn cờ', unit: 'ô', desc: 'Số hàng, cột và quân hậu.' },
+        { key: 'rb', tex: 'r_b', name: 'Hàng hiện tại', unit: 'chỉ số', desc: 'Tầng đệ quy ($0 \\dots N_b-1$).' },
+        { key: 'cb', tex: 'c_b', name: 'Cột đang thử', unit: 'chỉ số', desc: 'Cột kiểm tra tại hàng $r_b$.' },
+        { key: 'Qb', tex: 'Q_b', name: 'Mảng cột các hậu', unit: 'mảng', desc: '$Q_b[i]$ là cột đặt hậu ở hàng $i$.' },
+        { key: 'Sb', tex: 'S_b', name: 'Cờ an toàn', unit: '0 / 1', desc: 'Bằng 1 nếu không trùng cột và chéo.' },
+        { key: 'Mb', tex: 'M_b', name: 'Số nghiệm tìm thấy', unit: 'nguyên', desc: 'Tổng số cách đặt hợp lệ.' }
       ],
       codeLines: [
         { text: 'function SolveNQueens(r_b, N_b):', vars: ['rb', 'Nb'] },
-        { text: '    if r_b == N_b:                                      // Đã đặt đủ N_b quân hậu', vars: ['rb', 'Nb'] },
-        { text: '        M_b = M_b + 1; return                           // Ghi nhận một nghiệm hợp lệ', vars: ['Mb'] },
-        { text: '    for c_b from 0 to N_b - 1:                          // Thử từng cột ở hàng r_b', vars: ['cb', 'Nb', 'rb'] },
+        { text: '    if r_b == N_b:', vars: ['rb', 'Nb'] },
+        { text: '        M_b = M_b + 1; return                           // Ghi nghiệm hợp lệ', vars: ['Mb'] },
+        { text: '    for c_b from 0 to N_b - 1:', vars: ['cb', 'Nb', 'rb'] },
         { text: '        S_b = IsSafe(Q_b, r_b, c_b)                     // Kiểm tra cột và 2 đường chéo', vars: ['Sb', 'Qb', 'rb', 'cb'] },
         { text: '        if S_b == 1:', vars: ['Sb'] },
-        { text: '            Q_b[r_b] = c_b                              // Đặt quân hậu tại (r_b, c_b)', vars: ['Qb', 'rb', 'cb'] },
-        { text: '            SolveNQueens(r_b + 1, N_b)                  // Đệ quy sang hàng kế tiếp', vars: ['rb', 'Nb'] },
-        { text: '            Q_b[r_b] = -1                               // Quay lui: gỡ hậu để thử nhánh khác', vars: ['Qb', 'rb'] }
+        { text: '            Q_b[r_b] = c_b                              // Đặt hậu', vars: ['Qb', 'rb', 'cb'] },
+        { text: '            SolveNQueens(r_b + 1, N_b)                  // Đi sâu hàng dưới', vars: ['rb', 'Nb'] },
+        { text: '            Q_b[r_b] = -1                               // Quay lui gỡ hậu', vars: ['Qb', 'rb'] }
       ],
       flowchartSvg: `
         <svg class="flow-svg" viewBox="0 0 660 620" xmlns="http://www.w3.org/2000/svg">
@@ -3051,13 +2285,13 @@
           });
         }
 
-        pushStep('F1', [], 'B_INIT', 1, 0, null, null, -1, false, 'Khởi tạo bàn cờ kích thước ' + Nb + 'x' + Nb + ' trống và bắt đầu tại hàng r_b = 0.');
+        pushStep('F1', [], 'B_INIT', 1, 0, null, null, -1, false, 'Khởi tạo bàn cờ ' + Nb + 'x' + Nb + ' trống tại hàng r_b = 0.');
 
         function backtrack(rb) {
           if (finished) return;
           if (rb === Nb) {
             Mb++;
-            pushStep('F4', ['F1', 'F2', 'F3'], 'B_SOL', 3, rb, null, 1, -1, true, 'Đã đặt đủ ' + Nb + ' quân hậu hợp lệ. Ghi nhận nghiệm thứ M_b = ' + Mb + '.');
+            pushStep('F4', ['F1', 'F2', 'F3'], 'B_SOL', 3, rb, null, 1, -1, true, 'Đặt đủ ' + Nb + ' hậu hợp lệ. Ghi nghiệm thứ M_b = ' + Mb + '.');
             if (stopAtFirst) finished = true;
             return;
           }
@@ -3074,16 +2308,16 @@
             pushStep(
               'F2', ['F1'], 'B_TEST', 5, rb, cb, Sb, conflictRow, false,
               Sb === 1
-                ? 'Kiểm tra ô (' + rb + ', ' + cb + '): không xung đột với các hàng trên (S_b = 1).'
-                : 'Kiểm tra ô (' + rb + ', ' + cb + '): bị hậu ở hàng ' + conflictRow + ' khống chế (S_b = 0).'
+                ? 'Ô (' + rb + ', ' + cb + ') an toàn (S_b = 1).'
+                : 'Ô (' + rb + ', ' + cb + ') xung đột với hàng ' + conflictRow + ' (S_b = 0).'
             );
             if (Sb === 1) {
               Qb[rb] = cb;
-              pushStep('F3', ['F1', 'F2'], 'B_PLACE', 7, rb, cb, 1, -1, false, 'Đặt hậu vào ô (' + rb + ', ' + cb + ') và đệ quy xuống hàng ' + (rb + 1) + '.');
+              pushStep('F3', ['F1', 'F2'], 'B_PLACE', 7, rb, cb, 1, -1, false, 'Đặt hậu tại (' + rb + ', ' + cb + ') và xuống hàng ' + (rb + 1) + '.');
               backtrack(rb + 1);
               if (finished) return;
               Qb[rb] = -1;
-              pushStep('F4', ['F1', 'F2', 'F3'], 'B_UNDO', 9, rb, cb, null, -1, false, 'Quay lui về hàng r_b = ' + rb + ': gỡ hậu tại cột ' + cb + ' để thử nhánh kế tiếp.');
+              pushStep('F4', ['F1', 'F2', 'F3'], 'B_UNDO', 9, rb, cb, null, -1, false, 'Quay lui về hàng r_b = ' + rb + ': gỡ hậu tại cột ' + cb + '.');
             }
           }
         }
@@ -3094,7 +2328,7 @@
     };
 
     var MODULE_BST = {
-      title: '2. Cây nhị phân tìm kiếm (Binary Search Tree - Duyệt đệ quy)',
+      title: '2. Cây nhị phân tìm kiếm (BST - Duyệt đệ quy)',
       formulas: [
         {
           id: 'F1',
@@ -3105,7 +2339,7 @@
         {
           id: 'F2',
           label: '(F2) Quy tắc duyệt đệ quy theo chế độ $m_t$',
-          dep: 'Nhận cây $T$ từ (F1) và $u_t, m_t$ -> Đầu ra: thứ tự gọi nhánh',
+          dep: 'Nhận cây $T$ từ (F1) và $u_t, m_t$ -> Đầu ra: thứ tự nhánh',
           tex: '\\text{Visit}(u_t, m_t) = \\begin{cases} L \\to [u_t] \\to R & m_t = \\text{Inorder} \\\\ [u_t] \\to L \\to R & m_t = \\text{Preorder} \\\\ L \\to R \\to [u_t] & m_t = \\text{Postorder} \\end{cases}'
         },
         {
@@ -3116,22 +2350,22 @@
         }
       ],
       symbols: [
-        { key: 'At', tex: 'A_t', name: 'Mảng khóa xây cây', unit: 'mảng nguyên', desc: 'Các giá trị chèn lần lượt theo bất biến (F1). Thay đổi $A_t$ sẽ đổi hình dạng cây.' },
-        { key: 'mt', tex: 'm_t', name: 'Chế độ duyệt cây', unit: 'chuỗi chọn', desc: 'Quyết định vị trí thăm $u_t$ so với nhánh trái $L$ và phải $R$.' },
-        { key: 'ut', tex: 'u_t', name: 'Nút hiện tại đang xét', unit: 'nút trên cây', desc: 'Con trỏ đệ quy đang đứng tại nút nào ($\\text{null}$ nếu chạm lá rỗng).' },
-        { key: 'xt', tex: 'x_t', name: 'Giá trị khóa của $u_t$', unit: 'số nguyên', desc: 'Giá trị lưu tại nút $u_t$, sẽ đưa vào mảng kết quả $O_t$ đúng lúc thăm.' },
-        { key: 'ht', tex: 'h_t', name: 'Độ sâu của nút $u_t$', unit: 'tầng (nguyên)', desc: 'Số cạnh từ gốc ($h_t = 0$) đến nút $u_t$, phản ánh độ sâu ngăn xếp đệ quy.' },
-        { key: 'Ot', tex: 'O_t', name: 'Danh sách kết quả duyệt', unit: 'mảng nguyên', desc: 'Tích lũy các khóa $x_t$ theo đúng thứ tự duyệt đã chọn bởi $m_t$.' }
+        { key: 'At', tex: 'A_t', name: 'Mảng khóa xây cây', unit: 'mảng', desc: 'Danh sách khóa chèn theo bất biến (F1).' },
+        { key: 'mt', tex: 'm_t', name: 'Chế độ duyệt cây', unit: 'chọn', desc: 'Preorder, Inorder hoặc Postorder.' },
+        { key: 'ut', tex: 'u_t', name: 'Nút đang xét', unit: 'nút', desc: 'Nút hiện tại (hoặc null).' },
+        { key: 'xt', tex: 'x_t', name: 'Giá trị khóa $u_t$', unit: 'nguyên', desc: 'Khóa sẽ ghi vào $O_t$.' },
+        { key: 'ht', tex: 'h_t', name: 'Độ sâu của $u_t$', unit: 'tầng', desc: 'Số cạnh từ gốc ($h_t = 0$).' },
+        { key: 'Ot', tex: 'O_t', name: 'Danh sách kết quả', unit: 'mảng', desc: 'Thứ tự khóa đã thăm.' }
       ],
       codeLines: [
         { text: 'function Traverse(u_t, h_t, m_t):', vars: ['ut', 'ht', 'mt'] },
-        { text: '    if u_t == null: return                              // Điều kiện dừng tại lá rỗng', vars: ['ut'] },
-        { text: '    x_t = u_t.key                                       // Đọc giá trị khóa tại nút u_t', vars: ['xt', 'ut'] },
-        { text: '    if m_t == "Preorder": O_t.append(x_t)               // Thăm nút trước (N - L - R)', vars: ['mt', 'Ot', 'xt'] },
-        { text: '    Traverse(u_t.left, h_t + 1, m_t)                    // Đệ quy sang nhánh con trái', vars: ['ut', 'ht', 'mt'] },
-        { text: '    if m_t == "Inorder":  O_t.append(x_t)               // Thăm nút ở giữa (L - N - R)', vars: ['mt', 'Ot', 'xt'] },
-        { text: '    Traverse(u_t.right, h_t + 1, m_t)                   // Đệ quy sang nhánh con phải', vars: ['ut', 'ht', 'mt'] },
-        { text: '    if m_t == "Postorder": O_t.append(x_t)              // Thăm nút sau cùng (L - R - N)', vars: ['mt', 'Ot', 'xt'] }
+        { text: '    if u_t == null: return                              // Dừng tại nhánh rỗng', vars: ['ut'] },
+        { text: '    x_t = u_t.key', vars: ['xt', 'ut'] },
+        { text: '    if m_t == "Preorder": O_t.append(x_t)               // N - L - R', vars: ['mt', 'Ot', 'xt'] },
+        { text: '    Traverse(u_t.left, h_t + 1, m_t)                    // Đi trái', vars: ['ut', 'ht', 'mt'] },
+        { text: '    if m_t == "Inorder":  O_t.append(x_t)               // L - N - R', vars: ['mt', 'Ot', 'xt'] },
+        { text: '    Traverse(u_t.right, h_t + 1, m_t)                   // Đi phải', vars: ['ut', 'ht', 'mt'] },
+        { text: '    if m_t == "Postorder": O_t.append(x_t)              // L - R - N', vars: ['mt', 'Ot', 'xt'] }
       ],
       flowchartSvg: `
         <svg class="flow-svg" viewBox="0 0 660 540" xmlns="http://www.w3.org/2000/svg">
@@ -3236,30 +2470,30 @@
           });
         }
 
-        pushStep('F1', [], 'T_BUILD', 1, root, 0, 'Đã dựng xong cây BST gồm ' + nodes.length + ' nút từ mảng A_t. Bắt đầu duyệt ' + mode + ' tại gốc.');
+        pushStep('F1', [], 'T_BUILD', 1, root, 0, 'Dựng xong cây BST từ mảng A_t. Bắt đầu duyệt ' + mode + ' tại gốc.');
 
         function traverse(u, ht) {
           if (!u) {
-            pushStep('F2', ['F1'], 'T_NULL', 2, null, ht, 'Gặp nhánh rỗng (u_t = null) ở độ sâu h_t = ' + ht + ', quay lại nút cha.');
+            pushStep('F2', ['F1'], 'T_NULL', 2, null, ht, 'Gặp nhánh rỗng (u_t = null) tại tầng h_t = ' + ht + ', quay về cha.');
             return;
           }
           if (mode === 'Preorder') {
             Ot.push(u.key); visitedIds.push(u.id);
-            pushStep('F3', ['F1', 'F2'], 'T_VISIT', 4, u, ht, 'Preorder (N-L-R): thăm và ghi khóa x_t = ' + u.key + ' vào O_t.');
+            pushStep('F3', ['F1', 'F2'], 'T_VISIT', 4, u, ht, 'Preorder: ghi khóa x_t = ' + u.key + ' vào O_t.');
           }
-          pushStep('F2', ['F1'], 'T_LEFT', 5, u, ht, 'Tại nút ' + u.key + ' (h_t = ' + ht + '): rẽ sang nhánh con trái.');
+          pushStep('F2', ['F1'], 'T_LEFT', 5, u, ht, 'Tại nút ' + u.key + ' (h_t = ' + ht + '): đi nhánh trái.');
           traverse(u.left, ht + 1);
 
           if (mode === 'Inorder') {
             Ot.push(u.key); visitedIds.push(u.id);
-            pushStep('F3', ['F1', 'F2'], 'T_VISIT', 6, u, ht, 'Inorder (L-N-R): thăm và ghi khóa x_t = ' + u.key + ' vào O_t.');
+            pushStep('F3', ['F1', 'F2'], 'T_VISIT', 6, u, ht, 'Inorder: ghi khóa x_t = ' + u.key + ' vào O_t.');
           }
-          pushStep('F2', ['F1'], 'T_RIGHT', 7, u, ht, 'Tại nút ' + u.key + ' (h_t = ' + ht + '): rẽ sang nhánh con phải.');
+          pushStep('F2', ['F1'], 'T_RIGHT', 7, u, ht, 'Tại nút ' + u.key + ' (h_t = ' + ht + '): đi nhánh phải.');
           traverse(u.right, ht + 1);
 
           if (mode === 'Postorder') {
             Ot.push(u.key); visitedIds.push(u.id);
-            pushStep('F3', ['F1', 'F2'], 'T_VISIT', 8, u, ht, 'Postorder (L-R-N): đã duyệt xong hai nhánh con, ghi khóa x_t = ' + u.key + ' vào O_t.');
+            pushStep('F3', ['F1', 'F2'], 'T_VISIT', 8, u, ht, 'Postorder: xong hai nhánh, ghi khóa x_t = ' + u.key + ' vào O_t.');
           }
         }
 
@@ -3310,24 +2544,24 @@
         }
       ],
       symbols: [
-        { key: 'Gd', tex: 'G_d', name: 'Chế độ duyệt đồ thị', unit: 'DFS / BFS', desc: 'DFS dùng Stack (LIFO - đi sâu) hoặc BFS dùng Queue (FIFO - loang rộng).' },
-        { key: 'sd', tex: 's_d', name: 'Đỉnh bắt đầu duyệt', unit: 'chỉ số đỉnh', desc: 'Đỉnh nguồn nạp đầu tiên vào $D_d$. Đổi $s_d$ sẽ đổi toàn bộ thứ tự $P_d$.' },
-        { key: 'vd', tex: 'v_d', name: 'Đỉnh đang xử lý', unit: 'chỉ số đỉnh', desc: 'Đỉnh vừa rút ra khỏi $D_d$ ở đầu mỗi vòng lặp.' },
-        { key: 'wd', tex: 'w_d', name: 'Đỉnh kề đang xét', unit: 'chỉ số đỉnh', desc: 'Phần tử thuộc $\\text{Adj}(v_d)$, kiểm tra xem đã thuộc $V_d$ chưa.' },
-        { key: 'Dd', tex: 'D_d', name: 'Cấu trúc chứa động', unit: 'Stack / Queue', desc: 'Lưu các đỉnh chờ xử lý; quyết định sự khác biệt giữa DFS và BFS.' },
-        { key: 'Vd', tex: 'V_d', name: 'Tập đỉnh đã đánh dấu', unit: 'tập hợp đỉnh', desc: 'Ngăn chặn việc nạp lặp vô hạn khi đồ thị có chu trình.' },
-        { key: 'Pd', tex: 'P_d', name: 'Thứ tự duyệt hoàn tất', unit: 'mảng đỉnh', desc: 'Danh sách các đỉnh theo đúng thứ tự được rút ra xử lý.' }
+        { key: 'Gd', tex: 'G_d', name: 'Chế độ duyệt', unit: 'DFS/BFS', desc: 'DFS dùng Stack (LIFO) hoặc BFS dùng Queue (FIFO).' },
+        { key: 'sd', tex: 's_d', name: 'Đỉnh bắt đầu', unit: 'đỉnh', desc: 'Đỉnh nguồn nạp đầu tiên.' },
+        { key: 'vd', tex: 'v_d', name: 'Đỉnh đang xử lý', unit: 'đỉnh', desc: 'Đỉnh vừa rút từ $D_d$.' },
+        { key: 'wd', tex: 'w_d', name: 'Đỉnh kề đang xét', unit: 'đỉnh', desc: 'Phần tử thuộc $\\text{Adj}(v_d)$.' },
+        { key: 'Dd', tex: 'D_d', name: 'Cấu trúc chứa', unit: 'Stack/Queue', desc: 'Lưu các đỉnh chờ xử lý.' },
+        { key: 'Vd', tex: 'V_d', name: 'Tập đã thăm', unit: 'tập hợp', desc: 'Ngăn lặp vòng vô hạn.' },
+        { key: 'Pd', tex: 'P_d', name: 'Thứ tự duyệt', unit: 'mảng', desc: 'Danh sách đỉnh đã rút ra.' }
       ],
       codeLines: [
         { text: 'function GraphSearch(s_d, G_d):', vars: ['sd', 'Gd'] },
-        { text: '    D_d = [s_d]; V_d = {s_d}; P_d = []                  // Khởi tạo cấu trúc chứa và tập thăm', vars: ['Dd', 'sd', 'Vd', 'Pd'] },
+        { text: '    D_d = [s_d]; V_d = {s_d}; P_d = []', vars: ['Dd', 'sd', 'Vd', 'Pd'] },
         { text: '    while D_d is not empty:', vars: ['Dd'] },
-        { text: '        if G_d == "DFS": v_d = D_d.pop()                // Stack: lấy phần tử ở đỉnh (LIFO)', vars: ['Gd', 'vd', 'Dd'] },
-        { text: '        else:            v_d = D_d.dequeue()            // Queue: lấy phần tử ở đầu (FIFO)', vars: ['Gd', 'vd', 'Dd'] },
-        { text: '        P_d.append(v_d)                                 // Ghi nhận đỉnh v_d đã duyệt', vars: ['Pd', 'vd'] },
-        { text: '        for w_d in Adj(v_d):                            // Duyệt mọi đỉnh kề w_d của v_d', vars: ['wd', 'vd'] },
-        { text: '            if w_d not in V_d:                          // Nếu w_d chưa từng được đánh dấu', vars: ['wd', 'Vd'] },
-        { text: '                V_d.add(w_d); D_d.push_or_enqueue(w_d)  // Đánh dấu và đưa w_d vào D_d', vars: ['Vd', 'wd', 'Dd'] }
+        { text: '        if G_d == "DFS": v_d = D_d.pop()                // Stack (LIFO)', vars: ['Gd', 'vd', 'Dd'] },
+        { text: '        else:            v_d = D_d.dequeue()            // Queue (FIFO)', vars: ['Gd', 'vd', 'Dd'] },
+        { text: '        P_d.append(v_d)', vars: ['Pd', 'vd'] },
+        { text: '        for w_d in Adj(v_d):', vars: ['wd', 'vd'] },
+        { text: '            if w_d not in V_d:', vars: ['wd', 'Vd'] },
+        { text: '                V_d.add(w_d); D_d.push_or_enqueue(w_d)', vars: ['Vd', 'wd', 'Dd'] }
       ],
       flowchartSvg: `
         <svg class="flow-svg" viewBox="0 0 660 560" xmlns="http://www.w3.org/2000/svg">
@@ -3415,14 +2649,14 @@
           });
         }
 
-        pushStep('F1', [], 'G_INIT', 2, null, null, 'Khởi tạo ' + (mode === 'DFS' ? 'Stack' : 'Queue') + ' với đỉnh nguồn s_d = ' + sd + ' và đánh dấu vào V_d.');
+        pushStep('F1', [], 'G_INIT', 2, null, null, 'Khởi tạo ' + (mode === 'DFS' ? 'Stack' : 'Queue') + ' với đỉnh nguồn s_d = ' + sd + ' và đánh dấu V_d.');
 
         while (Dd.length > 0) {
           var vd = mode === 'DFS' ? Dd.pop() : Dd.shift();
           Pd.push(vd);
           pushStep(
             'F2', ['F1'], 'G_POP', mode === 'DFS' ? 4 : 5, vd, null,
-            (mode === 'DFS' ? 'Pop từ đỉnh Stack' : 'Dequeue từ đầu Queue') + ' lấy ra đỉnh v_d = ' + vd + ' và đưa vào P_d.'
+            (mode === 'DFS' ? 'Pop đỉnh Stack' : 'Dequeue đầu Queue') + ' rút v_d = ' + vd + ' vào P_d.'
           );
 
           var neighbors = adj[vd];
@@ -3431,26 +2665,23 @@
           for (var i = 0; i < orderedNeighbors.length; i++) {
             var wd = orderedNeighbors[i];
             if (Vd.indexOf(wd) === -1) {
-              pushStep('F3', ['F1', 'F2'], 'G_ADJ', 8, vd, wd, 'Xét đỉnh kề w_d = ' + wd + ' của ' + vd + ': chưa có trong V_d.');
+              pushStep('F3', ['F1', 'F2'], 'G_ADJ', 8, vd, wd, 'Xét kề w_d = ' + wd + ' của ' + vd + ': chưa có trong V_d.');
               Vd.push(wd);
               Dd.push(wd);
-              pushStep('F3', ['F1', 'F2'], 'G_PUSH', 9, vd, wd, 'Đánh dấu w_d = ' + wd + ' vào V_d và nạp vào ' + (mode === 'DFS' ? 'đỉnh Stack' : 'cuối Queue') + ' D_d.');
+              pushStep('F3', ['F1', 'F2'], 'G_PUSH', 9, vd, wd, 'Đánh dấu w_d = ' + wd + ' vào V_d và nạp vào D_d.');
             } else {
-              pushStep('F3', ['F1', 'F2'], 'G_ADJ', 8, vd, wd, 'Xét đỉnh kề w_d = ' + wd + ' của ' + vd + ': đã thuộc V_d nên bỏ qua.');
+              pushStep('F3', ['F1', 'F2'], 'G_ADJ', 8, vd, wd, 'Xét kề w_d = ' + wd + ' của ' + vd + ': đã thuộc V_d nên bỏ qua.');
             }
           }
         }
 
-        pushStep('F2', ['F1', 'F2', 'F3'], 'G_DONE', 3, null, null, 'Cấu trúc D_d đã rỗng. Kết thúc duyệt đồ thị với thứ tự P_d = [' + Pd.join(', ') + '].');
+        pushStep('F2', ['F1', 'F2', 'F3'], 'G_DONE', 3, null, null, 'D_d đã rỗng. Kết thúc duyệt với P_d = [' + Pd.join(', ') + '].');
         return steps;
       }
     };
 
     var MODULES = { gen: MODULE_GEN, bt: MODULE_BT, bst: MODULE_BST, graph: MODULE_GRAPH };
 
-    // =========================================================================
-    // CHE DO DESKTOP / MOBILE VA DYNAMIC SCALE
-    // =========================================================================
     function applyViewMode(mode) {
       appState.viewMode = mode === 'mobile' ? 'mobile' : 'desktop';
       document.body.classList.toggle('mode-mobile', appState.viewMode === 'mobile');
@@ -3477,16 +2708,13 @@
           sharedRatio = Math.min(sharedRatio, Math.max(0.76, avail / contentW));
         }
       });
-      var baseScale = isMobile ? 1.02 : 1.04;
+      var baseScale = isMobile ? 1.02 : 1.02;
       var uniformSize = (sharedRatio * baseScale).toFixed(3) + 'em';
       boxes.forEach(function(box) {
         box.style.fontSize = uniformSize;
       });
     }
 
-    // =========================================================================
-    // DIEU KHIEN PHAT TU DONG & RENDER GIAO DIEN
-    // =========================================================================
     function stopAutoPlay() {
       if (appState.timerId) {
         clearInterval(appState.timerId);
@@ -3618,7 +2846,6 @@
     function renderStaticLayers() {
       var mod = MODULES[appState.activeModule];
 
-      // Tang 1: Cong thuc + Bang ky hieu (tat ca LaTeX)
       var fList = document.getElementById('formula-list');
       fList.innerHTML = mod.formulas.map(function(f) {
         return (
@@ -3646,12 +2873,10 @@
         );
       }).join('');
 
-      // Tang 2: Luu do SVG + hydrate LaTeX trong foreignObject
       var flowWrap = document.getElementById('flowchart-container');
       flowWrap.innerHTML = mod.flowchartSvg;
       hydrateFlowchartLatex(flowWrap);
 
-      // Tang 3: Ma gia (tat ca bien chi so duoi render bang LaTeX)
       var codeBox = document.getElementById('code-container');
       codeBox.innerHTML = mod.codeLines.map(function(line, idx) {
         var num = idx + 1;
@@ -3667,9 +2892,7 @@
       }).join('');
     }
 
-    function renderVisual(step) {
-      var container = document.getElementById('sim-visual');
-      var hoverInfo = document.getElementById('hover-info');
+    function buildVisualHtml(step) {
       var m = appState.activeModule;
       var v = step.visual;
 
@@ -3701,8 +2924,10 @@
           html += '<span class="gen-chip' + (isLatest ? ' latest' : '') + '" data-hover="Cấu hình #' + (idx + 1) + ': ' + str + '">' + str + '</span>';
         });
         html += '</div>';
-        container.innerHTML = html;
-      } else if (m === 'bt') {
+        return html;
+      }
+
+      if (m === 'bt') {
         var Nb = v.Nb;
         var html = '<div class="chess-wrap"><div class="chess-board" style="grid-template-columns: repeat(' + Nb + ', auto);">';
         for (var r = 0; r < Nb; r++) {
@@ -3716,15 +2941,17 @@
             else if (v.conflictRow >= 0 && r === v.conflictRow && v.Qb[r] === c) cls += ' conflict';
 
             var queenSvg = hasQueen
-              ? '<svg width="30" height="30" viewBox="0 0 24 24" fill="none" stroke="' + (v.isSol ? '#0284c7' : '#d97706') + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M4 15l-1-8 5 4 4-6 4 6 5-4-1 8H4z"/></svg>'
+              ? '<svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="' + (v.isSol ? '#0284c7' : '#d97706') + '" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 18h20"/><path d="M4 15l-1-8 5 4 4-6 4 6 5-4-1 8H4z"/></svg>'
               : '';
             html += '<div class="' + cls + '" data-hover="Ô (' + r + ', ' + c + '): ' + (hasQueen ? 'Có hậu' : 'Trống') + '">' + queenSvg + '<span class="chess-coord">' + r + ',' + c + '</span></div>';
           }
         }
         html += '</div></div>';
-        container.innerHTML = html;
-      } else if (m === 'bst') {
-        var svgH = Math.max(240, 95 + v.maxDepth * 74);
+        return html;
+      }
+
+      if (m === 'bst') {
+        var svgH = Math.max(220, 95 + v.maxDepth * 74);
         var edgesSvg = '';
         var nodesSvg = '';
         v.nodes.forEach(function(n) {
@@ -3739,7 +2966,7 @@
           nodesSvg +=
             '<g style="cursor:pointer;" data-hover="Nút khóa ' + n.key + ', độ sâu ' + n.depth + '">' +
               '<circle cx="' + n.x + '" cy="' + n.y + '" r="22" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + (isActive ? 3.5 : 2) + '"/>' +
-              '<text x="' + n.x + '" y="' + (n.y + 5) + '" text-anchor="middle" fill="#0f172a" font-family="Source Code Pro, Consolas, monospace" font-size="14.5" font-weight="700">' + n.key + '</text>' +
+              '<text x="' + n.x + '" y="' + (n.y + 5) + '" text-anchor="middle" fill="#0f172a" font-family="Roboto Mono, Consolas, monospace" font-size="14.5" font-weight="700">' + n.key + '</text>' +
             '</g>';
         });
         var outHtml = '<div class="output-strip"><span class="strip-label">Kết quả ' + renderMath('O_t', false) + ':</span>';
@@ -3748,78 +2975,64 @@
           outHtml += '<span class="strip-item' + (i === v.Ot.length - 1 ? ' active-item' : '') + '">' + val + '</span>';
         });
         outHtml += '</div>';
-        container.innerHTML = '<svg class="svg-stage" viewBox="0 0 650 ' + svgH + '">' + edgesSvg + nodesSvg + '</svg>' + outHtml;
-      } else if (m === 'graph') {
-        var preset = v.preset;
-        var edgesSvg = '';
-        preset.edges.forEach(function(e) {
-          var n1 = preset.nodes[e[0]], n2 = preset.nodes[e[1]];
-          var isActiveEdge = (v.vd === e[0] && v.wd === e[1]) || (v.vd === e[1] && v.wd === e[0]);
-          edgesSvg += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + (isActiveEdge ? '#d97706' : '#94a3b8') + '" stroke-width="' + (isActiveEdge ? 4 : 2.5) + '"/>';
-        });
-        var nodesSvg = '';
-        preset.nodes.forEach(function(n) {
-          var isVd = n.id === v.vd, isWd = n.id === v.wd, isDone = v.Pd.indexOf(n.id) !== -1, isMarked = v.Vd.indexOf(n.id) !== -1;
-          var fill = isVd ? '#fef3c7' : (isWd ? '#ffe4e6' : (isDone ? '#e0f2fe' : (isMarked ? '#f1f5f9' : '#ffffff')));
-          var stroke = isVd ? '#d97706' : (isWd ? '#e11d48' : (isDone ? '#0284c7' : (isMarked ? '#64748b' : '#94a3b8')));
-          nodesSvg +=
-            '<g style="cursor:pointer;" data-hover="Đỉnh ' + n.id + ' - Kề: [' + v.adj[n.id].join(', ') + ']">' +
-              '<circle cx="' + n.x + '" cy="' + n.y + '" r="21" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + ((isVd || isWd) ? 3.5 : 2) + '"/>' +
-              '<text x="' + n.x + '" y="' + (n.y + 5) + '" text-anchor="middle" fill="#0f172a" font-family="Source Code Pro, Consolas, monospace" font-size="15" font-weight="700">' + n.id + '</text>' +
-            '</g>';
-        });
-        var isDFS = v.mode === 'DFS';
-        var dsTitle = isDFS ? ('Stack ' + renderMath('D_d', false) + ' (LIFO)') : ('Queue ' + renderMath('D_d', false) + ' (FIFO)');
-        var dsItemsHtml = v.Dd.length === 0
-          ? '<div style="color:var(--text-muted); font-size:0.84rem; text-align:center; margin:auto;">Rỗng</div>'
-          : v.Dd.map(function(val, idx) {
-              var isHead = isDFS ? (idx === v.Dd.length - 1) : (idx === 0);
-              return '<div class="ds-item' + (isHead ? ' ds-head' : '') + '">Đỉnh ' + val + (isHead ? (isDFS ? ' [TOP]' : ' [FRONT]') : '') + '</div>';
-            }).join('');
-        var pHtml = '<div class="output-strip"><span class="strip-label">Thứ tự ' + renderMath('P_d', false) + ':</span>';
-        if (v.Pd.length === 0) pHtml += '<span class="strip-item" style="color:var(--text-muted);">Chưa rút đỉnh</span>';
-        else v.Pd.forEach(function(val, i) {
-          pHtml += '<span class="strip-item' + (i === v.Pd.length - 1 ? ' active-item' : '') + '">' + val + '</span>';
-        });
-        pHtml += '</div>';
-        container.innerHTML =
-          '<div class="graph-split">' +
-            '<svg class="svg-stage" viewBox="0 0 420 300">' + edgesSvg + nodesSvg + '</svg>' +
-            '<div class="ds-box"><div class="ds-box-title">' + dsTitle + '</div>' +
-            '<div class="' + (isDFS ? 'stack-items' : 'queue-items') + '">' + dsItemsHtml + '</div></div>' +
-          '</div>' + pHtml;
+        return '<svg class="svg-stage" viewBox="0 0 650 ' + svgH + '">' + edgesSvg + nodesSvg + '</svg>' + outHtml;
       }
 
-      var ctxBanner = buildContextBanner(m, appState.activeCaseIndex, step);
-      if (ctxBanner) container.insertAdjacentHTML('beforeend', ctxBanner);
-
-      container.querySelectorAll('[data-hover]').forEach(function(el) {
-        el.addEventListener('mouseenter', function() { hoverInfo.textContent = el.getAttribute('data-hover'); });
+      var preset = v.preset;
+      var edgesSvg = '';
+      preset.edges.forEach(function(e) {
+        var n1 = preset.nodes[e[0]], n2 = preset.nodes[e[1]];
+        var isActiveEdge = (v.vd === e[0] && v.wd === e[1]) || (v.vd === e[1] && v.wd === e[0]);
+        edgesSvg += '<line x1="' + n1.x + '" y1="' + n1.y + '" x2="' + n2.x + '" y2="' + n2.y + '" stroke="' + (isActiveEdge ? '#d97706' : '#94a3b8') + '" stroke-width="' + (isActiveEdge ? 4 : 2.5) + '"/>';
       });
+      var nodesSvg = '';
+      preset.nodes.forEach(function(n) {
+        var isVd = n.id === v.vd, isWd = n.id === v.wd, isDone = v.Pd.indexOf(n.id) !== -1, isMarked = v.Vd.indexOf(n.id) !== -1;
+        var fill = isVd ? '#fef3c7' : (isWd ? '#ffe4e6' : (isDone ? '#e0f2fe' : (isMarked ? '#f1f5f9' : '#ffffff')));
+        var stroke = isVd ? '#d97706' : (isWd ? '#e11d48' : (isDone ? '#0284c7' : (isMarked ? '#64748b' : '#94a3b8')));
+        nodesSvg +=
+          '<g style="cursor:pointer;" data-hover="Đỉnh ' + n.id + ' - Kề: [' + v.adj[n.id].join(', ') + ']">' +
+            '<circle cx="' + n.x + '" cy="' + n.y + '" r="21" fill="' + fill + '" stroke="' + stroke + '" stroke-width="' + ((isVd || isWd) ? 3.5 : 2) + '"/>' +
+            '<text x="' + n.x + '" y="' + (n.y + 5) + '" text-anchor="middle" fill="#0f172a" font-family="Roboto Mono, Consolas, monospace" font-size="15" font-weight="700">' + n.id + '</text>' +
+          '</g>';
+      });
+      var isDFS = v.mode === 'DFS';
+      var dsTitle = isDFS ? ('Stack ' + renderMath('D_d', false) + ' (LIFO)') : ('Queue ' + renderMath('D_d', false) + ' (FIFO)');
+      var dsItemsHtml = v.Dd.length === 0
+        ? '<div style="color:var(--text-muted); font-size:0.84rem; text-align:center; margin:auto;">Rỗng</div>'
+        : v.Dd.map(function(val, idx) {
+            var isHead = isDFS ? (idx === v.Dd.length - 1) : (idx === 0);
+            return '<div class="ds-item' + (isHead ? ' ds-head' : '') + '">Đỉnh ' + val + (isHead ? (isDFS ? ' [TOP]' : ' [FRONT]') : '') + '</div>';
+          }).join('');
+      var pHtml = '<div class="output-strip"><span class="strip-label">Thứ tự ' + renderMath('P_d', false) + ':</span>';
+      if (v.Pd.length === 0) pHtml += '<span class="strip-item" style="color:var(--text-muted);">Chưa rút đỉnh</span>';
+      else v.Pd.forEach(function(val, i) {
+        pHtml += '<span class="strip-item' + (i === v.Pd.length - 1 ? ' active-item' : '') + '">' + val + '</span>';
+      });
+      pHtml += '</div>';
+      return (
+        '<div class="graph-split">' +
+          '<svg class="svg-stage" viewBox="0 0 420 300">' + edgesSvg + nodesSvg + '</svg>' +
+          '<div class="ds-box"><div class="ds-box-title">' + dsTitle + '</div>' +
+          '<div class="' + (isDFS ? 'stack-items' : 'queue-items') + '">' + dsItemsHtml + '</div></div>' +
+        '</div>' + pHtml
+      );
     }
 
-    function buildContextBanner(m, caseIdx, step) {
-      var v = step.visual;
-      if (caseIdx === 0) {
-        return '<div class="context-banner"><strong>Khuôn mẫu chung:</strong> Đổi tham số ở thanh trên để quan sát đồng bộ 3 tầng (Công thức - Lưu đồ - Mã giả).</div>';
+    function renderVisual(step) {
+      var html = buildVisualHtml(step);
+      var simEl = document.getElementById('sim-visual');
+      var essayEl = document.getElementById('essay-visual');
+      var hoverInfo = document.getElementById('hover-info');
+      if (simEl) {
+        simEl.innerHTML = html;
+        simEl.querySelectorAll('[data-hover]').forEach(function(el) {
+          el.addEventListener('mouseenter', function() { hoverInfo.textContent = el.getAttribute('data-hover'); });
+        });
       }
-      if (m === 'gen' && v.bitLabels) {
-        var activeLabels = [];
-        for (var i = 0; i < v.Bg.length; i++) if (v.Bg[i] === 1) activeLabels.push(v.bitLabels[i]);
-        return '<div class="context-banner"><strong>Ánh xạ ví dụ:</strong> ' + v.Bg.join('') + ' -> [' + escapeHtml(activeLabels.length ? activeLabels.join(', ') : 'Rỗng / Tắt hết') + '].</div>';
+      if (essayEl) {
+        essayEl.innerHTML = html;
       }
-      if (m === 'bt') {
-        var placed = [];
-        for (var r = 0; r < v.Nb; r++) if (v.Qb[r] !== -1) placed.push('H' + r + '->C' + v.Qb[r]);
-        return '<div class="context-banner"><strong>Vị trí hiện tại:</strong> ' + (placed.length ? placed.join(' | ') : 'Chưa đặt') + '.</div>';
-      }
-      if (m === 'bst') {
-        return '<div class="context-banner"><strong>Kết quả hiện tại:</strong> [' + (v.Ot.length ? v.Ot.join(' -> ') : 'Trống') + '].</div>';
-      }
-      if (m === 'graph') {
-        return '<div class="context-banner"><strong>Lộ trình duyệt:</strong> [' + (v.Pd.length ? v.Pd.join(' -> ') : 'Trống') + '].</div>';
-      }
-      return '';
     }
 
     function getActiveTemplateStepIndex(moduleKey, step) {
@@ -3896,71 +3109,18 @@
           }
         });
       }
-      if (target && typeof target.scrollIntoView === 'function') {
-        target.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      var sec3 = document.getElementById('sec-step3');
+      if (sec3 && typeof sec3.scrollIntoView === 'function') {
+        sec3.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
       setTimeout(function() {
         document.querySelectorAll('.jump-highlight').forEach(function(el) { el.classList.remove('jump-highlight'); });
-      }, 2000);
-    }
-
-    function renderCurrentStep() {
-      var mod = MODULES[appState.activeModule];
-      var total = appState.steps.length;
-      if (total === 0) return;
-
-      var idx = Math.max(0, Math.min(appState.stepIndex, total - 1));
-      appState.stepIndex = idx;
-      var step = appState.steps[idx];
-
-      document.getElementById('step-badge').textContent = 'Bước ' + (idx + 1) + ' / ' + total;
-      var slider = document.getElementById('step-slider');
-      slider.max = String(total - 1);
-      slider.value = String(idx);
-      document.getElementById('btn-prev').disabled = idx === 0;
-      document.getElementById('btn-next').disabled = idx === total - 1;
-      document.getElementById('step-caption').innerHTML = renderVarsToLatex(step.explain);
-
-      mod.formulas.forEach(function(f) {
-        var card = document.getElementById('fcard-' + f.id);
-        var pill = document.getElementById('fpill-' + f.id);
-        var liveBox = document.getElementById('flive-' + f.id);
-        if (!card) return;
-        card.classList.remove('status-active', 'status-done', 'status-pending');
-        pill.classList.remove('pill-active', 'pill-done', 'pill-pending');
-        if (step.formulaId === f.id) {
-          card.classList.add('status-active'); pill.classList.add('pill-active'); pill.textContent = 'Đang chạy';
-        } else if (step.doneFormulas.indexOf(f.id) !== -1) {
-          card.classList.add('status-done'); pill.classList.add('pill-done'); pill.textContent = 'Đã xong';
-        } else {
-          card.classList.add('status-pending'); pill.classList.add('pill-pending'); pill.textContent = 'Chưa đến';
-        }
-        liveBox.innerHTML = renderMath('\\text{Giá trị hiện tại: } ' + (step.liveLatex[f.id] || ''), false);
-      });
-
-      document.querySelectorAll('#flowchart-container .flow-node').forEach(function(node) {
-        node.classList.toggle('active-node', node.getAttribute('data-node') === step.flowNodeId);
-      });
-
-      document.querySelectorAll('#code-container .code-line').forEach(function(line) {
-        line.classList.toggle('active-line', parseInt(line.getAttribute('data-line'), 10) === step.codeLine);
-      });
-
-      renderTemplateTracker(step);
-      renderVisual(step);
-      renderEssayDraftGuide(step);
-      renderLiveVariables(step);
-      if (appState.traceOpen) renderStateTraceTable();
-      requestAnimationFrame(applyDynamicMobileScale);
+      }, 2200);
     }
 
     function renderEssayDraftGuide(step) {
       var box = document.getElementById('essay-draft-guide');
       if (!box) return;
-      var show = appState.essayMode || appState.traceOpen;
-      box.classList.toggle('is-hidden', !show);
-      if (!show) return;
-
       var m = appState.activeModule;
       var v = step.visual;
       var lines = [];
@@ -3999,9 +3159,62 @@
         '</ul>';
     }
 
-    // =========================================================================
-    // BANG STATE TRACE (GIAI BAI BANG TAY)
-    // =========================================================================
+    function renderCurrentStep() {
+      var mod = MODULES[appState.activeModule];
+      var total = appState.steps.length;
+      if (total === 0) return;
+
+      var idx = Math.max(0, Math.min(appState.stepIndex, total - 1));
+      appState.stepIndex = idx;
+      var step = appState.steps[idx];
+
+      var badgeText = 'Bước ' + (idx + 1) + ' / ' + total;
+      document.getElementById('step-badge').textContent = badgeText;
+      document.getElementById('essay-step-badge').textContent = badgeText;
+
+      var slider = document.getElementById('step-slider');
+      slider.max = String(total - 1);
+      slider.value = String(idx);
+
+      document.getElementById('btn-prev').disabled = idx === 0;
+      document.getElementById('btn-next').disabled = idx === total - 1;
+      document.getElementById('btn-essay-prev').disabled = idx === 0;
+      document.getElementById('btn-essay-next').disabled = idx === total - 1;
+      document.getElementById('step-caption').innerHTML = renderVarsToLatex(step.explain);
+
+      mod.formulas.forEach(function(f) {
+        var card = document.getElementById('fcard-' + f.id);
+        var pill = document.getElementById('fpill-' + f.id);
+        var liveBox = document.getElementById('flive-' + f.id);
+        if (!card) return;
+        card.classList.remove('status-active', 'status-done', 'status-pending');
+        pill.classList.remove('pill-active', 'pill-done', 'pill-pending');
+        if (step.formulaId === f.id) {
+          card.classList.add('status-active'); pill.classList.add('pill-active'); pill.textContent = 'Đang chạy';
+        } else if (step.doneFormulas.indexOf(f.id) !== -1) {
+          card.classList.add('status-done'); pill.classList.add('pill-done'); pill.textContent = 'Đã xong';
+        } else {
+          card.classList.add('status-pending'); pill.classList.add('pill-pending'); pill.textContent = 'Chưa đến';
+        }
+        liveBox.innerHTML = renderMath('\\text{Giá trị hiện tại: } ' + (step.liveLatex[f.id] || ''), false);
+      });
+
+      document.querySelectorAll('#flowchart-container .flow-node').forEach(function(node) {
+        node.classList.toggle('active-node', node.getAttribute('data-node') === step.flowNodeId);
+      });
+
+      document.querySelectorAll('#code-container .code-line').forEach(function(line) {
+        line.classList.toggle('active-line', parseInt(line.getAttribute('data-line'), 10) === step.codeLine);
+      });
+
+      renderTemplateTracker(step);
+      renderVisual(step);
+      renderEssayDraftGuide(step);
+      renderLiveVariables(step);
+      renderStateTraceTable();
+      requestAnimationFrame(applyDynamicMobileScale);
+    }
+
     function isCoreTraceStep(m, step, idx, total) {
       if (idx === 0 || idx === total - 1) return true;
       if (m === 'gen') return step.flowNodeId === 'N_STOP' || step.codeLine === 13;
@@ -4236,7 +3449,6 @@
       var c = cases[appState.activeCaseIndex] || cases[0];
 
       document.getElementById('bp-title').textContent = c.title;
-      document.getElementById('bp-subtitle').innerHTML = renderInlineMathText(c.subtitle);
       document.getElementById('bp-problem').innerHTML = renderInlineMathText(c.problem);
       document.getElementById('bp-io').innerHTML =
         '<div class="bp-io-row"><span class="bp-io-tag">Input</span>' + renderInlineMathText(c.input) + '</div>' +
@@ -4245,14 +3457,9 @@
       document.getElementById('bp-design').innerHTML =
         '<ol class="bp-steps">' + c.design.map(function(item) { return '<li>' + renderInlineMathText(item) + '</li>'; }).join('') + '</ol>';
 
-      var summaryEl = document.getElementById('core-summary-text');
-      if (summaryEl) {
-        summaryEl.innerHTML = '<strong>' + escapeHtml(c.tab) + ':</strong> ' + renderInlineMathText(c.problem);
-      }
-
       document.getElementById('sim-title').textContent = appState.activeCaseIndex === 0 ? MODULES[appState.activeModule].title : c.title;
       var badgeEl = document.getElementById('sim-mode-badge');
-      badgeEl.textContent = appState.activeCaseIndex === 0 ? 'Đang mô phỏng: Giải thuật chung' : ('Đang mô phỏng: ' + c.tab);
+      badgeEl.textContent = appState.activeCaseIndex === 0 ? 'Giải thuật chung' : c.tab;
       badgeEl.classList.toggle('is-example', appState.activeCaseIndex !== 0);
 
       var nav = document.getElementById('case-nav');
@@ -4262,16 +3469,6 @@
       nav.querySelectorAll('.case-btn').forEach(function(btn) {
         btn.addEventListener('click', function() { selectCase(parseInt(btn.getAttribute('data-case-idx'), 10)); });
       });
-
-      var sbCaseNav = document.getElementById('sb-case-nav');
-      if (sbCaseNav) {
-        sbCaseNav.innerHTML = cases.map(function(item, idx) {
-          return '<button class="sb-btn' + (idx === appState.activeCaseIndex ? ' active' : '') + '" data-sb-case="' + idx + '" title="' + escapeHtml(item.tab) + '"><span class="sb-hide">' + escapeHtml(item.tab) + '</span><span class="sb-short-code">' + (idx === 0 ? 'C' : ('V' + idx)) + '</span></button>';
-        }).join('');
-        sbCaseNav.querySelectorAll('[data-sb-case]').forEach(function(btn) {
-          btn.addEventListener('click', function() { selectCase(parseInt(btn.getAttribute('data-sb-case'), 10)); });
-        });
-      }
     }
 
     function selectCase(caseIdx) {
@@ -4299,8 +3496,13 @@
     }
 
     function renderDiagnosticPanel() {
+      var panel = document.getElementById('diag-panel');
       var body = document.getElementById('diag-body');
-      if (!body) return;
+      if (!panel || !body) return;
+      panel.classList.toggle('is-hidden', !appState.diagOpen);
+      document.getElementById('btn-toggle-quiz').classList.toggle('active', appState.diagOpen);
+      var btnStep1Quiz = document.getElementById('btn-step1-quiz');
+      if (btnStep1Quiz) btnStep1Quiz.classList.toggle('active', appState.diagOpen);
       document.querySelectorAll('[data-diag-tab]').forEach(function(btn) {
         btn.classList.toggle('active', btn.getAttribute('data-diag-tab') === appState.diagTab);
       });
@@ -4313,7 +3515,6 @@
         body.querySelectorAll('[data-jump-mod]').forEach(function(btn) {
           btn.addEventListener('click', function() {
             switchModule(btn.getAttribute('data-jump-mod'));
-            document.getElementById('workspace-core').scrollIntoView({ behavior: 'smooth', block: 'start' });
           });
         });
       } else if (appState.diagTab === 'matrix') {
@@ -4330,7 +3531,7 @@
       } else if (appState.diagTab === 'quiz') {
         var q = DIAGNOSTIC_QUIZ[appState.quizIndex] || DIAGNOSTIC_QUIZ[0];
         var modNames = { gen: '1A. Sinh', bt: '1B. Quay lui', bst: '2. Cây BST', graph: '3. Đồ thị' };
-        var ansHtml = '<div class="quiz-ans-box" style="color:var(--text-secondary);">Chọn 1 trong 4 giải thuật ở trên để kiểm tra cách nhận diện và lắp khuôn mẫu.</div>';
+        var ansHtml = '<div class="quiz-ans-box" style="color:var(--text-secondary);">Chọn 1 trong 4 giải thuật ở trên để kiểm tra cách nhận diện.</div>';
         if (appState.quizPicked !== null) {
           var isRight = appState.quizPicked === q.answer;
           ansHtml = '<div class="quiz-ans-box ' + (isRight ? 'correct' : 'wrong') + '">' +
@@ -4338,7 +3539,7 @@
             '<div style="margin-top:5px;"><strong>1. Lý do:</strong> ' + renderInlineMathText(q.why) + '</div>' +
             '<div style="margin-top:4px;"><strong>2. In/Out:</strong> ' + renderInlineMathText(q.io) + '</div>' +
             '<div style="margin-top:4px;"><strong>3. Khuôn mẫu:</strong> ' + renderInlineMathText(q.how) + '</div>' +
-            '<div style="margin-top:8px;"><button class="diag-jump-btn" id="btn-quiz-open-mod">Mở mô phỏng ' + escapeHtml(modNames[q.answer]) + '</button></div></div>';
+            '<div style="margin-top:8px;"><button class="diag-jump-btn" id="btn-quiz-open-mod">Mở bài ' + escapeHtml(modNames[q.answer]) + '</button></div></div>';
         }
         body.innerHTML = '<div class="quiz-grid"><div class="quiz-list">' +
           DIAGNOSTIC_QUIZ.map(function(item, idx) {
@@ -4355,82 +3556,33 @@
           btn.addEventListener('click', function() { appState.quizPicked = btn.getAttribute('data-quiz-pick'); renderDiagnosticPanel(); });
         });
         var openBtn = document.getElementById('btn-quiz-open-mod');
-        if (openBtn) openBtn.addEventListener('click', function() {
-          switchModule(q.answer);
-          document.getElementById('workspace-core').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        });
+        if (openBtn) openBtn.addEventListener('click', function() { switchModule(q.answer); });
       }
     }
 
-    function syncMobileBottomBar() {
-      if (appState.essayMode) {
-        appState.activeMobileTab = 'essay';
-      } else if (appState.activeMobileTab === 'essay' && !appState.essayMode) {
-        appState.activeMobileTab = 'sim';
-      } else if (appState.activeMobileTab === 'guide' && !appState.diagOpen && !appState.blueprintOpen) {
-        appState.activeMobileTab = 'sim';
-      }
-      document.querySelectorAll('.mb-tab-btn').forEach(function(btn) {
-        btn.classList.toggle('active', btn.getAttribute('data-mb-action') === appState.activeMobileTab);
-      });
-    }
-
-    function syncCollapsiblePanels() {
-      if (appState.essayMode) {
-        appState.traceOpen = true;
-      }
+    function setEssayMode(on) {
+      appState.essayMode = !!on;
       document.body.classList.toggle('mode-essay', appState.essayMode);
-      var states = { diag: appState.diagOpen, blueprint: appState.blueprintOpen, trace: appState.traceOpen, essay: appState.essayMode };
-      document.getElementById('diag-panel').classList.toggle('is-hidden', !states.diag);
-      document.getElementById('blueprint-panel').classList.toggle('is-hidden', !states.blueprint);
-      document.getElementById('trace-section').classList.toggle('is-hidden', !states.trace);
-
-      ['diag', 'blueprint', 'trace', 'essay'].forEach(function(key) {
-        var isOn = states[key];
-        document.querySelectorAll('[data-toggle-panel="' + key + '"]').forEach(function(btn) { btn.classList.toggle('active', isOn); });
-        var pill = document.getElementById('pill-sb-' + key);
-        if (pill) pill.textContent = isOn ? 'Mở' : 'Ẩn';
-      });
-
-      syncMobileBottomBar();
-      if (appState.diagOpen) renderDiagnosticPanel();
-      if (appState.traceOpen) renderStateTraceTable();
-      if (appState.steps.length > 0) renderEssayDraftGuide(appState.steps[appState.stepIndex]);
-      requestAnimationFrame(applyDynamicMobileScale);
+      var btnTop = document.getElementById('btn-toggle-essay');
+      var btnSb = document.getElementById('btn-sb-essay');
+      if (btnTop) btnTop.classList.toggle('active', appState.essayMode);
+      if (btnSb) btnSb.classList.toggle('active', appState.essayMode);
+      if (appState.essayMode) {
+        updateActiveNavSection('sec-step4');
+        document.getElementById('sec-step4').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else {
+        updateActiveNavSection('sec-step1');
+      }
     }
 
-    function toggleOptionalPanel(panelKey, forceOpen, shouldScroll) {
-      if (panelKey === 'essay') {
-        appState.essayMode = typeof forceOpen === 'boolean' ? forceOpen : !appState.essayMode;
-        if (appState.essayMode) {
-          appState.traceOpen = true;
-          appState.diagOpen = false;
-          appState.blueprintOpen = false;
-        } else {
-          appState.traceOpen = false;
-        }
-        syncCollapsiblePanels();
-        if (appState.essayMode && shouldScroll) {
-          document.getElementById('panel-sim').scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
-        return;
-      }
-      var propMap = { diag: 'diagOpen', blueprint: 'blueprintOpen', trace: 'traceOpen' };
-      var prop = propMap[panelKey];
-      if (!prop) return;
-      appState[prop] = typeof forceOpen === 'boolean' ? forceOpen : !appState[prop];
-      if (panelKey === 'trace' && !appState.traceOpen) {
-        appState.essayMode = false;
-      }
-      if ((panelKey === 'diag' || panelKey === 'blueprint') && appState[prop]) {
-        appState.essayMode = false;
-      }
-      syncCollapsiblePanels();
-      if (appState[prop] && shouldScroll) {
-        var idMap = { diag: 'diag-panel', blueprint: 'blueprint-panel', trace: 'trace-section' };
-        var target = document.getElementById(idMap[panelKey]);
-        if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
+    function updateActiveNavSection(secId) {
+      appState.activeMobileSec = secId;
+      document.querySelectorAll('.mb-tab-btn').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-mb-sec') === secId);
+      });
+      document.querySelectorAll('[data-jump-sec]').forEach(function(btn) {
+        btn.classList.toggle('active', btn.getAttribute('data-jump-sec') === secId);
+      });
     }
 
     function switchModule(moduleKey) {
@@ -4457,16 +3609,12 @@
         btn.classList.toggle('active', isMatch);
         btn.setAttribute('aria-selected', isMatch ? 'true' : 'false');
       });
-      document.querySelectorAll('[data-sb-layer]').forEach(function(btn) {
-        btn.classList.toggle('active', btn.getAttribute('data-sb-layer') === layerKey);
-      });
       document.querySelectorAll('.layer-pane').forEach(function(pane) {
         pane.classList.toggle('active', pane.id === 'pane-' + layerKey);
       });
       if (appState.steps.length > 0) renderCurrentStep();
     }
 
-    // Tu dong render lai toan bo LaTeX ngay khi KaTeX tai xong tu CDN
     window.onKatexLoaded = function() {
       if (!appInitialized) return;
       renderBlueprintSection();
@@ -4488,91 +3636,89 @@
       applyViewMode(appState.viewMode);
       window.addEventListener('resize', applyDynamicMobileScale);
 
-      document.getElementById('btn-sb-collapse').addEventListener('click', function() {
-        appState.sidebarCollapsed = !appState.sidebarCollapsed;
-        document.getElementById('app-layout').classList.toggle('sidebar-collapsed', appState.sidebarCollapsed);
-        this.textContent = appState.sidebarCollapsed ? '>>' : '<<';
-        requestAnimationFrame(applyDynamicMobileScale);
-      });
-
-      document.getElementById('btn-sb-top').addEventListener('click', function() {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
-      });
-
       document.querySelectorAll('[data-module]').forEach(function(btn) {
         btn.addEventListener('click', function() { switchModule(btn.getAttribute('data-module')); });
       });
 
-      document.querySelectorAll('[data-sb-layer]').forEach(function(btn) {
+      document.querySelectorAll('[data-jump-sec]').forEach(function(btn) {
         btn.addEventListener('click', function() {
-          switchLayer(btn.getAttribute('data-sb-layer'));
-          if (window.innerWidth <= 1180) document.getElementById('panel-layers').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          var secId = btn.getAttribute('data-jump-sec');
+          if (appState.essayMode && secId !== 'sec-step4') setEssayMode(false);
+          updateActiveNavSection(secId);
+          var el = document.getElementById(secId);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
         });
       });
 
-      document.querySelectorAll('[data-toggle-panel]').forEach(function(btn) {
-        btn.addEventListener('click', function() { toggleOptionalPanel(btn.getAttribute('data-toggle-panel'), undefined, true); });
+      document.querySelectorAll('[data-mb-sec]').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          var secId = btn.getAttribute('data-mb-sec');
+          if (appState.essayMode && secId !== 'sec-step4') setEssayMode(false);
+          updateActiveNavSection(secId);
+          var el = document.getElementById(secId);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
       });
 
-      document.querySelectorAll('[data-mb-action]').forEach(function(btn) {
-        btn.addEventListener('click', function() {
-          var act = btn.getAttribute('data-mb-action');
-          appState.activeMobileTab = act;
-          if (act === 'sim') {
-            appState.essayMode = false;
-            syncCollapsiblePanels();
-            document.getElementById('panel-sim').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } else if (act === 'layers') {
-            appState.essayMode = false;
-            syncCollapsiblePanels();
-            document.getElementById('panel-layers').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } else if (act === 'guide') {
-            appState.essayMode = false;
-            appState.blueprintOpen = true;
-            appState.diagOpen = true;
-            syncCollapsiblePanels();
-            document.getElementById('diag-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } else if (act === 'essay') {
-            toggleOptionalPanel('essay', true, true);
-          }
-        });
+      document.getElementById('btn-toggle-essay').addEventListener('click', function() { setEssayMode(!appState.essayMode); });
+      document.getElementById('btn-sb-essay').addEventListener('click', function() { setEssayMode(!appState.essayMode); });
+      document.getElementById('btn-sb-top').addEventListener('click', function() {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+
+      function toggleQuizPanel() {
+        appState.diagOpen = !appState.diagOpen;
+        if (appState.diagOpen && appState.essayMode) setEssayMode(false);
+        renderDiagnosticPanel();
+        if (appState.diagOpen) document.getElementById('diag-panel').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      }
+      document.getElementById('btn-toggle-quiz').addEventListener('click', toggleQuizPanel);
+      document.getElementById('btn-step1-quiz').addEventListener('click', toggleQuizPanel);
+
+      document.getElementById('btn-close-diag').addEventListener('click', function() {
+        appState.diagOpen = false;
+        renderDiagnosticPanel();
       });
 
       document.querySelectorAll('[data-diag-tab]').forEach(function(btn) {
         btn.addEventListener('click', function() {
           appState.diagTab = btn.getAttribute('data-diag-tab');
           appState.diagOpen = true;
-          syncCollapsiblePanels();
+          renderDiagnosticPanel();
         });
-      });
-
-      document.getElementById('btn-toggle-diag').addEventListener('click', function() {
-        toggleOptionalPanel('diag', false, false);
       });
 
       document.querySelectorAll('.layer-tab-btn').forEach(function(btn) {
         btn.addEventListener('click', function() { switchLayer(btn.getAttribute('data-layer')); });
       });
 
-      document.getElementById('btn-prev').addEventListener('click', function() {
+      function stepPrev() {
         stopAutoPlay();
         appState.hasInteracted = true;
-        if (appState.stepIndex > 0) { appState.stepIndex--; }
+        if (appState.stepIndex > 0) appState.stepIndex--;
         renderCurrentStep();
-      });
-
-      document.getElementById('btn-next').addEventListener('click', function() {
+      }
+      function stepNext() {
         stopAutoPlay();
         appState.hasInteracted = true;
-        if (appState.stepIndex < appState.steps.length - 1) { appState.stepIndex++; }
+        if (appState.stepIndex < appState.steps.length - 1) appState.stepIndex++;
         renderCurrentStep();
-      });
+      }
+      function stepReset() {
+        stopAutoPlay();
+        appState.stepIndex = 0;
+        appState.prevVars = {};
+        appState.hasInteracted = false;
+        renderCurrentStep();
+      }
 
+      document.getElementById('btn-prev').addEventListener('click', stepPrev);
+      document.getElementById('btn-next').addEventListener('click', stepNext);
+      document.getElementById('btn-reset').addEventListener('click', stepReset);
       document.getElementById('btn-play').addEventListener('click', toggleAutoPlay);
-
-      document.getElementById('btn-reset').addEventListener('click', function() {
-        stopAutoPlay(); appState.stepIndex = 0; appState.prevVars = {}; appState.hasInteracted = false; renderCurrentStep();
-      });
+      document.getElementById('btn-essay-prev').addEventListener('click', stepPrev);
+      document.getElementById('btn-essay-next').addEventListener('click', stepNext);
+      document.getElementById('btn-essay-reset').addEventListener('click', stepReset);
 
       document.getElementById('step-slider').addEventListener('input', function(e) {
         stopAutoPlay(); appState.hasInteracted = true; appState.stepIndex = parseInt(e.target.value, 10); renderCurrentStep();
@@ -4586,7 +3732,23 @@
         appState.traceShowAll = !appState.traceShowAll; renderStateTraceTable();
       });
 
-      syncCollapsiblePanels();
+      // Scroll-spy giup thanh dieu huong luon dong bo theo thu tu cuon tuyen tinh 1 -> 2 -> 3 -> 4
+      var secIds = ['sec-step1', 'sec-step2', 'sec-step3', 'sec-step4'];
+      window.addEventListener('scroll', function() {
+        if (appState.essayMode) return;
+        var offset = 210;
+        var current = secIds[0];
+        secIds.forEach(function(id) {
+          var el = document.getElementById(id);
+          if (el && el.getBoundingClientRect().top <= offset) {
+            current = id;
+          }
+        });
+        if (current !== appState.activeMobileSec) {
+          updateActiveNavSection(current);
+        }
+      }, { passive: true });
+
       switchModule('gen');
     }
 

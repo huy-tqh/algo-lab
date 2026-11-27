@@ -122,9 +122,36 @@ async function run() {
         throw new Error(`[${label}/${mod}] Flowchart render failure: ${JSON.stringify(l2)}`);
       }
 
-      // Check essayMode + trace table
+      // Check linear vertical ordering (1 -> 2 -> 3 -> 4) & 4 case buttons (General + 3 examples)
+      const linearCheck = await call("Runtime.evaluate", {
+        returnByValue: true,
+        expression: `(() => {
+          const ids = ['sec-step1', 'sec-step2', 'sec-step3', 'sec-step4'];
+          const tops = ids.map(id => {
+            const el = document.getElementById(id);
+            const r = el.getBoundingClientRect();
+            return { id, top: r.top + window.scrollY, h: r.height };
+          });
+          const cases = [...document.querySelectorAll('#case-nav .case-btn')].map(b => {
+            const r = b.getBoundingClientRect();
+            return { text: b.innerText.trim(), w: r.width, h: r.height };
+          });
+          return { tops, cases };
+        })()`,
+      });
+      const lc = linearCheck.result.value;
+      for (let i = 0; i < lc.tops.length - 1; i++) {
+        if (!(lc.tops[i].top < lc.tops[i + 1].top && lc.tops[i].h > 20)) {
+          throw new Error(`[${label}/${mod}] Sections not in linear top-to-bottom order: ${JSON.stringify(lc.tops)}`);
+        }
+      }
+      if (lc.cases.length !== 4 || lc.cases.some(c => c.w === 0 || c.h === 0)) {
+        throw new Error(`[${label}/${mod}] Expected 4 visible cases (General + 3 examples), got: ${JSON.stringify(lc.cases)}`);
+      }
+
+      // Check essayMode + trace table AND verify the 4 case buttons stay visible in essay mode
       await call("Runtime.evaluate", {
-        expression: `toggleOptionalPanel('essay', true, false);`,
+        expression: `setEssayMode(true);`,
       });
       await new Promise((r) => setTimeout(r, 150));
 
@@ -136,7 +163,8 @@ async function run() {
           const overflowX = document.documentElement.scrollWidth - window.innerWidth;
           const mbActive = document.querySelectorAll('.mb-tab-btn.active').length;
           const simTitle = document.getElementById('sim-title').innerText;
-          return { badTags, overflowX, mbActive, simTitle };
+          const visibleCases = [...document.querySelectorAll('#case-nav .case-btn')].filter(b => b.getBoundingClientRect().height > 0).length;
+          return { badTags, overflowX, mbActive, simTitle, visibleCases };
         })()`,
       });
       const dc = domCheck.result.value;
@@ -149,6 +177,9 @@ async function run() {
       if (viewMode === "mobile" && dc.mbActive !== 1) {
         throw new Error(`[${label}/${mod}] Mobile tab bar active count = ${dc.mbActive}, expected 1`);
       }
+      if (dc.visibleCases !== 4) {
+        throw new Error(`[${label}/${mod}] In essay mode, expected 4 visible case buttons, got ${dc.visibleCases}`);
+      }
 
       if (mod === "bst" || mod === "gen") {
         const shot = await call("Page.captureScreenshot", { format: "png" });
@@ -160,9 +191,9 @@ async function run() {
 
       // Turn off essayMode and verify layer1 screenshot too
       await call("Runtime.evaluate", {
-        expression: `toggleOptionalPanel('essay', false, false); switchLayer('layer1');`,
+        expression: `setEssayMode(false); switchLayer('layer1'); window.scrollTo({ top: 0, behavior: 'instant' });`,
       });
-      await new Promise((r) => setTimeout(r, 150));
+      await new Promise((r) => setTimeout(r, 200));
       if (mod === "gen") {
         const shot = await call("Page.captureScreenshot", { format: "png" });
         fs.writeFileSync(
