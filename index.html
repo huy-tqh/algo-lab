@@ -76,14 +76,8 @@
       overflow-x: hidden;
     }
 
-    /* Sua loi font tieng Viet ben trong KaTeX \text{...} */
     .katex {
       font-size: 1.06em;
-    }
-    .katex .text,
-    .katex .textrm,
-    .katex .mord.text {
-      font-family: var(--font-sans) !important;
     }
 
     /* Bo cuc rong tan dung be ngang man hinh Full HD + Sidebar co dinh */
@@ -3782,7 +3776,7 @@
         } else {
           card.classList.add('status-pending'); pill.classList.add('pill-pending'); pill.textContent = 'Chưa đến';
         }
-        liveBox.innerHTML = '<span>Giá trị hiện tại: </span>' + renderMath(step.liveLatex[f.id] || '', false);
+        liveBox.innerHTML = renderMath('\\text{Giá trị hiện tại: } ' + (step.liveLatex[f.id] || ''), false);
       });
 
       document.querySelectorAll('#flowchart-container .flow-node').forEach(function(node) {
