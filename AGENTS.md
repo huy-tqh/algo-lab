@@ -7,7 +7,7 @@ Tài liệu này ghi lại các quy tắc bắt buộc cho repository `algo-lab`
 - Mọi lệnh trên máy phải chạy thông qua `bash -c "<cmd>"`, không chạy trực tiếp lệnh `cmd` hoặc `powershell`.
 
 ## 2. Văn bản, Font chữ và LaTeX
-- **Dùng hyphen (`-`), cấm tuyệt đối emdash (`—`)** trong toàn bộ mã nguồn, giao diện và tài liệu.
+- **Dùng hyphen (`-`), cấm tuyệt đối emdash (`U+2014`)** trong toàn bộ mã nguồn, giao diện và tài liệu.
 - **Không dùng font mặc định kiểu AI** (`Be Vietnam Pro`, `JetBrains Mono`). Dùng font phổ thông tự nhiên (`Inter`, system sans-serif, `Source Code Pro`, `Consolas`).
 - **Đồng nhất font và cỡ chữ trong công thức toán**:
   - Đã là công thức toán học thì render toàn bộ bằng LaTeX/KaTeX (kể cả phần `\text{...}` và dòng `Giá trị hiện tại: ...`), không ép `font-family: var(--font-sans)` vào bên trong `.katex .text` và không chèn chữ font thường lẫn vào giữa công thức.
