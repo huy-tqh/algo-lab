@@ -110,13 +110,17 @@ const runner = new Function(
   "document",
   "requestAnimationFrame",
   mainScript +
-    "\nreturn { MODULES, appState, getTraceConfig, formatTraceCells };"
+    "\nreturn { MODULES, appState, getTraceConfig, formatTraceCells, switchModule };"
 );
 const ctx = runner(
   { innerWidth: 1200, addEventListener: noop },
   mockDoc,
   noop
 );
+
+["gen", "bt", "bst", "graph", "gen"].forEach((modKey) => {
+  ctx.switchModule(modKey);
+});
 
 ["gen", "bt", "bst", "graph"].forEach((modKey) => {
   const mod = ctx.MODULES[modKey];

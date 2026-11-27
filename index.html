@@ -5,10 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Học Giải Thuật Tương Tác - Sinh, Quay lui, Cây nhị phân, Stack, Queue và Đồ thị</title>
 
-  <!-- Google Fonts: Inter (noi dung) + Source Code Pro (ma va bien) -->
+  <!-- Google Fonts: Roboto (gon gang, pho thong) + Roboto Mono (ma va bang) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Source+Code+Pro:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;500;600;700&family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
 
   <!-- KaTeX CSS (CDN chinh + du phong tu dong) -->
   <link id="katex-css-primary" rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.11/dist/katex.min.css" crossorigin="anonymous" onerror="loadKatexCssFallback()">
@@ -48,8 +48,8 @@
       --accent-amber: #d97706;
       --accent-amber-bg: rgba(245, 158, 11, 0.18);
 
-      --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
-      --font-mono: 'Source Code Pro', Consolas, 'Courier New', monospace;
+      --font-sans: 'Roboto', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+      --font-mono: 'Roboto Mono', Consolas, 'Courier New', monospace;
 
       --radius-sm: 8px;
       --radius-md: 12px;
@@ -1768,9 +1768,46 @@
       padding: 6px 4px;
     }
 
+    .essay-draft-guide {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: var(--radius-sm);
+      background: #fffbeb;
+      border: 1px solid #fcd34d;
+      border-left: 4px solid #d97706;
+      font-size: 0.86rem;
+      line-height: 1.5;
+    }
+
+    .essay-draft-guide strong {
+      color: #92400e;
+    }
+
+    .essay-draft-list {
+      margin: 4px 0 0 18px;
+      padding: 0;
+    }
+
+    .essay-draft-list li {
+      margin-bottom: 2px;
+    }
+
+    body.mode-essay #panel-layers,
+    body.mode-essay #diag-panel,
+    body.mode-essay #blueprint-panel,
+    body.mode-essay .live-vars-section,
+    body.mode-essay .template-tracker,
+    body.mode-essay .core-summary-bar {
+      display: none !important;
+    }
+
+    body.mode-essay .workspace-grid {
+      grid-template-columns: minmax(0, 1fr) !important;
+    }
+
     body.mode-mobile .mobile-bottom-bar {
       display: grid;
-      grid-template-columns: repeat(5, minmax(0, 1fr));
+      grid-template-columns: repeat(4, minmax(0, 1fr));
       gap: 4px;
       position: fixed;
       left: 0;
@@ -1874,10 +1911,10 @@
             <span class="sb-pill sb-hide" id="pill-sb-blueprint">Ẩn</span>
             <span class="sb-short-code">TK</span>
           </button>
-          <button class="sb-btn" data-toggle-panel="trace" title="Bảng State Trace giải bằng tay">
-            <span class="sb-hide">Bảng State Trace</span>
-            <span class="sb-pill sb-hide" id="pill-sb-trace">Ẩn</span>
-            <span class="sb-short-code">TR</span>
+          <button class="sb-btn" data-toggle-panel="essay" title="Chế độ trình bày tự luận: Hình nháp + Bảng Trace">
+            <span class="sb-hide">Trình bày tự luận</span>
+            <span class="sb-pill sb-hide" id="pill-sb-essay">Ẩn</span>
+            <span class="sb-short-code">TL</span>
           </button>
         </div>
 
@@ -1900,10 +1937,10 @@
               <div class="brand-title">Phòng Thí Nghiệm Giải Thuật Tương Tác</div>
               <div class="brand-subtitle">Cốt lõi: Mô phỏng + Biến sống + 3 Tầng (Công thức - Lưu đồ - Mã giả)</div>
             </div>
-            <div class="header-quick-tools" aria-label="Bật tắt nhanh công cụ mở rộng">
-              <button class="tool-chip-btn" data-toggle-panel="diag">Nhận diện đề (3 bước)</button>
-              <button class="tool-chip-btn" data-toggle-panel="blueprint">Thiết kế & Sổ tay</button>
-              <button class="tool-chip-btn" data-toggle-panel="trace">Bảng Trace viết tay</button>
+            <div class="header-quick-tools" aria-label="Chọn nhanh mục tiêu học">
+              <button class="tool-chip-btn" data-toggle-panel="diag">1. Nhận diện đề</button>
+              <button class="tool-chip-btn" data-toggle-panel="blueprint">2. Cách làm & Ví dụ</button>
+              <button class="tool-chip-btn" data-toggle-panel="essay">3. Trình bày tự luận</button>
             </div>
             <div class="view-mode-switch" role="group" aria-label="Chọn chế độ hiển thị Desktop hoặc Mobile">
               <button class="view-mode-btn active" id="btn-mode-desktop" data-view-mode="desktop">Desktop</button>
@@ -2001,6 +2038,7 @@
 
             <div class="sim-stage">
               <div id="sim-visual"></div>
+              <div class="essay-draft-guide is-hidden" id="essay-draft-guide"></div>
               <div class="hover-info" id="hover-info">Di chuột vào phần tử trên mô phỏng để xem chi tiết tương ứng.</div>
             </div>
 
@@ -2073,12 +2111,11 @@
   </div>
 
   <!-- THANH TAB CO DINH DUOI DAY CHO CHE DO MOBILE -->
-  <nav class="mobile-bottom-bar" id="mobile-bottom-bar" aria-label="Điều hướng nhanh trên điện thoại">
-    <button class="mb-tab-btn active" data-mb-action="sim">Mô phỏng</button>
-    <button class="mb-tab-btn" data-mb-action="layers">3 Tầng</button>
-    <button class="mb-tab-btn" data-mb-action="blueprint">Thiết kế</button>
-    <button class="mb-tab-btn" data-mb-action="trace">Trace</button>
-    <button class="mb-tab-btn" data-mb-action="diag">Nhận diện</button>
+  <nav class="mobile-bottom-bar" id="mobile-bottom-bar" aria-label="Điều hướng theo bước học">
+    <button class="mb-tab-btn active" data-mb-action="sim">1. Xem chạy</button>
+    <button class="mb-tab-btn" data-mb-action="layers">2. Công thức</button>
+    <button class="mb-tab-btn" data-mb-action="guide">3. Cách làm</button>
+    <button class="mb-tab-btn" data-mb-action="essay">4. Tự luận</button>
   </nav>
 
   <!-- KaTeX JS (CDN chinh + du phong, khong chan hien thi ban dau) -->
@@ -2202,6 +2239,7 @@
       diagOpen: false,
       blueprintOpen: false,
       traceOpen: false,
+      essayMode: false,
       quizIndex: 0,
       quizPicked: null,
       traceCompact: true,
@@ -3802,9 +3840,53 @@
 
       renderTemplateTracker(step);
       renderVisual(step);
+      renderEssayDraftGuide(step);
       renderLiveVariables(step);
       if (appState.traceOpen) renderStateTraceTable();
       requestAnimationFrame(applyDynamicMobileScale);
+    }
+
+    function renderEssayDraftGuide(step) {
+      var box = document.getElementById('essay-draft-guide');
+      if (!box) return;
+      var show = appState.essayMode || appState.traceOpen;
+      box.classList.toggle('is-hidden', !show);
+      if (!show) return;
+
+      var m = appState.activeModule;
+      var v = step.visual;
+      var lines = [];
+      if (m === 'gen') {
+        lines.push('Nháp dãy bit: viết ' + v.Bg.join(' ') + (v.pg !== null ? (' - chỉ tay vào $p_g = ' + v.pg + '$') : '') + '.');
+        if (v.pg !== null && v.pg < 0) lines.push('Không còn bit 0 -> ghi cột $p_g < 0?$ là <code>Đ</code> và dừng.');
+        else if (appState.stepIndex === 0) lines.push('Dòng đầu: chép toàn 0 vào $B_g\'$, ghi $C_g = 1$.');
+        else lines.push('Ghi <code>S</code> -> lật bit tại $p_g$ thành 1, các bit sau $p_g$ về 0 -> chép sang $B_g\'$.');
+      } else if (m === 'bt') {
+        lines.push('Nháp trên bàn cờ: chấm các quân hậu đã đặt ở hàng trên (' + v.Qb.map(function(c, r) { return c >= 0 ? ('H' + r + ':C' + c) : ''; }).filter(Boolean).join(', ') + ').');
+        if (step.flowNodeId === 'B_SOL') lines.push('Đủ $r_b = N_b$ -> ghi <code>Đ</code> ở cột $r_b=N_b?$ và tăng $M_b$.');
+        else if (step.flowNodeId === 'B_UNDO') lines.push('Quay lui: gạch bỏ quân hậu vừa thử ở hàng ' + v.rb + ', ghi <code>Gỡ</code>.');
+        else if (v.Sb === 0) lines.push('Từ ô $(' + v.rb + ',' + v.cb + ')$ chiếu thẳng lên/chéo đụng hàng ' + v.conflictRow + ' -> ghi <code>0(' + v.conflictRow + ')</code>.');
+        else if (v.cb !== null) lines.push('Ô $(' + v.rb + ',' + v.cb + ')$ trống đường -> ghi <code>1</code> và chấm hậu vào ô này.');
+        else lines.push('Bắt đầu lưới trống ' + v.Nb + 'x' + v.Nb + ', ghi <code>Init</code>.');
+      } else if (m === 'bst') {
+        lines.push('Nháp trên cây: chỉ tay vào nút ' + escapeHtml(step.vars.ut) + ' (tầng ' + step.vars.ht + ').');
+        if (step.flowNodeId === 'T_NULL') lines.push('Nhánh rỗng -> ghi <code>Đ</code> và <code>Ret</code> để lùi về nút cha.');
+        else if (step.flowNodeId === 'T_VISIT') lines.push('Đúng lúc thăm nút -> ghi <code>Ghi ' + step.vars.xt + '</code> và nối vào $O_t\'$.');
+        else lines.push('Chưa null -> ghi <code>S</code> và đi tiếp nhánh ' + (step.flowNodeId === 'T_LEFT' ? 'Trái (<code>L</code>)' : (step.flowNodeId === 'T_RIGHT' ? 'Phải (<code>R</code>)' : 'gốc')) + '.');
+      } else {
+        lines.push('Nháp trên đồ thị: khoanh/gạch chân tập đã thăm $V_d = ' + escapeHtml(step.vars.Vd) + '$.');
+        if (step.flowNodeId === 'G_DONE') lines.push('$D_d$ rỗng -> ghi <code>Đ</code> ở cột $D_d=[]?$ và chốt $P_d$.');
+        else if (step.flowNodeId === 'G_POP') lines.push('Rút đỉnh $v_d = ' + step.vars.vd + '$ khỏi ' + (v.mode === 'DFS' ? 'cuối Stack' : 'đầu Queue') + ' -> ghi sang $P_d$.');
+        else if (step.flowNodeId === 'G_PUSH') lines.push('Gạch chân thêm ' + step.vars.wd + ' vào $V_d$ và nạp vào $D_d\'$ -> ghi <code>Đ (+)</code>.');
+        else if (step.flowNodeId === 'G_ADJ') lines.push('Nhìn cạnh $(' + step.vars.vd + ',' + step.vars.wd + ')$: ' + (step.explain.indexOf('bỏ qua') !== -1 ? 'đã gạch chân -> ghi <code>S (x)</code>' : 'chưa gạch chân -> ghi <code>Đ</code>') + '.');
+        else lines.push('Gạch chân đỉnh nguồn $s_d = ' + step.vars.sd + '$ và nạp vào $D_d$.');
+      }
+
+      box.innerHTML =
+        '<strong>Cách nháp trên hình (Bước ' + (appState.stepIndex + 1) + '):</strong>' +
+        '<ul class="essay-draft-list">' +
+          lines.map(function(ln) { return '<li>' + renderInlineMathText(ln) + '</li>'; }).join('') +
+        '</ul>';
     }
 
     // =========================================================================
@@ -3985,6 +4067,12 @@
           wrap.scrollTop = Math.max(0, rowTop - wrap.clientHeight / 2);
         }
       }
+      if (tipEl) {
+        var parts = cfg.tip.split('->').map(function(s) { return s.trim(); });
+        if (parts.length > 1) {
+          tipEl.innerHTML = '<ul class="essay-draft-list">' + parts.map(function(p) { return '<li>' + renderInlineMathText(p) + '</li>'; }).join('') + '</ul>';
+        }
+      }
     }
 
     function rebuildModuleSimulation() {
@@ -4125,12 +4213,11 @@
     }
 
     function syncMobileBottomBar() {
-      var tabState = {
-        diag: appState.diagOpen,
-        blueprint: appState.blueprintOpen,
-        trace: appState.traceOpen
-      };
-      if ((appState.activeMobileTab === 'diag' || appState.activeMobileTab === 'blueprint' || appState.activeMobileTab === 'trace') && !tabState[appState.activeMobileTab]) {
+      if (appState.essayMode) {
+        appState.activeMobileTab = 'essay';
+      } else if (appState.activeMobileTab === 'essay' && !appState.essayMode) {
+        appState.activeMobileTab = 'sim';
+      } else if (appState.activeMobileTab === 'guide' && !appState.diagOpen && !appState.blueprintOpen) {
         appState.activeMobileTab = 'sim';
       }
       document.querySelectorAll('.mb-tab-btn').forEach(function(btn) {
@@ -4139,12 +4226,16 @@
     }
 
     function syncCollapsiblePanels() {
-      var states = { diag: appState.diagOpen, blueprint: appState.blueprintOpen, trace: appState.traceOpen };
+      if (appState.essayMode) {
+        appState.traceOpen = true;
+      }
+      document.body.classList.toggle('mode-essay', appState.essayMode);
+      var states = { diag: appState.diagOpen, blueprint: appState.blueprintOpen, trace: appState.traceOpen, essay: appState.essayMode };
       document.getElementById('diag-panel').classList.toggle('is-hidden', !states.diag);
       document.getElementById('blueprint-panel').classList.toggle('is-hidden', !states.blueprint);
       document.getElementById('trace-section').classList.toggle('is-hidden', !states.trace);
 
-      ['diag', 'blueprint', 'trace'].forEach(function(key) {
+      ['diag', 'blueprint', 'trace', 'essay'].forEach(function(key) {
         var isOn = states[key];
         document.querySelectorAll('[data-toggle-panel="' + key + '"]').forEach(function(btn) { btn.classList.toggle('active', isOn); });
         var pill = document.getElementById('pill-sb-' + key);
@@ -4154,14 +4245,36 @@
       syncMobileBottomBar();
       if (appState.diagOpen) renderDiagnosticPanel();
       if (appState.traceOpen) renderStateTraceTable();
+      if (appState.steps.length > 0) renderEssayDraftGuide(appState.steps[appState.stepIndex]);
       requestAnimationFrame(applyDynamicMobileScale);
     }
 
     function toggleOptionalPanel(panelKey, forceOpen, shouldScroll) {
+      if (panelKey === 'essay') {
+        appState.essayMode = typeof forceOpen === 'boolean' ? forceOpen : !appState.essayMode;
+        if (appState.essayMode) {
+          appState.traceOpen = true;
+          appState.diagOpen = false;
+          appState.blueprintOpen = false;
+        } else {
+          appState.traceOpen = false;
+        }
+        syncCollapsiblePanels();
+        if (appState.essayMode && shouldScroll) {
+          document.getElementById('panel-sim').scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+        return;
+      }
       var propMap = { diag: 'diagOpen', blueprint: 'blueprintOpen', trace: 'traceOpen' };
       var prop = propMap[panelKey];
       if (!prop) return;
       appState[prop] = typeof forceOpen === 'boolean' ? forceOpen : !appState[prop];
+      if (panelKey === 'trace' && !appState.traceOpen) {
+        appState.essayMode = false;
+      }
+      if ((panelKey === 'diag' || panelKey === 'blueprint') && appState[prop]) {
+        appState.essayMode = false;
+      }
       syncCollapsiblePanels();
       if (appState[prop] && shouldScroll) {
         var idMap = { diag: 'diag-panel', blueprint: 'blueprint-panel', trace: 'trace-section' };
@@ -4174,6 +4287,7 @@
       stopAutoPlay();
       appState.activeModule = moduleKey;
       appState.activeCaseIndex = 0;
+      appState.steps = [];
       document.querySelectorAll('[data-module]').forEach(function(btn) {
         btn.classList.toggle('active', btn.getAttribute('data-module') === moduleKey);
       });
@@ -4255,13 +4369,21 @@
           var act = btn.getAttribute('data-mb-action');
           appState.activeMobileTab = act;
           if (act === 'sim') {
-            syncMobileBottomBar();
+            appState.essayMode = false;
+            syncCollapsiblePanels();
             document.getElementById('panel-sim').scrollIntoView({ behavior: 'smooth', block: 'start' });
           } else if (act === 'layers') {
-            syncMobileBottomBar();
+            appState.essayMode = false;
+            syncCollapsiblePanels();
             document.getElementById('panel-layers').scrollIntoView({ behavior: 'smooth', block: 'start' });
-          } else {
-            toggleOptionalPanel(act, true, true);
+          } else if (act === 'guide') {
+            appState.essayMode = false;
+            appState.blueprintOpen = true;
+            appState.diagOpen = true;
+            syncCollapsiblePanels();
+            document.getElementById('diag-panel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+          } else if (act === 'essay') {
+            toggleOptionalPanel('essay', true, true);
           }
         });
       });
