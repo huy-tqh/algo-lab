@@ -8,10 +8,13 @@ Tài liệu này ghi lại các quy tắc bắt buộc cho repository `algo-lab`
 
 ## 2. Văn bản, Font chữ và LaTeX
 - **Dùng hyphen (`-`), cấm tuyệt đối emdash (`U+2014`)** trong toàn bộ mã nguồn, giao diện và tài liệu.
-- **Không dùng font mặc định kiểu AI** (`Be Vietnam Pro`, `JetBrains Mono`). Dùng font phổ thông tự nhiên (`Inter`, system sans-serif, `Source Code Pro`, `Consolas`).
+- **Không dùng font mặc định kiểu AI** (`Be Vietnam Pro`, `JetBrains Mono`). Dùng font gọn, phổ thông (`Roboto`, `Roboto Mono`, `Consolas`).
+- **Xuống dòng rõ ràng, không viết đoạn văn dài**:
+  - Mọi giải thích nhiều ý, hướng dẫn viết tay, dấu hiệu nhận diện và định nghĩa hàm trong `.trace-io-strip` phải tách thành danh sách `<ul>`/`<ol>` hoặc từng dòng/chip riêng biệt (`.trace-meta-list`, `.legend-chip`), không gộp nhiều ý bằng dấu phẩy hoặc `-` trên cùng một dòng.
+  - Không bao giờ đưa HTML tag thô (`<code>`, `<strong>`) vào chuỗi truyền cho `renderInlineMathText()` (vì hàm này escape HTML); luôn dùng dấu backtick để render mã inline.
 - **Đồng nhất font và cỡ chữ trong công thức toán**:
   - Đã là công thức toán học thì render toàn bộ bằng LaTeX/KaTeX (kể cả phần `\text{...}` và dòng `Giá trị hiện tại: ...`), không ép `font-family: var(--font-sans)` vào bên trong `.katex .text` và không chèn chữ font thường lẫn vào giữa công thức.
-  - Không thu nhỏ từng thẻ `.formula-math` riêng lẻ gây lệch cỡ chữ giữa các công thức; nếu co giãn trên mobile phải dùng chung một tỷ lệ đồng nhất.
+  - Phải dùng chung một tỷ lệ `sharedRatio` cho tất cả `.formula-math` trên cả Desktop và Mobile để không công thức nào bị co lệch cỡ chữ hoặc tràn khung.
 
 ## 3. Giao diện, Màu sắc và Tương tác
 - **Tab bar**: Tại một thời điểm chỉ được có duy nhất 1 tab đang chọn (`active`), không để nhiều tab sáng cùng lúc.
@@ -31,7 +34,8 @@ Tài liệu này ghi lại các quy tắc bắt buộc cho repository `algo-lab`
   - Mọi input của hàm phải được thể hiện thành các cột riêng trên cùng một dòng để học viên chỉ cần điền tuyến tính từ trái sang phải là tự động ra kết quả, không cần suy nghĩ hay đoán ngầm.
   - Nội dung trong từng ô phải ngắn gọn tối đa, chỉ dùng số và ký hiệu viết tay (`Đ`/`S`, `1`/`0(i)`/`Gỡ`, `L`/`R`/`Ret`, `Pop`/`Deq`), tuyệt đối tránh lặp lại chữ dài dòng.
 
-## 5. Cấu hình Git cục bộ
+## 5. Kiểm tra Render bắt buộc & Cấu hình Git cục bộ
+- Trước khi `git commit` hoặc `git push`, bắt buộc phải chạy cả kiểm thử logic (`node tests/verify_all.js`) và kiểm tra render trên Chrome thực tế (`node tests/render_check.js`) cho cả Desktop (`1440x900`) và Mobile (`390x844`) để chắc chắn không có lỗi hiển thị, tràn ngang, thẻ HTML bị escape hay vỡ lưu đồ SVG.
 - Sử dụng danh tính cục bộ cho repo này:
   - `user.name`: `huy-tqh`
   - `user.email`: `tranquanghuy3008@outlook.com`

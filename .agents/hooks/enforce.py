@@ -6,6 +6,7 @@ import sys
 
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 TEST_SCRIPT = os.path.join(REPO_ROOT, "tests", "verify_all.js")
+RENDER_SCRIPT = os.path.join(REPO_ROOT, "tests", "render_check.js")
 
 
 def out(obj: dict) -> None:
@@ -17,26 +18,32 @@ def check_forbidden_text(text: str) -> str | None:
     if "\u2014" in text:
         return "Blocked: Emdash (\u2014) is forbidden. Use hyphen (-) instead."
     if re.search(r"Be Vietnam Pro", text, re.IGNORECASE):
-        return "Blocked: 'Be Vietnam Pro' is forbidden. Use Inter / system fonts."
+        return "Blocked: 'Be Vietnam Pro' is forbidden. Use Roboto."
     if re.search(r"JetBrains Mono", text, re.IGNORECASE):
-        return "Blocked: 'JetBrains Mono' is forbidden. Use Source Code Pro / Consolas."
+        return "Blocked: 'JetBrains Mono' is forbidden. Use Roboto Mono / Consolas."
     if re.search(r"\.katex\s+\.text\b[\s\S]{0,120}font-family\s*:\s*var\(--font-sans\)", text, re.IGNORECASE):
         return "Blocked: Do not override .katex .text font-family with --font-sans."
+    if re.search(r"lines\.push\([^)]*<code>", text):
+        return "Blocked: Do not embed raw <code> HTML tags in renderEssayDraftGuide strings; use backticks."
     return None
 
 
-def run_suite() -> tuple[bool, str]:
-    if not os.path.exists(TEST_SCRIPT):
-        return True, ""
-    proc = subprocess.run(
-        ["node", TEST_SCRIPT],
-        cwd=REPO_ROOT,
-        capture_output=True,
-        text=True,
-    )
-    if proc.returncode != 0:
-        msg = (proc.stderr or proc.stdout or "verify_all.js failed").strip()
-        return False, msg
+def run_suite(include_render: bool = False) -> tuple[bool, str]:
+    scripts = [TEST_SCRIPT]
+    if include_render and os.path.exists(RENDER_SCRIPT):
+        scripts.append(RENDER_SCRIPT)
+    for script in scripts:
+        if not os.path.exists(script):
+            continue
+        proc = subprocess.run(
+            ["node", script],
+            cwd=REPO_ROOT,
+            capture_output=True,
+            text=True,
+        )
+        if proc.returncode != 0:
+            msg = (proc.stderr or proc.stdout or f"{os.path.basename(script)} failed").strip()
+            return False, msg
     return True, ""
 
 
@@ -62,11 +69,11 @@ def main() -> None:
         elif tool_name == "run_command":
             cmd = args.get("CommandLine", "")
             if re.search(r"\bgit\s+(commit|push)\b", cmd):
-                ok, err = run_suite()
+                ok, err = run_suite(include_render=True)
                 if not ok:
                     out({
                         "decision": "deny",
-                        "reason": f"Blocked git commit/push because tests failed: {err}",
+                        "reason": f"Blocked git commit/push because tests/render check failed: {err}",
                     })
         out({"decision": "allow"})
 

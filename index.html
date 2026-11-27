@@ -1141,11 +1141,22 @@
       color: #ffffff;
     }
 
+    .inline-code {
+      font-family: var(--font-mono);
+      font-size: 0.88em;
+      font-weight: 700;
+      padding: 1px 5px;
+      border-radius: 4px;
+      background: #ffffff;
+      border: 1px solid var(--border-strong);
+      color: #0f172a;
+    }
+
     .trace-io-strip {
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      padding: 9px 12px;
+      gap: 7px;
+      padding: 10px 12px;
       margin-bottom: 10px;
       border-radius: var(--radius-sm);
       background: #f0f9ff;
@@ -1153,19 +1164,44 @@
       font-size: 0.84rem;
       line-height: 1.5;
     }
-    .trace-io-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px 16px;
+    .trace-mode-title {
+      font-weight: 700;
+      color: #0369a1;
     }
-    .trace-fn-box {
-      padding-top: 6px;
-      border-top: 1px dashed #7dd3fc;
+    .trace-meta-list {
+      margin: 0;
+      padding-left: 18px;
       display: flex;
       flex-direction: column;
       gap: 3px;
     }
-    .trace-io-strip strong { color: #0369a1; }
+    .trace-meta-list b {
+      color: #0f172a;
+    }
+    .trace-legend {
+      padding-top: 6px;
+      border-top: 1px dashed #7dd3fc;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 5px;
+    }
+    .trace-legend-label {
+      font-weight: 700;
+      color: #0369a1;
+      margin-right: 2px;
+    }
+    .legend-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 2px 7px;
+      border-radius: 6px;
+      background: #ffffff;
+      border: 1px solid #bae6fd;
+      font-size: 0.79rem;
+      color: var(--text-primary);
+    }
 
     .trace-table-wrap {
       max-height: 300px;
@@ -1309,7 +1345,7 @@
     .pill-pending { background: var(--bg-code); color: var(--text-muted); border: 1px solid var(--border-subtle); }
 
     .formula-math {
-      font-size: 1.12em;
+      font-size: 1.04em;
       padding: 6px 2px;
       overflow-x: auto;
       line-height: 1.4;
@@ -1797,12 +1833,40 @@
     body.mode-essay #blueprint-panel,
     body.mode-essay .live-vars-section,
     body.mode-essay .template-tracker,
-    body.mode-essay .core-summary-bar {
+    body.mode-essay .core-summary-bar,
+    body.mode-essay .context-banner,
+    body.mode-essay .hover-info {
       display: none !important;
     }
 
     body.mode-essay .workspace-grid {
       grid-template-columns: minmax(0, 1fr) !important;
+    }
+
+    @media (min-width: 1041px) {
+      body.mode-essay:not(.mode-mobile) #panel-sim {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+        column-gap: 16px;
+        align-items: start;
+      }
+      body.mode-essay:not(.mode-mobile) #panel-sim > .panel-header,
+      body.mode-essay:not(.mode-mobile) #panel-sim > .params-bar,
+      body.mode-essay:not(.mode-mobile) #panel-sim > .controls-bar,
+      body.mode-essay:not(.mode-mobile) #panel-sim > .step-caption {
+        grid-column: 1 / -1;
+      }
+      body.mode-essay:not(.mode-mobile) #panel-sim > .sim-stage {
+        grid-column: 1;
+        margin-bottom: 0;
+      }
+      body.mode-essay:not(.mode-mobile) #panel-sim > .trace-section {
+        grid-column: 2;
+        margin-top: 0;
+      }
+      body.mode-essay:not(.mode-mobile) .trace-table-wrap {
+        max-height: 460px;
+      }
     }
 
     body.mode-mobile .mobile-bottom-bar {
@@ -2168,12 +2232,15 @@
         .replace(/>/g, '&gt;');
     }
 
-    // Render cong thuc dat trong dau $...$
+    // Render cong thuc dat trong dau $...$ va code ngan trong dau `...`
     function renderInlineMathText(text) {
-      var parts = String(text).split(/(\$[^$]+\$)/g);
+      var parts = String(text).split(/(\$[^$]+\$|`[^`]+`)/g);
       return parts.map(function(part) {
         if (part.length >= 2 && part[0] === '$' && part[part.length - 1] === '$') {
           return renderMath(part.slice(1, -1), false);
+        }
+        if (part.length >= 2 && part[0] === '`' && part[part.length - 1] === '`') {
+          return '<code class="inline-code">' + escapeHtml(part.slice(1, -1)) + '</code>';
         }
         return escapeHtml(part);
       }).join('');
@@ -2261,24 +2328,64 @@
     // =========================================================================
     var MODULE_PLAYBOOK = {
       gen: {
-        triggers: 'Đề có cụm từ: "Liệt kê tất cả", "In theo thứ tự từ điển", "Tất cả tập con / xâu nhị phân / tổ hợp / hoán vị", kích thước nhỏ ($N_g \\le 20$), ít hoặc không có ràng buộc cắt nhánh giữa chừng.',
-        ioFormula: 'Input: lấy kích thước $N_g$ (và tập phần tử gốc nếu có). Output: mảng cấu hình $B_g$ độ dài $N_g$ lặp từ cấu hình nhỏ nhất đến lớn nhất.',
-        upgrade: 'Bài Dễ: in trực tiếp $B_g$. Bài Khó: giữ nguyên 100% khung sinh, chỉ thêm hàm Check($B_g$) ở bước tăng $C_g$ (ví dụ: tổng bằng $K$, không có 2 bit 1 kề nhau).'
+        triggers: [
+          'Cụm từ: "Liệt kê tất cả", "Thứ tự từ điển".',
+          'Bài toán: tập con, xâu nhị phân, tổ hợp, hoán vị.',
+          'Kích thước nhỏ ($N_g \\le 20$), ít cắt nhánh.'
+        ],
+        ioFormula: [
+          'Input: kích thước $N_g$ (và tập phần tử gốc).',
+          'Output: dãy cấu hình $B_g$ độ dài $N_g$ từ nhỏ nhất đến lớn nhất.'
+        ],
+        upgrade: [
+          'Bài Dễ: in trực tiếp từng cấu hình $B_g$.',
+          'Bài Khó: giữ nguyên khung, thêm `Check(B_g)` trước khi tăng $C_g$.'
+        ]
       },
       bt: {
-        triggers: 'Đề có cụm từ: "Tìm cách xếp / chia / điền", "Thỏa mãn điều kiện không xung đột / tổng bằng $K$", "Tìm 1 nghiệm hoặc đếm số cách", có thể loại bỏ nhánh sai ngay khi đang chọn dở.',
-        ioFormula: 'Input: số tầng quyết định $N_b$ và luật ràng buộc. Output: mảng lựa chọn $Q_b[0..N_b-1]$ hoặc bộ đếm nghiệm $M_b$.',
-        upgrade: 'Bài Dễ: dùng hàm IsSafe duyệt vòng lặp kiểm tra. Bài Khó: thay IsSafe bằng mảng đánh dấu $O(1)$ (cột, 2 đường chéo) và thêm nhánh cận (Branch and Bound).'
+        triggers: [
+          'Cụm từ: "Tìm cách xếp / chia / điền".',
+          'Có điều kiện xung đột hoặc tổng bằng $K$.',
+          'Loại được nhánh sai ngay khi chọn dở.'
+        ],
+        ioFormula: [
+          'Input: số tầng $N_b$ và luật `IsSafe`.',
+          'Output: nghiệm $Q_b[0..N_b-1]$ và số cách $M_b$.'
+        ],
+        upgrade: [
+          'Bài Dễ: kiểm tra `IsSafe` bằng vòng lặp.',
+          'Bài Khó: đánh dấu $O(1)$ và thêm nhánh cận.'
+        ]
       },
       bst: {
-        triggers: 'Đề có cụm từ: "Cây nhị phân", "Cha - con trái - con phải", "Tìm kiếm / chèn / xóa khóa có thứ tự", "Xuất dãy tăng dần", "Sao lưu hoặc giải phóng cây".',
-        ioFormula: 'Input: danh sách khóa $A_t$ (hoặc con trỏ gốc $u_t$) và thứ tự cần xử lý $m_t$. Output: cây kết quả, danh sách $O_t$ hoặc giá trị tổng hợp từ 2 nhánh con.',
-        upgrade: 'Bài Dễ: chỉ in khóa $x_t$ theo Pre/In/Postorder. Bài Khó: giữ nguyên khung đệ quy trái-phải, đổi lệnh ghi $O_t$ thành công thức gộp kết quả con (chiều cao, đường kính).'
+        triggers: [
+          'Cụm từ: "Cây nhị phân", "Cha - con trái - con phải".',
+          'Yêu cầu: xuất dãy tăng dần, tìm/chèn/xóa khóa.',
+          'Sao lưu hoặc giải phóng cây theo tầng.'
+        ],
+        ioFormula: [
+          'Input: mảng khóa $A_t$ (hoặc gốc $u_t$) và chế độ $m_t$.',
+          'Output: danh sách $O_t$ hoặc kết quả gộp 2 nhánh.'
+        ],
+        upgrade: [
+          'Bài Dễ: ghi khóa $x_t$ theo Pre / In / Postorder.',
+          'Bài Khó: đổi lệnh ghi $O_t$ thành công thức gộp con.'
+        ]
       },
       graph: {
-        triggers: 'Đề có cụm từ: "Đỉnh và cạnh / lưới ô vuông / mạng lưới", "Đường đi ngắn nhất ít bước nhất" (chọn BFS - Queue), hoặc "Kiểm tra liên thông / tìm chu trình / đi sâu mê cung" (chọn DFS - Stack).',
-        ioFormula: 'Input: danh sách kề Adj và đỉnh nguồn $s_d$. Output: thứ tự duyệt $P_d$, tập đã thăm $V_d$, hoặc mảng khoảng cách / truy vết đường đi.',
-        upgrade: 'Bài Dễ: chỉ duyệt và lưu $P_d$. Bài Khó: thêm mảng dist[$w_d$] = dist[$v_d$] + 1 và parent[$w_d$] = $v_d$ ngay tại dòng cập nhật $V_d$ (F3) để truy vết đường đi ngắn nhất.'
+        triggers: [
+          'Cụm từ: "Đỉnh và cạnh / lưới ô / mạng lưới".',
+          '"Ít bước nhất / ngắn nhất" -> chọn BFS (Queue).',
+          '"Liên thông / chu trình / đi sâu" -> chọn DFS (Stack).'
+        ],
+        ioFormula: [
+          'Input: danh sách kề `Adj` và đỉnh nguồn $s_d$.',
+          'Output: thứ tự $P_d$, tập đã thăm $V_d$, khoảng cách.'
+        ],
+        upgrade: [
+          'Bài Dễ: duyệt và lưu $P_d$.',
+          'Bài Khó: thêm `dist[w_d] = dist[v_d] + 1` khi nạp $V_d$.'
+        ]
       }
     };
 
@@ -3359,7 +3466,7 @@
       boxes.forEach(function(box) {
         box.style.fontSize = '';
       });
-      if (!isMobile || boxes.length === 0) return;
+      if (boxes.length === 0) return;
       var sharedRatio = 1;
       boxes.forEach(function(box) {
         var inner = box.querySelector('.katex-display') || box.querySelector('.katex');
@@ -3370,7 +3477,8 @@
           sharedRatio = Math.min(sharedRatio, Math.max(0.76, avail / contentW));
         }
       });
-      var uniformSize = (sharedRatio * 1.05).toFixed(3) + 'em';
+      var baseScale = isMobile ? 1.02 : 1.04;
+      var uniformSize = (sharedRatio * baseScale).toFixed(3) + 'em';
       boxes.forEach(function(box) {
         box.style.fontSize = uniformSize;
       });
@@ -3857,28 +3965,30 @@
       var v = step.visual;
       var lines = [];
       if (m === 'gen') {
-        lines.push('Nháp dãy bit: viết ' + v.Bg.join(' ') + (v.pg !== null ? (' - chỉ tay vào $p_g = ' + v.pg + '$') : '') + '.');
-        if (v.pg !== null && v.pg < 0) lines.push('Không còn bit 0 -> ghi cột $p_g < 0?$ là <code>Đ</code> và dừng.');
+        lines.push('Nháp dãy bit: viết `' + v.Bg.join(' ') + '`' + (v.pg !== null ? (', chỉ tay vào $p_g = ' + v.pg + '$') : '') + '.');
+        if (v.pg !== null && v.pg < 0) lines.push('Không còn bit 0 -> ghi cột $p_g < 0?$ là `Đ` và dừng.');
         else if (appState.stepIndex === 0) lines.push('Dòng đầu: chép toàn 0 vào $B_g\'$, ghi $C_g = 1$.');
-        else lines.push('Ghi <code>S</code> -> lật bit tại $p_g$ thành 1, các bit sau $p_g$ về 0 -> chép sang $B_g\'$.');
+        else lines.push('Ghi `S` -> lật bit $p_g$ thành 1, các bit sau $p_g$ về 0 -> chép sang $B_g\'$.');
       } else if (m === 'bt') {
-        lines.push('Nháp trên bàn cờ: chấm các quân hậu đã đặt ở hàng trên (' + v.Qb.map(function(c, r) { return c >= 0 ? ('H' + r + ':C' + c) : ''; }).filter(Boolean).join(', ') + ').');
-        if (step.flowNodeId === 'B_SOL') lines.push('Đủ $r_b = N_b$ -> ghi <code>Đ</code> ở cột $r_b=N_b?$ và tăng $M_b$.');
-        else if (step.flowNodeId === 'B_UNDO') lines.push('Quay lui: gạch bỏ quân hậu vừa thử ở hàng ' + v.rb + ', ghi <code>Gỡ</code>.');
-        else if (v.Sb === 0) lines.push('Từ ô $(' + v.rb + ',' + v.cb + ')$ chiếu thẳng lên/chéo đụng hàng ' + v.conflictRow + ' -> ghi <code>0(' + v.conflictRow + ')</code>.');
-        else if (v.cb !== null) lines.push('Ô $(' + v.rb + ',' + v.cb + ')$ trống đường -> ghi <code>1</code> và chấm hậu vào ô này.');
-        else lines.push('Bắt đầu lưới trống ' + v.Nb + 'x' + v.Nb + ', ghi <code>Init</code>.');
+        var placedList = v.Qb.map(function(c, r) { return c >= 0 ? ('H' + r + ':C' + c) : ''; }).filter(Boolean);
+        lines.push('Nháp trên bàn cờ: các hậu đang đặt là ' + (placedList.length ? placedList.join(', ') : 'chưa có') + '.');
+        if (step.flowNodeId === 'B_SOL') lines.push('Đủ $r_b = N_b$ -> ghi `Đ` ở cột $r_b=N_b?$ và tăng $M_b$.');
+        else if (step.flowNodeId === 'B_UNDO') lines.push('Quay lui: gạch bỏ hậu vừa thử ở hàng ' + v.rb + ', ghi `Gỡ`.');
+        else if (v.Sb === 0) lines.push('Từ ô $(' + v.rb + ',' + v.cb + ')$ chiếu lên/chéo đụng hàng ' + v.conflictRow + ' -> ghi `0(' + v.conflictRow + ')`.');
+        else if (v.cb !== null) lines.push('Ô $(' + v.rb + ',' + v.cb + ')$ trống đường -> ghi `1` và chấm hậu vào ô này.');
+        else lines.push('Bắt đầu lưới trống ' + v.Nb + 'x' + v.Nb + ', ghi `Init`.');
       } else if (m === 'bst') {
-        lines.push('Nháp trên cây: chỉ tay vào nút ' + escapeHtml(step.vars.ut) + ' (tầng ' + step.vars.ht + ').');
-        if (step.flowNodeId === 'T_NULL') lines.push('Nhánh rỗng -> ghi <code>Đ</code> và <code>Ret</code> để lùi về nút cha.');
-        else if (step.flowNodeId === 'T_VISIT') lines.push('Đúng lúc thăm nút -> ghi <code>Ghi ' + step.vars.xt + '</code> và nối vào $O_t\'$.');
-        else lines.push('Chưa null -> ghi <code>S</code> và đi tiếp nhánh ' + (step.flowNodeId === 'T_LEFT' ? 'Trái (<code>L</code>)' : (step.flowNodeId === 'T_RIGHT' ? 'Phải (<code>R</code>)' : 'gốc')) + '.');
+        var nodeVal = step.vars.ut.replace('Nút(', '').replace(')', '');
+        lines.push('Nháp trên cây: chỉ tay vào nút `' + nodeVal + '` (tầng ' + step.vars.ht + ').');
+        if (step.flowNodeId === 'T_NULL') lines.push('Nhánh rỗng -> ghi `Đ` và `Ret` để lùi về nút cha.');
+        else if (step.flowNodeId === 'T_VISIT') lines.push('Đúng lúc thăm nút -> ghi `Ghi ' + step.vars.xt + '` và nối vào $O_t\'$.');
+        else lines.push('Chưa null -> ghi `S` và đi tiếp nhánh ' + (step.flowNodeId === 'T_LEFT' ? 'Trái (`L`)' : (step.flowNodeId === 'T_RIGHT' ? 'Phải (`R`)' : 'gốc')) + '.');
       } else {
-        lines.push('Nháp trên đồ thị: khoanh/gạch chân tập đã thăm $V_d = ' + escapeHtml(step.vars.Vd) + '$.');
-        if (step.flowNodeId === 'G_DONE') lines.push('$D_d$ rỗng -> ghi <code>Đ</code> ở cột $D_d=[]?$ và chốt $P_d$.');
+        lines.push('Nháp trên đồ thị: gạch chân tập đã thăm $V_d = ' + step.vars.Vd + '$.');
+        if (step.flowNodeId === 'G_DONE') lines.push('$D_d$ rỗng -> ghi `Đ` ở cột $D_d=[]?$ và chốt $P_d$.');
         else if (step.flowNodeId === 'G_POP') lines.push('Rút đỉnh $v_d = ' + step.vars.vd + '$ khỏi ' + (v.mode === 'DFS' ? 'cuối Stack' : 'đầu Queue') + ' -> ghi sang $P_d$.');
-        else if (step.flowNodeId === 'G_PUSH') lines.push('Gạch chân thêm ' + step.vars.wd + ' vào $V_d$ và nạp vào $D_d\'$ -> ghi <code>Đ (+)</code>.');
-        else if (step.flowNodeId === 'G_ADJ') lines.push('Nhìn cạnh $(' + step.vars.vd + ',' + step.vars.wd + ')$: ' + (step.explain.indexOf('bỏ qua') !== -1 ? 'đã gạch chân -> ghi <code>S (x)</code>' : 'chưa gạch chân -> ghi <code>Đ</code>') + '.');
+        else if (step.flowNodeId === 'G_PUSH') lines.push('Gạch chân thêm `' + step.vars.wd + '` vào $V_d$ và nạp vào $D_d\'$ -> ghi `Đ (+)`.');
+        else if (step.flowNodeId === 'G_ADJ') lines.push('Nhìn cạnh $(' + step.vars.vd + ',' + step.vars.wd + ')$: ' + (step.explain.indexOf('bỏ qua') !== -1 ? 'đã gạch chân -> ghi `S (x)`' : 'chưa gạch chân -> ghi `Đ`') + '.');
         else lines.push('Gạch chân đỉnh nguồn $s_d = ' + step.vars.sd + '$ và nạp vào $D_d$.');
       }
 
@@ -3906,73 +4016,112 @@
       var isGeneric = appState.activeCaseIndex === 0;
       var activeCase = (MODULE_CASES[m] && MODULE_CASES[m][appState.activeCaseIndex]) || null;
       var modeTitle = isGeneric
-        ? '<strong>Khung tổng quát (Áp dụng mọi bài):</strong>'
-        : ('<strong>Áp dụng cho ' + escapeHtml(activeCase.tab) + ' (Thay số vào khung):</strong>');
+        ? '<div class="trace-mode-title">Khung tổng quát (Áp dụng mọi bài)</div>'
+        : ('<div class="trace-mode-title">Áp dụng: ' + escapeHtml(activeCase.tab) + ' (Thay số vào khung)</div>');
 
       if (m === 'gen') {
         var labelMap = (params.bitLabels && params.bitLabels.length === params.Ng)
-          ? (' - Nhãn bit: [' + escapeHtml(params.bitLabels.join(', ')) + ']')
+          ? (' (Nhãn: [' + escapeHtml(params.bitLabels.join(', ')) + '])')
           : '';
         return {
           ioHtml:
-            '<div class="trace-io-row">' +
-              modeTitle +
-              '<span><strong>In:</strong> ' + renderMath('N_g = ' + params.Ng, false) + labelMap + '</span>' +
-              '<span><strong>Out:</strong> ' + lastStep.vars.Cg + ' cấu hình</span>' +
-            '</div>' +
-            '<div class="trace-fn-box">' +
-              '<div><strong>Công thức:</strong> ' + renderMath('p_g = \\max\\{k \\in [0..N_g-1] \\mid B_g[k]=0\\}', false) + ' (không có ' + renderMath('\\Rightarrow -1', false) + ') - <strong>Dừng:</strong> ' + renderMath('p_g < 0', false) + '</div>' +
-              '<div><strong>Ký hiệu viết tay:</strong> <code>Đ</code> = Đúng (Dừng), <code>S</code> = Sai (Lật ' + renderMath('B_g[p_g]\\leftarrow 1', false) + ', đuôi ' + renderMath('\\leftarrow 0', false) + ')</div>' +
+            modeTitle +
+            '<ul class="trace-meta-list">' +
+              '<li><b>Input:</b> ' + renderMath('N_g = ' + params.Ng, false) + labelMap + '</li>' +
+              '<li><b>Output:</b> ' + lastStep.vars.Cg + ' cấu hình</li>' +
+              '<li><b>Công thức tìm:</b> ' + renderMath('p_g = \\max\\{k \\in [0..N_g-1] \\mid B_g[k]=0\\}', false) + ' (không có ' + renderMath('\\Rightarrow -1', false) + ')</li>' +
+              '<li><b>Điều kiện dừng:</b> ' + renderMath('p_g < 0', false) + '</li>' +
+            '</ul>' +
+            '<div class="trace-legend">' +
+              '<span class="trace-legend-label">Ký hiệu:</span>' +
+              '<span class="legend-chip"><code class="inline-code">Đ</code> Đúng (Dừng)</span>' +
+              '<span class="legend-chip"><code class="inline-code">S</code> Sai (Lật ' + renderMath('B_g[p_g]\\leftarrow 1', false) + ', đuôi ' + renderMath('\\leftarrow 0', false) + ')</span>' +
             '</div>',
           headers: ['#', '$B_g$', '$N_g$', '$p_g$', '$p_g<0$?', "$B_g'$", '$C_g$'],
-          tip: 'Điền tuyến tính từ trái sang phải: chép $B_g$ -> tìm $p_g$ -> ghi Đ/S -> nếu S thì lật bit $p_g$ và reset đuôi sang $B_g\'$.'
+          tips: [
+            'Chép $B_g$ từ dòng trên.',
+            'Tìm vị trí $p_g$ có bit 0 ngoài cùng bên phải.',
+            'Ghi `Đ` hoặc `S` ở cột $p_g < 0?$.',
+            'Nếu `S`: lật bit $p_g$ thành 1, đặt đuôi về 0 sang $B_g\'$.'
+          ]
         };
       }
       if (m === 'bt') {
         return {
           ioHtml:
-            '<div class="trace-io-row">' +
-              modeTitle +
-              '<span><strong>In:</strong> ' + renderMath('N_b = ' + params.Nb, false) + (params.stopAtFirst ? ' (Dừng sớm)' : '') + '</span>' +
-              '<span><strong>Out:</strong> ' + renderMath('M_b = ' + lastStep.vars.Mb, false) + '</span>' +
-            '</div>' +
-            '<div class="trace-fn-box">' +
-              '<div><strong>Dừng nghiệm:</strong> ' + renderMath('r_b = N_b', false) + ' - <strong>An toàn:</strong> ' + renderMath('S_b = 1 \\iff \\forall i<r_b:\\; Q_b[i]\\neq c_b \\land |Q_b[i]-c_b|\\neq r_b-i', false) + '</div>' +
-              '<div><strong>Ký hiệu viết tay:</strong> <code>Đ/S</code> = Đúng/Sai, <code>1</code> = Đặt hậu, <code>0(i)</code> = Cắt do hàng <code>i</code>, <code>Gỡ</code> = Quay lui</div>' +
+            modeTitle +
+            '<ul class="trace-meta-list">' +
+              '<li><b>Input:</b> ' + renderMath('N_b = ' + params.Nb, false) + (params.stopAtFirst ? ' (Dừng sớm)' : '') + '</li>' +
+              '<li><b>Output:</b> ' + renderMath('M_b = ' + lastStep.vars.Mb, false) + '</li>' +
+              '<li><b>Dừng nghiệm:</b> ' + renderMath('r_b = N_b', false) + '</li>' +
+              '<li><b>Hàm an toàn:</b> ' + renderMath('S_b = 1 \\iff \\forall i<r_b:\\; Q_b[i]\\neq c_b \\land |Q_b[i]-c_b|\\neq r_b-i', false) + '</li>' +
+            '</ul>' +
+            '<div class="trace-legend">' +
+              '<span class="trace-legend-label">Ký hiệu:</span>' +
+              '<span class="legend-chip"><code class="inline-code">Đ/S</code> Đúng/Sai</span>' +
+              '<span class="legend-chip"><code class="inline-code">1</code> Đặt hậu</span>' +
+              '<span class="legend-chip"><code class="inline-code">0(i)</code> Cắt do hàng i</span>' +
+              '<span class="legend-chip"><code class="inline-code">Gỡ</code> Quay lui</span>' +
             '</div>',
           headers: ['#', '$Q_b$', '$(r_b,c_b)$', '$N_b$', '$r_b=N_b$?', '$S_b$', "$Q_b'$", '$M_b$'],
-          tip: 'Điền tuyến tính: lấy $Q_b, (r_b, c_b), N_b$ -> kiểm tra $r_b=N_b$ -> tính $S_b$ (1 hoặc 0(i)) -> cập nhật $Q_b\'$.'
+          tips: [
+            'Lấy $Q_b, (r_b, c_b), N_b$ trên cùng dòng.',
+            'Kiểm tra $r_b = N_b$ (`Đ` hoặc `S`).',
+            'So với các hàng $i < r_b$ trên bàn cờ nháp để ghi `1` hoặc `0(i)`.',
+            'Cập nhật mảng mới sang $Q_b\'$.'
+          ]
         };
       }
       if (m === 'bst') {
         return {
           ioHtml:
-            '<div class="trace-io-row">' +
-              modeTitle +
-              '<span><strong>In:</strong> ' + renderMath('A_t = ' + lastStep.vars.At + ',\\; m_t = \\text{' + params.mode + '}', false) + '</span>' +
-              '<span><strong>Out:</strong> ' + renderMath('O_t = ' + lastStep.vars.Ot, false) + '</span>' +
-            '</div>' +
-            '<div class="trace-fn-box">' +
-              '<div><strong>Dừng nhánh:</strong> ' + renderMath('u_t = \\text{null}', false) + ' - <strong>Thứ tự ' + escapeHtml(params.mode) + ':</strong> ' + (params.mode === 'Preorder' ? 'Ghi -> L -> R' : (params.mode === 'Inorder' ? 'L -> Ghi -> R' : 'L -> R -> Ghi')) + '</div>' +
-              '<div><strong>Ký hiệu viết tay:</strong> <code>Đ/S</code> = Đúng/Sai, <code>L</code> = Trái, <code>R</code> = Phải, <code>Ret</code> = Về cha, <code>Ghi</code> = Nối vào ' + renderMath('O_t', false) + '</div>' +
+            modeTitle +
+            '<ul class="trace-meta-list">' +
+              '<li><b>Input:</b> ' + renderMath('A_t = ' + lastStep.vars.At + ',\\; m_t = \\text{' + params.mode + '}', false) + '</li>' +
+              '<li><b>Output:</b> ' + renderMath('O_t = ' + lastStep.vars.Ot, false) + '</li>' +
+              '<li><b>Dừng nhánh:</b> ' + renderMath('u_t = \\text{null}', false) + '</li>' +
+              '<li><b>Thứ tự ' + escapeHtml(params.mode) + ':</b> ' + (params.mode === 'Preorder' ? 'Ghi -> L -> R' : (params.mode === 'Inorder' ? 'L -> Ghi -> R' : 'L -> R -> Ghi')) + '</li>' +
+            '</ul>' +
+            '<div class="trace-legend">' +
+              '<span class="trace-legend-label">Ký hiệu:</span>' +
+              '<span class="legend-chip"><code class="inline-code">Đ/S</code> Đúng/Sai</span>' +
+              '<span class="legend-chip"><code class="inline-code">L</code> Trái</span>' +
+              '<span class="legend-chip"><code class="inline-code">R</code> Phải</span>' +
+              '<span class="legend-chip"><code class="inline-code">Ret</code> Về cha</span>' +
+              '<span class="legend-chip"><code class="inline-code">Ghi</code> Nối vào ' + renderMath('O_t', false) + '</span>' +
             '</div>',
           headers: ['#', '$u_t(h_t)$', '$u_t=\\text{null}$?', 'Lệnh', '$O_t$', "$O_t'$"],
-          tip: 'Điền tuyến tính: đọc nút $u_t$ -> kiểm tra null (Đ/S) -> ghi L/R/Ret/Ghi -> nối khóa vào $O_t\'$.'
+          tips: [
+            'Đọc nút $u_t$ đang trỏ trên cây nháp.',
+            'Kiểm tra $u_t = \\text{null}$ (`Đ` hoặc `S`).',
+            'Ghi lệnh `L`, `R`, `Ret` hoặc `Ghi` theo thứ tự duyệt.',
+            'Khi gặp `Ghi`, nối khóa vào cột $O_t\'$.'
+          ]
         };
       }
       return {
         ioHtml:
-          '<div class="trace-io-row">' +
-            modeTitle +
-            '<span><strong>In:</strong> ' + renderMath('G_d = \\text{' + params.mode + '},\\; s_d = ' + params.startNode, false) + '</span>' +
-            '<span><strong>Out:</strong> ' + renderMath('P_d = ' + lastStep.vars.Pd, false) + '</span>' +
-          '</div>' +
-          '<div class="trace-fn-box">' +
-            '<div><strong>Dừng:</strong> ' + renderMath('D_d = []', false) + ' - <strong>Lọc kề:</strong> ' + renderMath('w_d \\notin V_d', false) + ' (Đúng thì nạp vào ' + renderMath('V_d, D_d', false) + ')</div>' +
-            '<div><strong>Ký hiệu viết tay:</strong> <code>Đ/S</code> = Đúng/Sai, <code>' + (params.mode === 'DFS' ? 'Pop' : 'Deq') + '</code> = Rút đỉnh, <code>+</code> = Nạp mới, <code>x</code> = Bỏ qua</div>' +
+          modeTitle +
+          '<ul class="trace-meta-list">' +
+            '<li><b>Input:</b> ' + renderMath('G_d = \\text{' + params.mode + '},\\; s_d = ' + params.startNode, false) + '</li>' +
+            '<li><b>Output:</b> ' + renderMath('P_d = ' + lastStep.vars.Pd, false) + '</li>' +
+            '<li><b>Điều kiện dừng:</b> ' + renderMath('D_d = []', false) + '</li>' +
+            '<li><b>Hàm lọc kề:</b> ' + renderMath('w_d \\notin V_d', false) + ' (Đúng thì nạp vào ' + renderMath('V_d, D_d', false) + ')</li>' +
+          '</ul>' +
+          '<div class="trace-legend">' +
+            '<span class="trace-legend-label">Ký hiệu:</span>' +
+            '<span class="legend-chip"><code class="inline-code">Đ/S</code> Đúng/Sai</span>' +
+            '<span class="legend-chip"><code class="inline-code">' + (params.mode === 'DFS' ? 'Pop' : 'Deq') + '</code> Rút đỉnh</span>' +
+            '<span class="legend-chip"><code class="inline-code">+</code> Nạp mới</span>' +
+            '<span class="legend-chip"><code class="inline-code">x</code> Bỏ qua</span>' +
           '</div>',
         headers: ['#', '$D_d$', '$D_d=[]$?', '$(v_d,w_d)$', '$V_d$', '$w_d\\notin V_d$?', "$D_d'$", '$P_d$'],
-        tip: 'Điền tuyến tính: kiểm tra $D_d=[]$ -> rút $v_d$ -> so $w_d \\notin V_d$ (Đ/+ hoặc S/x) -> ghi $D_d\'$ và $P_d$.'
+        tips: [
+          'Kiểm tra $D_d = []$ (`Đ` hoặc `S`).',
+          'Rút $v_d$ từ ' + (params.mode === 'DFS' ? 'cuối Stack (`Pop`)' : 'đầu Queue (`Deq`)') + ' sang $P_d$.',
+          'Nhìn đồ thị nháp kiểm tra $w_d \\notin V_d$ (`Đ (+)` hoặc `S (x)`).',
+          'Cập nhật hàng đợi/ngăn xếp sang $D_d\'$.'
+        ]
       };
     }
 
@@ -4034,7 +4183,11 @@
       var cfg = getTraceConfig(m, appState.params[m], steps);
       ioStrip.innerHTML = cfg.ioHtml;
       thead.innerHTML = '<tr>' + cfg.headers.map(function(h) { return '<th>' + renderInlineMathText(h) + '</th>'; }).join('') + '</tr>';
-      if (tipEl) tipEl.innerHTML = renderInlineMathText(cfg.tip);
+      if (tipEl && Array.isArray(cfg.tips)) {
+        tipEl.innerHTML = '<strong>Cách điền tuyến tính:</strong><ol class="essay-draft-list">' +
+          cfg.tips.map(function(t) { return '<li>' + renderInlineMathText(t) + '</li>'; }).join('') +
+          '</ol>';
+      }
 
       document.getElementById('btn-trace-compact').classList.toggle('active', appState.traceCompact);
       document.getElementById('btn-trace-all').classList.toggle('active', appState.traceShowAll);
@@ -4065,12 +4218,6 @@
         var rowTop = activeRow.offsetTop, rowBottom = rowTop + activeRow.offsetHeight;
         if (rowTop < wrap.scrollTop + 34 || rowBottom > wrap.scrollTop + wrap.clientHeight) {
           wrap.scrollTop = Math.max(0, rowTop - wrap.clientHeight / 2);
-        }
-      }
-      if (tipEl) {
-        var parts = cfg.tip.split('->').map(function(s) { return s.trim(); });
-        if (parts.length > 1) {
-          tipEl.innerHTML = '<ul class="essay-draft-list">' + parts.map(function(p) { return '<li>' + renderInlineMathText(p) + '</li>'; }).join('') + '</ul>';
         }
       }
     }
@@ -4142,10 +4289,13 @@
       var strip = document.getElementById('playbook-strip');
       var pb = MODULE_PLAYBOOK[appState.activeModule];
       if (!strip || !pb) return;
+      function listHtml(arr) {
+        return '<ul class="essay-draft-list">' + arr.map(function(x) { return '<li>' + renderInlineMathText(x) + '</li>'; }).join('') + '</ul>';
+      }
       strip.innerHTML =
-        '<div class="pb-box"><div class="pb-title">A. Dấu hiệu nhận diện (3 giây)</div><div>' + renderInlineMathText(pb.triggers) + '</div></div>' +
-        '<div class="pb-box pb-io"><div class="pb-title">B. Công thức bóc Input / Output</div><div>' + renderInlineMathText(pb.ioFormula) + '</div></div>' +
-        '<div class="pb-box pb-upgrade"><div class="pb-title">C. Nâng cấp (Dễ -> Khó)</div><div>' + renderInlineMathText(pb.upgrade) + '</div></div>';
+        '<div class="pb-box"><div class="pb-title">A. Dấu hiệu nhận diện (3 giây)</div>' + listHtml(pb.triggers) + '</div>' +
+        '<div class="pb-box pb-io"><div class="pb-title">B. Công thức bóc Input / Output</div>' + listHtml(pb.ioFormula) + '</div>' +
+        '<div class="pb-box pb-upgrade"><div class="pb-title">C. Nâng cấp (Dễ -> Khó)</div>' + listHtml(pb.upgrade) + '</div>';
     }
 
     function renderDiagnosticPanel() {

@@ -22,7 +22,7 @@ assert(!agentsMd.includes("\u2014"), "AGENTS.md must not contain emdash (\u2014)
 assert(!/Be Vietnam Pro/i.test(html), "index.html must not use 'Be Vietnam Pro'.");
 assert(!/JetBrains Mono/i.test(html), "index.html must not use 'JetBrains Mono'.");
 
-// 3. Uniform LaTeX rendering in formulas
+// 3. Uniform LaTeX rendering in formulas and no escaped HTML tags inside renderInlineMathText inputs
 assert(
   !/\.katex\s+\.text\b[\s\S]*?font-family\s*:\s*var\(--font-sans\)/i.test(html),
   "Do not override .katex .text font-family with --font-sans."
@@ -34,6 +34,14 @@ assert(
 assert(
   html.includes("var sharedRatio = 1;"),
   "applyDynamicMobileScale must compute a sharedRatio for uniform formula sizing."
+);
+assert(
+  !/renderEssayDraftGuide[\s\S]*?<code>/.test(html),
+  "Do not embed raw <code> HTML tags inside renderEssayDraftGuide strings passed to renderInlineMathText; use backticks."
+);
+assert(
+  html.includes("trace-meta-list") && html.includes("legend-chip"),
+  "Trace header strip must use structured list items (.trace-meta-list) and chips (.legend-chip), not comma-separated paragraphs."
 );
 
 // 4. Mobile tab bar mutual exclusivity
